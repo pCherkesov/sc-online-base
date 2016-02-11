@@ -215,7 +215,16 @@
     <div class="row">
         <div class="col-md-8">
             <button type="button" class="btn btn-default btn-info"><i class="glyphicon glyphicon-plus"></i> Добавить запись</button>
-            <button type="button" class="btn btn-default btn-warning"><i class="glyphicon glyphicon-envelope"></i> Отправить СМС</button>
+            <div class="btn-group">
+                <button type="button" class="btn btn-default btn-warning dropdown-toggle" data-toggle="dropdown">
+                <i class="glyphicon glyphicon-envelope"></i> СМС
+                <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">Отправить</a></li>
+                    <li><a href="/sms.php" target="_blank">История</a></li>
+                </ul>
+            </div>
             <div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                 <i class="glyphicon glyphicon-print"></i> Печать

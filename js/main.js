@@ -3,7 +3,7 @@ $(document).ready(function(){
     $("[data-toggle=tooltip]").tooltip();
 
     $('#search').focus();
-    $('#search-clear').on('click', function(){$('#search').val('').trigger('keyup').focus();});
+    $('#search-clear').on('click', function(){ $('#search').val('').trigger('keyup').focus();} );
     
     $('#table-works').searchable({
         striped: true,

@@ -18,6 +18,10 @@ ORDER BY `s`.`date_s` DESC";
 $result = mysqli_query($S_CONFIG['link'], $query) or exit(mysql_error());
 
 $data = array();
+
+if(isset($_REQUEST['search'])) $search = $_REQUEST['search'];
+else $search = "";
+
 while ($line = mysqli_fetch_array($result, MYSQL_ASSOC)) {
 	if ($line['id_client']=="1") {
 		$line['client'] = $line['client_fio'];
@@ -32,6 +36,6 @@ while ($line = mysqli_fetch_array($result, MYSQL_ASSOC)) {
 
 
 $template = $twig->loadTemplate('sms.html');
-echo $template->render(array('data' => $data ));
-// print_r($data);
+echo $template->render(array('data' => $data, 'search' => $search));
+// print_r($search);
 ?>
