@@ -1,0 +1,33 @@
+<table class="manywork">
+<?php echo "<form action='".$_SERVER['PHP_SELF']."?act=$_REQUEST[act]' method='post' id='search' />"; ?>
+<tr class='search_bar'><td colspan="2"><input type='submit' name='search' value='Поиск' /></td>
+<td><input type='text' name='data' size='10' maxlen='10' value=''></td>
+<td><select name='client'>
+<option value='0'>Не задано</option>
+<?php
+    $query_client="SELECT * FROM `".$S_CONFIG['prefix']."client` GROUP BY `client` ASC";
+    $result_client=mysql_query($query_client) or exit(mysql_error());
+    while($line_client=mysql_fetch_assoc($result_client)){
+         echo "<option value=".$line_client['id_client'].">".$line_client['client']."</option>";
+	}
+echo "</select></td>";
+?>
+	<td><select name='model'>
+	<option value='0'>Не задано</option>
+<?php
+    $query_brand = "SELECT * FROM `".$S_CONFIG['prefix']."brand` GROUP BY `brand` ASC";
+    $result_brand = mysql_query($query_brand) or exit(mysql_error());
+     while($option_brand=mysql_fetch_assoc($result_brand)){
+        echo "<OPTGROUP label=".$option_brand['brand'].">";
+        $query_model= "SELECT `id_model`, `model` FROM  `".$S_CONFIG['prefix']."model` WHERE id_brand=".$option_brand['id_brand']." GROUP BY model ASC";
+        $result_model = mysql_query($query_model) or exit(mysql_error());
+            while($option_model=mysql_fetch_assoc($result_model)){
+                echo "<option value=".$option_model['id_model'].">".$option_model['model']."</option>";
+            }
+    }
+?>
+</select></td>
+<td>
+<input type='text' name='serial' size='10' maxlen='10' value=''>
+</td>
+</tr></form>

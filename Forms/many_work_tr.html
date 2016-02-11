@@ -1,0 +1,14 @@
+<?php 
+
+if($this->complete=="N")
+echo "<tr class=\"manywork_uncomplete\" onclick=\"window.location='" . $_SERVER['PHP_SELF'] . "?act=" . $act . "&id_r=" . $this->id_r . "'\">";
+else echo "<tr class=\"manywork_complete\" onclick=\"window.location='" . $_SERVER['PHP_SELF'] . "?act=" . $act . "&id_r=" . $this->id_r . "'\">";
+?>
+
+	<td style="background-color: #<?php echo self::$worker_colors[$this->id_worker]; ?>; width: 1%;"></td>
+	<td><?php echo self::znaki (); ?></td>
+        <td><?php echo $this->date; ?></td>
+	<td style="text-align: left;"><?php echo $this->client_fio; ?></td>
+        <td><?php echo $this->brand." ".$this->model; ?></td>
+        <td><?php if($this->model == "Сист. блок") echo " #".$this->serial; else echo "&nbsp;";?></td>
+</tr>

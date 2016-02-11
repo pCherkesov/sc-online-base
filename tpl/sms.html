@@ -1,0 +1,45 @@
+{% extends "main.html" %}
+{% block content %}
+{% if data.month %}
+<div class="btn-group">
+  <button type="button" class="btn btn-default"><a href="{{ data.lefturl }}"><span class="glyphicon glyphicon-chevron-left"></span></a></button>
+  <button type="button" class="btn btn-default">{{ data.month }}</button>
+  <button type="button" class="btn btn-default"><a href="{{ data.righturl }}"><span class="glyphicon glyphicon-chevron-right"></span></a></button>
+</div>
+<br />
+<br />
+{% endif %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group has-feedback">
+            <input type="search" id="search" value="" class="form-control" placeholder="Поиск...">
+            <span class="glyphicon glyphicon-remove form-control-feedback" style="top:0;" id="search-clear"></span>
+        </div>
+    </div>
+</div>
+<br />
+<table class="table table-bordered table-condensed table-hover" id="table-works">
+<thead>
+    <tr>
+        <th>Дата</th>
+        <th>Заказчик</th>
+        <th>Телефон</th>
+        <th>Текст</th>
+        <th>Отправитель</th>
+        <th>Статус</th>
+    </tr>
+</thead>
+<tbody>
+{% for sms in data %}
+    <tr>
+        <td align="center">{{ sms.date_s }}</td>
+        <td align="left"><a href="/skeleton.php?act=incomplete&id_r={{ sms.id_r }}">{{ sms.client }}</a></td>
+        <td align="center">+7{{ sms.phone }}</td>
+        <td align="center">{{ sms.text_s }}</td>
+        <td align="center">{{ sms.worker }}</td>
+        <td  align="center">{{ sms.status_s }}</td>
+    </tr>
+{% endfor %}
+</tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Language" content="ru" />
+    <meta name="title" content="" />
+    <meta name="author" content="BlOr" />
+    <title>СЦ &laquo;OnLine&raquo;: Просмотр записи #5748</title>
+    
+    <!-- Bootstrap -->
+    <link href="/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!--
+    <link rel="stylesheet" type="text/css" media="screen" href="styles.css" />
+    <link href="favicon.ico" type="ico" rel="icon" > 
+    <script type="text/javascript" language="JavaScript" src="scripts.js"></script>
+    <script type="text/javascript" language="JavaScript" src="JsHttpRequest/JsHttpRequest.js"></script>
+    -->
+</head>
+<body>
+    <div class="container">
+{% include 'header.html' %}
+{% include 'menu.html' %}
+        <br />
+        <div class="row">
+            <div class="col-md-12">
+{% block content %}
+{% endblock %}
+            </div>
+        </div>
+        <br />
+{% include 'footer.html' %}
+    </div>
+
+
+{# include 'debug.html' #}
+
+
+    <script src="/lib/jquery-2.1.1.min.js"></script>
+    <script src="/lib/jquery.searchable-1.0.0.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+</html>

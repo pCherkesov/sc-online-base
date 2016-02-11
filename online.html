@@ -1,0 +1,287 @@
+<!doctype html>
+
+<html lang="ru">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Language" content="ru">
+    <meta name="title" content>
+    <meta name="author" content="BlOr">
+    <title>СЦ &laquo;OnLine&raquo;: Просмотр записи #5748</title>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="bootstrap-wysihtml5.js"></script>
+  <style type="text/css">
+#clientList li a:hover {cursor: pointer;}
+#clientList li span {opacity: .5;}
+#clientList li:hover span {opacity: 1; cursor: pointer;}
+  </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1>ONLINE BASE</h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="btn-group">
+            <button type="button" class="btn btn-default">
+              <a href="?act=total">За месяц</a>
+            </button>
+            <button type="button" class="btn btn-default">
+              <a href="?act=incomplete">Незавершённые</a>
+            </button>
+            <button type="button" class="btn btn-default">
+              <a href="?act=complete">Завершённые</a>
+            </button>
+            <button type="button" class="btn btn-default">
+              <a href="?act=all">Фсё</a>
+            </button>
+            <button type="button" class="btn btn-default">
+              <a href="/index.php">Забивная</a>
+            </button>
+          </div>
+        </div>
+      </div>
+      <br>
+      <br>
+      <div class="row">
+        <div class="col-md-6">
+          <form>
+            <div class="row">
+              <div class="col-md-4">
+                <input type="date" class="form-control" name="date" value="2015-06-22">
+              </div>
+              <div class="col-md-8">
+                <div class="btn-group btn-group-sm pull-right" data-toggle="buttons" id="status-icon">
+                  <label class="btn btn-default">
+                      <input type="checkbox" autocomplete="off" data-toggle="tooltip" data-placement="top" data-original-title='Проблема'>
+                      <img src='Images/Icon/s_0_Y.png' name='s_0' id='s_0' />
+                  </label>
+                  <label class="btn btn-default">
+                      <input type="checkbox" autocomplete="off" data-toggle="tooltip" data-placement="top" data-original-title='Проблема'>
+                      <img src='Images/Icon/s_1_Y.png' name='s_1' id='s_1' />
+                  </label>
+                  <label class="btn btn-default">
+                      <input type="checkbox" autocomplete="off" data-toggle="tooltip" data-placement="top" data-original-title='Проблема'>
+                      <img src='Images/Icon/s_2_Y.png' name='s_2' id='s_2' />
+                  </label>
+                              <label class="btn btn-default">
+                      <input type="checkbox" autocomplete="off" data-toggle="tooltip" data-placement="top" data-original-title='Проблема'>
+                      <img src='Images/Icon/s_3_Y.png' name='s_3' id='s_3' />
+                  </label>
+                              <label class="btn btn-default">
+                      <input type="checkbox" autocomplete="off" data-toggle="tooltip" data-placement="top" data-original-title='Проблема'>
+                      <img src='Images/Icon/s_4_Y.png' name='s_4' id='s_4' />
+                  </label>
+                              <label class="btn btn-default">
+                      <input type="checkbox" autocomplete="off" data-toggle="tooltip" data-placement="top" data-original-title='Проблема'>
+                      <img src='Images/Icon/s_5_Y.png' name='s_5' id='s_5' />
+                  </label>
+                              <label class="btn btn-default">
+                      <input type="checkbox" autocomplete="off" data-toggle="tooltip" data-placement="top" data-original-title='Проблема'>
+                      <img src='Images/Icon/s_6_Y.png' name='s_6' id='s_6' />
+                  </label>
+                              <label class="btn btn-default">
+                      <input type="checkbox" autocomplete="off" data-toggle="tooltip" data-placement="top" data-original-title='Проблема'>
+                      <img src='Images/Icon/s_7_Y.png' name='s_7' id='s_7' />
+                  </label>
+                              <label class="btn btn-default">
+                      <input type="checkbox" autocomplete="off" data-toggle="tooltip" data-placement="top" data-original-title='Проблема'>
+                      <img src='Images/Icon/s_8_Y.png' name='s_8' id='s_8' />
+                  </label>
+                </div>
+              </div>
+            </div>
+            <br>
+            <fieldset>
+              <legend>Клиент</legend>
+              <ul class="nav nav-tabs">
+                <li class="active">
+                  <a href="#human" id="noFields" data-toggle="tab">Частное лицо</a>
+                 </li>
+                <li>
+                  <a href="#org" id="clientFields" data-toggle="tab">Юридическое лицо</a>
+                 </li>
+              </ul><br>
+              <!-- Tab panes -->
+              <div class="tab-content">
+                <div class="tab-pane active" id="human">
+                  <input type="text" class="form-control" placeholder="ФИО" id="name">
+                  <br>
+                  <input type="text" class="form-control" placeholder="Телефон">
+                </div>
+                <div class="tab-pane" id="org">
+                  <input type="text" class="form-control" placeholder="ФИО" disabled>
+                  <br>
+                  <input type="text" class="form-control" placeholder="Телефон" disabled>
+                </div>
+              </div>
+            </fieldset><br>
+            <fieldset>
+              <legend>Техника</legend>
+              <input type="text" class="form-control" placeholder="Наименование" id="deviceFields">
+              <br>
+              <input type="text" class="form-control" placeholder="Серийный номер" id="serialFields">
+            </fieldset><br>
+            <fieldset>
+              <legend>Дополнительные данные</legend>
+              <textarea class="input-block-level form-control textarea" placeholder="Комплектность" rows="3"></textarea><br>
+              <textarea class="input-block-level form-control textarea" placeholder="Заявленный дефект" rows="3"></textarea>
+            </fieldset>
+            <br>
+            <div class="row">
+              <div class="col-md-6">
+                <select class="form-control">
+                  <option>Оператор 1</option>
+                  <option>Оператор 2</option>
+                  <option>Оператор 3</option>
+                  <option>Оператор 4</option>
+                  <option>Оператор 5</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <p class="pull-right">
+                  <button type="clear" class="btn btn-default">Сбросить</button>
+                  <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-floppy-saved"></span> Сохранить </button>
+                </p>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="col-md-6">
+          <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#clientList">Клиенты</a>
+                </h4>
+              </div>
+              <div id="clientList" class="panel-collapse collapse in" style="height: 300px !important; overflow: auto;">
+        <!--         <div class="panel-body">
+        </div> -->
+                <ul class="list-group">
+                  <li class="list-group-item"><a href="#">Cras justo odio</a></a> <span class="glyphicon glyphicon-pencil pull-right"></span></li>
+                  <li class="list-group-item"><a href="#">Dapibus ac facilisis in</a> <span class="glyphicon glyphicon-pencil pull-right"></span></li>
+                  <li class="list-group-item"><a href="#">Morbi leo risus</a> <span class="glyphicon glyphicon-pencil pull-right"></span></li>
+                  <li class="list-group-item"><a href="#">Porta ac consectetur ac</a> <span class="glyphicon glyphicon-pencil pull-right"></span></li>
+                  <li class="list-group-item"><a href="#">Vestibulum at eros</a> <span class="glyphicon glyphicon-pencil pull-right"></span></li>
+                  <li class="list-group-item"><a href="#">Cras justo odio</a> <span class="glyphicon glyphicon-pencil pull-right"></span></li>
+                  <li class="list-group-item"><a href="#">Dapibus ac facilisis in</a> <span class="glyphicon glyphicon-pencil pull-right"></span></li>
+                  <li class="list-group-item"><a href="#">Morbi leo risus</a> <span class="glyphicon glyphicon-pencil pull-right"></span></li>
+                  <li class="list-group-item"><a href="#">Porta ac consectetur ac</a> <span class="glyphicon glyphicon-pencil pull-right"></span></li>
+                  <li class="list-group-item"><a href="#">Vestibulum at eros</a> <span class="glyphicon glyphicon-pencil pull-right"></span></li>
+                  <li class="list-group-item"><a href="#">Cras justo odio</a> <span class="glyphicon glyphicon-pencil pull-right"></span></li>
+                  <li class="list-group-item"><a href="#">Dapibus ac facilisis in</a> <span class="glyphicon glyphicon-pencil pull-right"></span></li>
+                  <li class="list-group-item"><a href="#">Morbi leo risus</a> <span class="glyphicon glyphicon-pencil pull-right"></span></li>
+                  <li class="list-group-item"><a href="#">Porta ac consectetur ac</a> <span class="glyphicon glyphicon-pencil pull-right"></span></li>
+                  <li class="list-group-item"><a href="#">Vestibulum at eros</a> <span class="glyphicon glyphicon-pencil pull-right"></span></li>
+                  <li class="list-group-item"><a href="#">Cras justo odio</a> <span class="glyphicon glyphicon-pencil pull-right"></span></li>
+                  <li class="list-group-item"><a href="#">Dapibus ac facilisis in</a> <span class="glyphicon glyphicon-pencil pull-right"></span></li>
+                  <li class="list-group-item"><a href="#">Morbi leo risus</a> <span class="glyphicon glyphicon-pencil pull-right"></span></li>
+                  <li class="list-group-item"><a href="#">Porta ac consectetur ac</a> <span class="glyphicon glyphicon-pencil pull-right"></span></li>
+                  <li class="list-group-item"><a href="#">Vestibulum at eros</a> <span class="glyphicon glyphicon-pencil pull-right"></span></li>
+                </ul>
+              </div>
+              <div class="panel-footer">
+                <div class="row">
+                  <div class="tools">
+                    <div class="col-md-10">
+                      <div class="input-group pull-right">
+                        <input type="text" name="clientSearch" class="form-control input-sm">
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                        <span class="glyphicon glyphicon-plus pull-right"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#deviceList">Техника</a>
+                </h4>
+              </div>
+              <div id="deviceList" class="panel-collapse collapse in">
+                <div class="panel-body">
+                  <select multiple class="form-control">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#serialList">Серийные номера</a>
+                </h4>
+              </div>
+              <div id="serialList" class="panel-collapse collapse in">
+                  <select multiple class="form-control">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                  </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <h6><small>&nbsp;Coded by BlOr 2006-2007 &copy; - tech support ICQ UIN: <b>8822366</b><b>  .:: BEERWARE ::.</b> </small></h6>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $('#clientList').collapse('hide');
+        $('.panel-heading .tools').hide();
+        $('#deviceList').collapse('hide');
+        $('#serialList').collapse('show');
+        $('#name').focus();
+      });
+      $('#noFields').on('click', function() {
+        $('#clientList').collapse('hide');
+        $('.panel-heading .tools').hide();
+        $('#name').focus();
+        $('#deviceList').collapse('hide');
+        $('#serialList').collapse('hide');
+      });
+      $('#clientFields').on('click', function() {
+        $('#clientList').collapse('show');
+        $('.panel-heading .tools').show();
+        $("[name='clientSearch']").focus();
+        $('#deviceList').collapse('hide');
+        $('#serialList').collapse('hide');
+      });
+      $('#deviceFields').on('click', function() {
+        $('#clientList').collapse('hide');
+        $('.panel-heading .tools').hide();
+        $('#deviceList').collapse('show');
+        $('#serialList').collapse('hide');
+      });
+      $('#serialFields').on('click', function() {
+        $('#clientList').collapse('hide');
+        $('.panel-heading .tools').hide();
+        $('#deviceList').collapse('hide');
+        $('#serialList').collapse('show');
+      });
+    </script>
+  </body>
+
+</html>

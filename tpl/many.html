@@ -1,0 +1,62 @@
+{% extends "main.html" %}
+{% block content %}
+{% if data.month %}
+<div class="btn-group">
+  <button type="button" class="btn btn-default"><a href="{{ data.lefturl }}"><span class="glyphicon glyphicon-chevron-left"></span></a></button>
+  <button type="button" class="btn btn-default">{{ data.month }}</button>
+  <button type="button" class="btn btn-default"><a href="{{ data.righturl }}"><span class="glyphicon glyphicon-chevron-right"></span></a></button>
+</div>
+<br />
+<br />
+{% endif %}
+<div class="row">
+    
+    <div class="col-md-12">
+    <div class="input-group">
+            <input type="search" id="search" value="" class="form-control" placeholder="Search...">
+            <div class="input-group-btn">
+             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-remove form-control-feedback"></span></button>
+                
+            </div>
+    </div>
+    </div>
+    
+</div>
+<br />
+<table class="table table-bordered table-condensed table-hover" id="table-works">
+<thead>
+    <tr>
+        <th>&nbsp;</th>
+        <th>Дата</th>
+        <th>Техника</th>
+        <th>Заказчик</th>
+        <th>Серийный номер</th>
+        <th>Статус</th>
+        <th>Управл.</th>
+    </tr>
+</thead>
+<tbody>
+{% for work in data.works %}
+    {% if work.complete == "Y" %}
+    <tr class="active">
+    {% else %}
+    <tr>
+    {% endif %}
+            <td bgcolor="{{ work.worker_colors[work.id_worker] }}" width="1%"></td>
+            <td align="center">{{ work.date }}</td>
+            <td align="left">
+                <a href="?id_r={{ work.id_r }}">{{ work.type }} {{ work.brand }} {{ work.model }}</a>
+            </td>
+            <td align="center">{{ work.client_fio }}</td>
+            <td align="center">{{ work.serial }}</td>
+            <td align="center">{{ work.znaki|raw }}</td>
+            <td  align="center">
+            <img src="Images/Icon/b_edit.png" border="0" alt="Edit">
+            &nbsp;
+            <a href='request.php?action=delete_work&id=4715'>	<img src='Images/Icon/b_drop.png' border='0' alt='Delete' target='_self'/></a>
+            </td>
+    </tr>
+{% endfor %}
+</tbody>
+</table>
+{% endblock %}

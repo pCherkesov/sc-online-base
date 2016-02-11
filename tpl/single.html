@@ -1,0 +1,264 @@
+{% extends "main.html" %}
+{% block content %}
+                {% if header.complete == "Y" %}
+                <span class="glyphicon glyphicon-chevron-left"></span> <a href='/skeleton.php?act=complete'>Вернуться назад</a>
+                {% else %}
+                <span class="glyphicon glyphicon-chevron-left"></span> <a href='/skeleton.php?act=incomplete'>Вернуться назад</a>
+                {% endif %}
+
+                <h3>
+                {% if header.complete == "Y" %}
+                <span class="glyphicon glyphicon-check"></span>
+                {% else %}
+                <span class="glyphicon glyphicon-unchecked"></span>
+                {% endif %}
+                Работа # {{ header.id_r }} от {{ header.original_date }} - {{ header.complete_date }}</h3>
+
+                <!--<div class="container">-->
+                    <div class="row">
+                        <div class="col-md-4">
+                            <dl>
+                              <dt>Заказчик:</dt>
+                              <dd>{{ header.client_fio }}</dd>
+                              <dt>Телефон:</dt>
+                              <dd>{{ header.client_tel }}</dd>
+                            </dl>
+                        </div>
+                        <div class="col-md-4">
+                            <dl>
+                              <dt>Техника:</dt>
+                              <dd>{{ header.type }} {{ header.brand }} {{ header.model }}
+                                <a title="Поиск по модели" data-toggle="tooltip"
+                                  href='/skeleton.php?act=incomplete&search=y&model={{ header.id_model }}'>
+                                    <span class="glyphicon glyphicon-search">
+                                </a>
+                              </dd>
+                              <dt>Серийный номер:</dt>
+                              <dd>
+                                {{ header.serial }} 
+                                <a title="Поиск по серийному номеру" data-toggle="tooltip"
+                                  href='/skeleton.php?act=incomplete&search=y&serial={{ header.serial }}'>
+                                  <span class="glyphicon glyphicon-search">
+                                </a>
+                              </dd>
+                            </dl>
+                        </div>
+                        <div class="col-md-4">
+                            <dl>
+                              <dt>Принял:</dt>
+                              <dd>{{ header.prin }}</dd>
+                              <dt>Работает:</dt>
+                              <dd>{{ header.worker }} <img src='Images/Icon/b_drop.png' /></dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <dl class="dl-horizontal">
+                                <dt>Комплектация: </dt>
+                                <dd>{{ header.complect }}</dd>
+                                <dt>Поломка: </dt>
+                                <dd>{{ header.defect }}</dd>
+                            </dl>
+                        </div>
+                    </div>
+
+                <!--</div>-->
+
+<table class="table table-bordered table-condensed">
+    <tr>
+        <th>&nbsp;</th>
+        <th>Дата</th>
+        <th>Работа</th>
+        <th>Сумма</th>
+        <th>Упр.</th>
+    </tr>
+{% for work in header.works %}
+    <tr>
+            <td rowspan="2" data-toggle="tooltip" data-placement="left" data-original-title="{{ work.id_worker }}" bgcolor="{{ header.worker_colors[work.id_worker] }}" width="1%"></td>
+            <td rowspan="2">{{ work.date }}</td>
+            <td class="work" align="left">{{ work.text|raw }}</td>
+            <td align="center">{{ work.price }}</td>
+            <td  class="work" align="center"  rowspan="2">
+            <img src="Images/Icon/b_edit.png" border="0" alt="Edit">
+            &nbsp;
+            <a href='request.php?action=delete_work&id=4715'>	<img src='Images/Icon/b_drop.png' border='0' alt='Delete' target='_self'/></a>
+            </td>
+    </tr>
+    <tr>
+            <td class="hard" align="left">{{ work.hard_text|raw }}</td>
+            <td class="hard" align="center">{{ work.hard_price }}</td>
+    </tr>
+{% endfor %}
+</table>
+<!--     <div class="row">
+        <div class="col-md-12">
+        <style type="text/css">@import url(http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css);</style>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default" data-toggle="tooltip" title="New file">
+                            <i class="fa fa-file-o"></i>
+                        </button>
+                        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Save">
+                            <i class="fa fa-save"></i>
+                        </button>
+                        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Print">
+                            <i class="fa fa-print"></i>
+                        </button>
+                        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Source code">
+                            <i class="fa fa-code"></i> Source
+                        </button>
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Bold">
+                            <i class="fa fa-bold"></i>
+                        </button>
+                        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Italic">
+                            <i class="fa fa-italic"></i>
+                        </button>
+                        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Underline">
+                            <i class="fa fa-underline"></i>
+                        </button>
+                        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Strikethrough">
+                            <i class="fa fa-strikethrough"></i>
+                        </button>
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Cut">
+                            <i class="fa fa-scissors"></i>
+                        </button>
+                        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Copy">
+                            <i class="fa fa-copy"></i>
+                        </button>
+                        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Past">
+                            <i class="fa fa-paste"></i>
+                        </button>
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Undo">
+                            <i class="fa fa-reply"></i>
+                        </button>
+                        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Redo">
+                            <i class="fa fa-share"></i>
+                        </button>
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Align left">
+                            <i class="fa fa-align-left"></i>
+                        </button>
+                        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Align center">
+                            <i class="fa fa-align-center"></i>
+                        </button>
+                        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Align right">
+                            <i class="fa fa-align-right"></i>
+                        </button>
+                        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Align justify">
+                            <i class="fa fa-align-justify"></i>
+                        </button>
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Numbered list">
+                            <i class="fa fa-list-ol"></i>
+                        </button>
+                        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Bulleted list">
+                            <i class="fa fa-list-ul"></i>
+                        </button>
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Link">
+                            <i class="fa fa-link"></i>
+                        </button>
+                        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Unlink">
+                            <i class="fa fa-unlink"></i>
+                        </button>
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default"  data-toggle="tooltip" title="Picture">
+                            <i class="fa fa-picture-o"></i>
+                        </button>
+                        <button type="button" class="btn btn-default" data-toggle="tooltip" title="HTML table">
+                            <i class="fa fa-table"></i>
+                        </button>
+                        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Font">
+                            <i class="fa fa-font"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <h2>
+                        Hello and welcome</h2>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                        exercitation ullamco laboris nisi ut <a href="http://www.jquery2dotnet.com/2013/12/brand-icons-design-using-css.html">Brand Icons Design Using Css</a> aliquip ex ea commodo consequat. Duis aute
+                        irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+                        deserunt mollit anim id est laborum.</p>
+                </div>
+                <div class="panel-footer">
+                    <button type="button" class="btn btn-success">
+                        Publish</button>
+                    <button type="button" class="btn btn-primary">
+                        Save Draft</button>
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-danger">
+                            <i class="fa fa-trash-o"></i> Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        </div>
+    </div> -->
+
+    <div class="row">
+        <div class="col-md-8">
+            <button type="button" class="btn btn-default btn-info"><i class="glyphicon glyphicon-plus"></i> Добавить запись</button>
+            <button type="button" class="btn btn-default btn-warning"><i class="glyphicon glyphicon-envelope"></i> Отправить СМС</button>
+            <div class="btn-group">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                <i class="glyphicon glyphicon-print"></i> Печать
+                <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="/act_priema_html.php?id_r={{ header.id_r }}" target="_blank">Печать бланка</a></li>
+                    <li><a href="/check_xls.php?id_r={{ header.id_r }}" target="_blank">Печать чека</a></li>
+                </ul>
+            </div>
+            <button type="button" class="btn btn-default btn-danger"><i class="glyphicon glyphicon-ok"></i> Завершить работу</button>
+        </div>
+        <div class="col-md-4">
+            <h3 class="pull-right">Итого: ({{ header.total_price }} + {{ header.total_hard_price }}) = {{header.total_price + header.total_hard_price }} руб.</h3>
+        </div>
+    </div>
+
+    <style type="text/css">
+        #status-icon .btn img {               
+            filter: grayscale(100%);
+            -webkit-filter: grayscale(100%);
+            -moz-filter: grayscale(100%); 
+            -ms-filter: grayscale(100%); 
+            -o-filter: grayscale(100%);          
+        }
+        #status-icon .btn.active img {                
+            filter: grayscale(0%);
+            -webkit-filter: grayscale(0%);
+            -moz-filter: grayscale(0%); 
+            -ms-filter: grayscale(0%); 
+            -o-filter: grayscale(0%);          
+        }
+    </style>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="btn-group btn-group-sm" data-toggle="buttons" id="status-icon">
+            {% for icon in header.znaki %}
+                <label class="btn btn-default{% if icon == 'Y' %} active{% endif %}">
+                    <input type="checkbox" autocomplete="off" data-toggle="tooltip" data-placement="top" data-original-title='Проблема'>
+                    <img src='Images/Icon/s_{{ loop.index0 }}_Y.png' name='s_{{ loop.index0 }}' id='s_{{ loop.index0 }}' />
+                </label>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

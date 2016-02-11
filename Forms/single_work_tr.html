@@ -1,0 +1,16 @@
+<tr>
+	<td rowspan="2"><?php echo $this->date; ?></td>
+	<td rowspan="2" bgcolor="<?php echo self::$worker_colors[$this->id_worker]; ?>" width="1%">&nbsp;</td>
+	<td class="work" align="left"><?php echo $this->text; ?></td>
+	<td><?php echo $this->price; ?></td>
+	<td  class="work" align="center"  rowspan="2">
+	<img src="Images/Icon/b_edit.png" border="0" alt="Edit" target="_self" onclick="doEdit(<?php echo $_REQUEST['id_r'].",".$this->id;?>);">
+	&nbsp;
+	<?php echo "<a href='request.php?action=delete_work&id=".$this->id."'>"; ?>
+	<img src='Images/Icon/b_drop.png' border='0' alt='Delete' target='_self'/></a>
+	</td>
+</tr>
+<tr>
+	<td class="hard" align="left"><?php echo $this->hard."&nbsp;"; ?></td>
+	<td class="hard" align="center"><?php echo $this->hard_price; ?></td>
+</tr>

@@ -1,0 +1,15 @@
+<table class="totalmonth" 
+onclick="window.location='<?php echo "skeleton.php?act=all&id_r=".$this->id_r; ?>'">
+	<caption>
+		<center>
+        <?php if( $this->complete == "Y" ) echo "<img src=\"Images/Icon/s_okay.png\" alt=\"complete\" /> ";
+        echo "Работа #"; 
+        echo $this->id_r." от " . $this->date_start . " - " . $this->date_complete; ?>
+        </center>
+	</caption>
+    <tr class='header'>
+		<td colspan="2">
+        <?php echo $this->client_fio; ?></td>
+		<td><?php echo $this->brand." ".$this->model; ?></td>
+		<td><?php echo "s/n: ".$this->serial; ?></td>
+	</tr>
