@@ -7,13 +7,16 @@
     <meta http-equiv="Content-Language" content="ru" />
     <meta name="title" content="" />
     <meta name="author" content="BlOr" />
-    <title>СЦ &laquo;OnLine&raquo;: Просмотр записи #5748</title>
+    <title>СЦ &laquo;OnLine&raquo;: {-% main.title %}</title>
     
     <!-- Bootstrap -->
     <link href="/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/lib/jgrowl/jquery.jgrowl.min.css" rel="stylesheet">
+    <link href="/css/styles.css" rel="stylesheet">
 
 </head>
 <body>
+    <div id="jGrowl-container" class="jGrowl bottom-right"></div>
     <div class="container">
 {% include 'header.html' %}
 {% include 'menu.html' %}
@@ -34,8 +37,10 @@
 
     <script src="/lib/jquery-2.1.1.min.js"></script>
     <script src="/lib/jquery.searchable-1.0.0.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="/lib/jquery.maskedinput.min.js"></script>
+    <script src="/lib/jgrowl/jquery.jgrowl.min.js"></script>
     <script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+
     <script src="/js/main.js"></script>
 </body>
 </html>

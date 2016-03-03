@@ -1,7 +1,7 @@
 <?php
 require("init.php");
 
-$record = new sqli_and_log;
+$record = new sqli_and_log();
 
 class sqli_and_log {
     static $mess = '';
@@ -16,7 +16,7 @@ class sqli_and_log {
             case "delete_record": 	self::delete_record(); 	break;
             case "delete_work": 	self::delete_work(); 	break;
             case "add_hardware": 	self::add_hardware(); 	break;
-            case "complete":	 	self::complete(); 	break;
+            case "complete":	 	self::complete();	 	break;
             default: echo "<b>!!!ERROR!!!</b><br />";		break;
         }
     }
@@ -27,28 +27,28 @@ class sqli_and_log {
 
         $data = self::fuck_time($_POST['data'], "-");
 
-        if($_POST['client'] == '') self::$f_error .= "Не выбран клиент<br />"; else $client = addslashes($_POST['client']);
+        if($_POST['client'] == '') self::$f_error .= "РќРµ РІС‹Р±СЂР°РЅ РєР»РёРµРЅС‚<br />"; else $client = addslashes($_POST['client']);
         if ($client != '1') {
-            if($_POST['firma_face'] == 'Контактное лицо' || $_POST['firma_face'] == '') self::$n_error .= "Не внесено контактное лицо<br />";
+            if($_POST['firma_face'] == 'РљРѕРЅС‚Р°РєС‚РЅРѕРµ Р»РёС†Рѕ' || $_POST['firma_face'] == '') self::$n_error .= "РќРµ РІРЅРµСЃРµРЅРѕ РєРѕРЅС‚Р°РєС‚РЅРѕРµ Р»РёС†Рѕ<br />";
             $client_fio = addslashes($_POST['firma_face']);
-            if($_POST['firma_tel'] == 'Контактный телефон' || $_POST['firma_tel'] == '') self::$n_error .= "Не указан контактный телефон<br />";
+            if($_POST['firma_tel'] == 'РљРѕРЅС‚Р°РєС‚РЅС‹Р№ С‚РµР»РµС„РѕРЅ' || $_POST['firma_tel'] == '') self::$n_error .= "РќРµ СѓРєР°Р·Р°РЅ РєРѕРЅС‚Р°РєС‚РЅС‹Р№ С‚РµР»РµС„РѕРЅ<br />";
             $client_tel = addslashes($_POST['firma_tel']);
         }
         else {
-            if($_POST['firma_face'] == 'Фамилия клиента' || $_POST['firma_face'] == '') self::$f_error .= "Не внесена фамилия клиента<br />"; else $client_fio = $_POST['firma_face'];
-            if($_POST['firma_tel'] == 'Телефон клиента' || $_POST['firma_tel'] == '') self::$n_error .= "Не указан телефон клиента<br />";
+            if($_POST['firma_face'] == 'Р¤Р°РјРёР»РёСЏ РєР»РёРµРЅС‚Р°' || $_POST['firma_face'] == '') self::$f_error .= "РќРµ РІРЅРµСЃРµРЅР° С„Р°РјРёР»РёСЏ РєР»РёРµРЅС‚Р°<br />"; else $client_fio = $_POST['firma_face'];
+            if($_POST['firma_tel'] == 'РўРµР»РµС„РѕРЅ РєР»РёРµРЅС‚Р°' || $_POST['firma_tel'] == '') self::$n_error .= "РќРµ СѓРєР°Р·Р°РЅ С‚РµР»РµС„РѕРЅ РєР»РёРµРЅС‚Р°<br />";
             $client_tel = addslashes($_POST['firma_tel']);
         }
-        if(!isset($_POST['selected_model']) or (int)$_POST['selected_model'] == '0') self::$f_error .= "Не указана модель<br />";
+        if(!isset($_POST['selected_model']) or (int)$_POST['selected_model'] == '0') self::$f_error .= "РќРµ СѓРєР°Р·Р°РЅР° РјРѕРґРµР»СЊ<br />";
         else $selected_model = addslashes($_POST['selected_model']);
 
-        if(!isset($_POST['serial'])) {self::$n_error .= "Не указан серийный номер<br />"; $serial = "none";}
+        if(!isset($_POST['serial'])) {self::$n_error .= "РќРµ СѓРєР°Р·Р°РЅ СЃРµСЂРёР№РЅС‹Р№ РЅРѕРјРµСЂ<br />"; $serial = "none";}
         else $serial = addslashes(strtoupper($_POST['serial']));
 
-        if(!isset($_POST['complect'])) self::$n_error .= "Не указана комплектность<br />";
+        if(!isset($_POST['complect'])) self::$n_error .= "РќРµ СѓРєР°Р·Р°РЅР° РєРѕРјРїР»РµРєС‚РЅРѕСЃС‚СЊ<br />";
         else $complect = addslashes($_POST['complect']);
 
-        if(!isset($_POST['defect'])) self::$f_error .= "Не указан дефект<br />";
+        if(!isset($_POST['defect'])) self::$f_error .= "РќРµ СѓРєР°Р·Р°РЅ РґРµС„РµРєС‚<br />";
         else $defect = addslashes($_POST['defect']);
 
         // `id_r`, `pass`, `date`, `string`, `id_client`, `client_fio`, `client_tel`, `id_model`, `complect`, `defect`,
@@ -63,8 +63,8 @@ class sqli_and_log {
             $insert_id = mysql_insert_id();
             //$query = "UPDATE `".$S_CONFIG['prefix']."remont` SET `pass`='".md5($insert_id)."' WHERE `id_r`=".$insert_id." LIMIT 1";
             //self::record ($query);
-            self::$mess .= "<b>Запись добавлена</b><br />";
-            self::$mess .= "<a href='skeleton.php?act=incomplete&id_r=".$insert_id."'>Перейти к добавленной работе</a><br />";
+            self::$mess .= "<b>Р—Р°РїРёСЃСЊ РґРѕР±Р°РІР»РµРЅР°</b><br />";
+            self::$mess .= "<a href='skeleton.php?act=incomplete&id_r=".$insert_id."'>РџРµСЂРµР№С‚Рё Рє РґРѕР±Р°РІР»РµРЅРЅРѕР№ СЂР°Р±РѕС‚Рµ</a><br />";
         }
         //self::view();
         if(isset($_POST['print']) && self::$f_error == '') require("act_priema_html.php");//require("xls.php");
@@ -75,14 +75,14 @@ class sqli_and_log {
         $data = self::fuck_time($_POST['data'], "-");
         $repair = str_replace("\r\n","<br />",addslashes($_POST['work']));
         $hardware = str_replace("\r\n","<br />",addslashes($_POST['hard']));
-        if((int)$_REQUEST['id_r'] == '0') self::$f_error .= "Неправильно передан параметр<br />";
+        if((int)$_REQUEST['id_r'] == '0') self::$f_error .= "РќРµРїСЂР°РІРёР»СЊРЅРѕ РїРµСЂРµРґР°РЅ РїР°СЂР°РјРµС‚СЂ<br />";
         else
         $query = "INSERT INTO `".$S_CONFIG['prefix']."work` VALUE
             (0, '".$_REQUEST['id_r']."', '". $data."', '".$repair."',
                 '".$_POST['price']."', '".$hardware."',
                 '".$_POST['hard_price']."', '".$_POST['worker']."',	'N')";
         if(self::$f_error == '') self::record ($query);
-        self::$mess .= "<b>Работа добавлена</b><br />";
+        self::$mess .= "<b>Р Р°Р±РѕС‚Р° РґРѕР±Р°РІР»РµРЅР°</b><br />";
         self::view();
     }
 
@@ -91,7 +91,7 @@ class sqli_and_log {
         $data = self::fuck_time($_POST['data'], "-");
         $repair = str_replace("\r\n","<br />",addslashes($_POST['work']));
         $hardware = str_replace("\r\n","<br />",addslashes($_POST['hard']));
-        if((int)$_POST['id'] == '0') self::$f_error .= "Неправильно передан параметр<br />";
+        if((int)$_POST['id'] == '0') self::$f_error .= "РќРµРїСЂР°РІРёР»СЊРЅРѕ РїРµСЂРµРґР°РЅ РїР°СЂР°РјРµС‚СЂ<br />";
         else $query = "UPDATE `".$S_CONFIG['prefix']."work` SET date='".$data."',
                                                                 text='".$repair."',
                                                                 price='".$_POST['price']."',
@@ -100,28 +100,28 @@ class sqli_and_log {
                                                                 id_worker='".$_POST['worker']."'
         WHERE `id`=".$_POST['id']." LIMIT 1";
         if(self::$f_error == '') self::record ($query);
-        self::$mess .= "<b>Работа изменена</b><br />";
+        self::$mess .= "<b>Р Р°Р±РѕС‚Р° РёР·РјРµРЅРµРЅР°</b><br />";
         self::view();
     }
 	
 	function delete_record () {
 		global $S_CONFIG;
-		if((int)$_GET['id_del'] == '0') self::$f_error .= "Неправильно передан параметр<br />";
+		if((int)$_GET['id_del'] == '0') self::$f_error .= "РќРµРїСЂР°РІРёР»СЊРЅРѕ РїРµСЂРµРґР°РЅ РїР°СЂР°РјРµС‚СЂ<br />";
 		else {
 			$query1="UPDATE `".$S_CONFIG['prefix']."work` SET `hidden`='Y' WHERE `id_r`=".$_GET['id_del'];
 			$query2="UPDATE `".$S_CONFIG['prefix']."remont` SET `hidden`='Y' WHERE `id_r`=".$_GET['id_del']." LIMIT 1";
 		}
 		if(self::$f_error == '') { self::record ($query1); self::record ($query2); }
-		self::$mess .= "<b>Запись удалена</b><br />";
+		self::$mess .= "<b>Р—Р°РїРёСЃСЊ СѓРґР°Р»РµРЅР°</b><br />";
 		self::view();
 	}
 
 	function delete_work () {
 		global $S_CONFIG;
-		if((int)$_GET['id'] == '0') self::$f_error .= "Неправильно передан параметр<br />";
+		if((int)$_GET['id'] == '0') self::$f_error .= "РќРµРїСЂР°РІРёР»СЊРЅРѕ РїРµСЂРµРґР°РЅ РїР°СЂР°РјРµС‚СЂ<br />";
 		else $query="UPDATE `".$S_CONFIG['prefix']."work` SET `hidden`='Y' WHERE `id`=".$_GET['id']." LIMIT 1";
 		if(self::$f_error == '') self::record ($query);
-		self::$mess .= "<b>Работа удалена</b><br />";
+		self::$mess .= "<b>Р Р°Р±РѕС‚Р° СѓРґР°Р»РµРЅР°</b><br />";
 		self::view();
 	}
 	
@@ -132,7 +132,7 @@ class sqli_and_log {
 											'".$_POST['client_fio']."', 
 											'".$_POST['client_tel']."')";
 			if(self::$f_error == '') self::record ($query);
-			self::$mess .= "<b>Добавлен новый клиент</b><br />";
+			self::$mess .= "<b>Р”РѕР±Р°РІР»РµРЅ РЅРѕРІС‹Р№ РєР»РёРµРЅС‚</b><br />";
 			self:: view();
 
 		}
@@ -146,10 +146,10 @@ class sqli_and_log {
 											'".$_POST['type']."',
 											'".$_POST['brand']."',
 											'".$_POST['new_model']."')"; break;
-				default: echo  exit("<b>Неправильно переданный параметр</b><br />");
+				default: echo  exit("<b>РќРµРїСЂР°РІРёР»СЊРЅРѕ РїРµСЂРµРґР°РЅРЅС‹Р№ РїР°СЂР°РјРµС‚СЂ</b><br />");
 			}
 			if(self::$f_error == '') self::record ($query);
-			self::$mess .= "<b>Добавлен(а) новый тип(брэнд, модель)</b><br />";
+			self::$mess .= "<b>Р”РѕР±Р°РІР»РµРЅ(Р°) РЅРѕРІС‹Р№ С‚РёРї(Р±СЂСЌРЅРґ, РјРѕРґРµР»СЊ)</b><br />";
 			self::view();
 		}
 	
@@ -157,7 +157,7 @@ class sqli_and_log {
 
 	function complete () {
 		global $S_CONFIG;
-		if((int)$_GET['id_r'] == '0' || (int)$_REQUEST['refer'] == '0') self::$f_error .= "Неправильно передан параметр<br />";
+		if((int)$_GET['id_r'] == '0' || (int)$_REQUEST['refer'] == '0') self::$f_error .= "РќРµРїСЂР°РІРёР»СЊРЅРѕ РїРµСЂРµРґР°РЅ РїР°СЂР°РјРµС‚СЂ<br />";
 		else {
 			if($_REQUEST['refer'] == '2') 
 			$query="UPDATE `".$S_CONFIG['prefix']."remont` SET `complete`='Y', `date_complete`='".date("Y-m-d")."' WHERE `id_r`=".$_GET['id_r']." LIMIT 1";
@@ -165,7 +165,7 @@ class sqli_and_log {
 			$query="UPDATE `".$S_CONFIG['prefix']."remont` SET `complete`='N', `date_complete`='' WHERE `id_r`=".$_GET['id_r']." LIMIT 1";
 		}
 		if(self::$f_error == '') self::record ($query);
-		self::$mess .= "<b>Работа завершена</b><br />";
+		self::$mess .= "<b>Р Р°Р±РѕС‚Р° Р·Р°РІРµСЂС€РµРЅР°</b><br />";
 		self::view();
 	
 	}
@@ -185,7 +185,7 @@ class sqli_and_log {
 	static function record ($query) {
 	    $query = str_replace("\r\n","",$query);	
 	    $query = str_replace("	","",$query);	
-		  $file = fopen("Logs/log.txt", "a") or die("Ошибка чтения файла лога");
+		  $file = fopen("Logs/log.txt", "a") or die("РћС€РёР±РєР° С‡С‚РµРЅРёСЏ С„Р°Р№Р»Р° Р»РѕРіР°");
       flock($file, 2);
       fputs($file, $query."\n");
 		  flock($file, 3);
@@ -194,15 +194,15 @@ class sqli_and_log {
 	}
 	
 	static function view () {
-			$page_header = "Внесение изменений в БД";
+			$page_header = "Р’РЅРµСЃРµРЅРёРµ РёР·РјРµРЅРµРЅРёР№ РІ Р‘Р”";
 			if(!isset($_REQUEST['refer'])){
 				$redirect = $_SERVER['HTTP_REFERER'];
 			}
 			else {
 				switch ($_REQUEST['refer']){
-					case "1": $redirect = "index.php"; break;
-					case "2": $redirect = "skeleton.php?act=incomplete"; break;
-					case "3": $redirect = "skeleton.php?act=incomplete&id_r=".$_REQUEST['id_r']; break;
+					case "1": $redirect = "add.php"; break;
+					case "2": $redirect = "index.php?act=incomplete"; break;
+					case "3": $redirect = "index.php?act=incomplete&id_r=".$_REQUEST['id_r']; break;
 					default: $redirect = $_SERVER['HTTP_REFERER']; break;
 				}
 			}
@@ -217,7 +217,7 @@ class sqli_and_log {
 				if(self::$n_error != '') {
 						echo "<table width='60%' border='1' cellspacing='0' cellpadding='1'
 							bordercolorlight='black' bordercolordark='white' background='Images/fon.png' >";
-						echo "<caption><b>Нефатальная ошибка</b></caption>";
+						echo "<caption><b>РќРµС„Р°С‚Р°Р»СЊРЅР°СЏ РѕС€РёР±РєР°</b></caption>";
 						echo "<tr><td align='left'>";
 						echo self::$n_error;
 						echo "</td></tr></table><br />";
@@ -227,12 +227,12 @@ class sqli_and_log {
 			else {
 				echo "<table width='60%' border='1' cellspacing='0' cellpadding='1'
 					bordercolorlight='black' bordercolordark='white' background='Images/fon.png' >";
-				echo "<caption><b>Фатальная ошибка</b></caption>";
+				echo "<caption><b>Р¤Р°С‚Р°Р»СЊРЅР°СЏ РѕС€РёР±РєР°</b></caption>";
 				echo "<tr><td align='left'>";
 				echo self::$f_error;
 				echo "</td></tr></table><br />";
 			}
-			echo "<b>Сейчас вы будете перенаправлены. Или кликните на этом сообщении, если не хотите ждать.</b>";
+			echo "<b>РЎРµР№С‡Р°СЃ РІС‹ Р±СѓРґРµС‚Рµ РїРµСЂРµРЅР°РїСЂР°РІР»РµРЅС‹. РР»Рё РєР»РёРєРЅРёС‚Рµ РЅР° СЌС‚РѕРј СЃРѕРѕР±С‰РµРЅРёРё, РµСЃР»Рё РЅРµ С…РѕС‚РёС‚Рµ Р¶РґР°С‚СЊ.</b>";
 			echo "</td></tr></table>";
 
 			//--------------------
@@ -241,15 +241,16 @@ class sqli_and_log {
 	}
 	
 	static function pass_generator() {
-			$lowercase = "zyxwvutsrqponmlkjihgfedcba"; //символы в нижнем регистре 26
-			$uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; //символы в верхнем регистре 26
-			$speccase = "!-_+.,"; //специальные символы 6
-			$digitcase = "0123456789"; //цифры 10
+			$lowercase = "zyxwvutsrqponmlkjihgfedcba"; //СЃРёРјРІРѕР»С‹ РІ РЅРёР¶РЅРµРј СЂРµРіРёСЃС‚СЂРµ 26
+			$uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; //СЃРёРјРІРѕР»С‹ РІ РІРµСЂС…РЅРµРј СЂРµРіРёСЃС‚СЂРµ 26
+			$speccase = "!-_+.,"; //СЃРїРµС†РёР°Р»СЊРЅС‹Рµ СЃРёРјРІРѕР»С‹ 6
+			$digitcase = "0123456789"; //С†РёС„СЂС‹ 10
 			$PassCase = $lowercase . $uppercase . $speccase . $digitcase; //68
+			$PassCase = $digitcase; //10
 			$pass = "";
 			mt_srand(time()+(double)microtime()*1000000);
-			for($i=0;$i<=6;$i++) {
-					$pass .= $PassCase[mt_rand(0,67)];
+			for($i = 0; $i <= 3; $i++) {
+					$pass .= $PassCase[mt_rand(0, 9)];
 			};
 			return ($pass);
 	}

@@ -1,273 +1,242 @@
 {% extends "main.html" %}
 {% block content %}
-                {% if header.complete == "Y" %}
-                <span class="glyphicon glyphicon-chevron-left"></span> <a href='/skeleton.php?act=complete'>Вернуться назад</a>
-                {% else %}
-                <span class="glyphicon glyphicon-chevron-left"></span> <a href='/skeleton.php?act=incomplete'>Вернуться назад</a>
-                {% endif %}
+				{% if header.complete == "Y" %}
+				<span class="glyphicon glyphicon-chevron-left"></span> <a href='/skeleton.php?act=complete'>Вернуться назад</a>
+				{% else %}
+				<span class="glyphicon glyphicon-chevron-left"></span> <a href='/skeleton.php?act=incomplete'>Вернуться назад</a>
+				{% endif %}
 
-                <h3>
-                {% if header.complete == "Y" %}
-                <span class="glyphicon glyphicon-check"></span>
-                {% else %}
-                <span class="glyphicon glyphicon-unchecked"></span>
-                {% endif %}
-                Работа # {{ header.id_r }} от {{ header.original_date }} - {{ header.complete_date }}</h3>
+				<h3>
+				{% if header.complete == "Y" %}
+				<span class="glyphicon glyphicon-check"></span>
+				{% else %}
+				<span class="glyphicon glyphicon-unchecked"></span>
+				{% endif %}
+				Работа # <span id="work-id">{{ header.id_r }}</span> от <span id="work-date">{{ header.date_start }}</span> - {{ header.date_complete }}</h3>
 
-                <!--<div class="container">-->
-                    <div class="row">
-                        <div class="col-md-4">
-                            <dl>
-                              <dt>Заказчик:</dt>
-                              <dd>{{ header.client_fio }}</dd>
-                              <dt>Телефон:</dt>
-                              <dd>{{ header.client_tel }}</dd>
-                            </dl>
-                        </div>
-                        <div class="col-md-4">
-                            <dl>
-                              <dt>Техника:</dt>
-                              <dd>{{ header.type }} {{ header.brand }} {{ header.model }}
-                                <a title="Поиск по модели" data-toggle="tooltip"
-                                  href='/skeleton.php?act=incomplete&search=y&model={{ header.id_model }}'>
-                                    <span class="glyphicon glyphicon-search">
-                                </a>
-                              </dd>
-                              <dt>Серийный номер:</dt>
-                              <dd>
-                                {{ header.serial }} 
-                                <a title="Поиск по серийному номеру" data-toggle="tooltip"
-                                  href='/skeleton.php?act=incomplete&search=y&serial={{ header.serial }}'>
-                                  <span class="glyphicon glyphicon-search">
-                                </a>
-                              </dd>
-                            </dl>
-                        </div>
-                        <div class="col-md-4">
-                            <dl>
-                              <dt>Принял:</dt>
-                              <dd>{{ header.prin }}</dd>
-                              <dt>Работает:</dt>
-                              <dd>{{ header.worker }} <img src='Images/Icon/b_drop.png' /></dd>
-                            </dl>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <dl class="dl-horizontal">
-                                <dt>Комплектация: </dt>
-                                <dd>{{ header.complect }}</dd>
-                                <dt>Поломка: </dt>
-                                <dd>{{ header.defect }}</dd>
-                            </dl>
-                        </div>
-                    </div>
+				<!--<div class="container">-->
+					<div class="row">
+						<div class="col-md-3">
+							<dl>
+							  <dt>Заказчик:</dt>
+							  <dd>{{ header.client_fio }}</dd>
+							  <dt>Телефон:</dt>
+							  <dd><span id="client_tel">{{ header.client_tel }}</span></dd>
+							</dl>
+						</div>
+						<div class="col-md-3">
+							<dl>
+							  <dt>Техника:</dt>
+							  <dd>{{ header.type }} {{ header.brand }} {{ header.model }}
+								<a title="Поиск по модели" data-toggle="tooltip"
+								  href='/index.php?act=incomplete&search=y&model={{ header.id_model }}'>
+									<span class="glyphicon glyphicon-search">
+								</a>
+							  </dd>
+							  <dt>Серийный номер:</dt>
+							  <dd>
+								{{ header.serial }} 
+								<a title="Поиск по серийному номеру" data-toggle="tooltip"
+								  href='/index.php?act=incomplete&search=y&serial={{ header.serial }}'>
+								  <span class="glyphicon glyphicon-search">
+								</a>
+							  </dd>
+							</dl>
+						</div>
+						<div class="col-md-3">
+							<dl>
+								<dt>Принял:</dt>
+								<dd>{{ header.prin }}</dd>
+								<dt>Работает:</dt>
+								<dd>
+								<div class="form-inline">
+									{% if header.id_worker == 1 %}
+									<select class="form-control input-sm" id="work-worker-select" name="work-worker-select">
+									{% for id_worker, worker in header.workers %}
+										<option value="{{ id_worker }}">{{ worker.worker }}</option>
+									{% endfor %}
+									</select> <span class="glyphicon glyphicon-ok"></span>
+									{% else %}
+									<span id="work-worker" data-worker-id="{{ header.id_worker }}">{{ header.workers[header.id_worker].worker }}</span>  <span class="glyphicon glyphicon-remove"></span>
+									{% endif %}
+								</div>
+								</dd>
+							</dl>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<dl class="dl-horizontal">
+								<dt>Комплектация: </dt>
+								<dd>{{ header.complect }}</dd>
+								<dt>Причина обращения: </dt>
+								<dd>{{ header.defect }}</dd>
+							</dl>
+						</div>
+					</div>
 
-                <!--</div>-->
+				<!--</div>-->
 
-<table class="table table-bordered table-condensed">
-    <tr>
-        <th>&nbsp;</th>
-        <th>Дата</th>
-        <th>Работа</th>
-        <th>Сумма</th>
-        <th>Упр.</th>
-    </tr>
-{% for work in header.works %}
-    <tr>
-            <td rowspan="2" data-toggle="tooltip" data-placement="left" data-original-title="{{ work.id_worker }}" bgcolor="{{ header.worker_colors[work.id_worker] }}" width="1%"></td>
-            <td rowspan="2">{{ work.date }}</td>
-            <td class="work" align="left">{{ work.text|raw }}</td>
-            <td align="center">{{ work.price }}</td>
-            <td  class="work" align="center"  rowspan="2">
-            <img src="Images/Icon/b_edit.png" border="0" alt="Edit">
-            &nbsp;
-            <a href='request.php?action=delete_work&id=4715'>	<img src='Images/Icon/b_drop.png' border='0' alt='Delete' target='_self'/></a>
-            </td>
-    </tr>
-    <tr>
-            <td class="hard" align="left">{{ work.hard_text|raw }}</td>
-            <td class="hard" align="center">{{ work.hard_price }}</td>
-    </tr>
+<table class="table table-condensed">
+	<tr>
+		<th>&nbsp;</th>
+		<th>Дата</th>
+		<th>Работа</th>
+		<th>Сумма</th>
+		<th>Упр.</th>
+	</tr>
+{% for work in works %}
+	<tr>
+			<td>
+				<span style="color: #{{ header.workers[work.id_worker].color }}" class="glyphicon glyphicon glyphicon-user"></span>
+			{{ header.workers[work.id_worker].worker }}</td>
+			<td>{{ work.date }}</td>
+			<td class="work" align="left">{{ work.text|raw }}
+			{% for hard in work.hard %}
+				<br />{{ hard.edit_hard }} - {{ hard.edit_hardprice }}
+			{% endfor %}
+			</td>
+			<td align="center">{{ work.price }}
+			{% if work.hard_price != 0 %}<br />{{ work.hard_price }}{% endif %}
+			</td>
+			<td  class="work" align="center">
+			{% if header.complete == "N" %}
+			<a href="#" data-work-id="{{ work.id }}" class="onWorkEdit"><span class="glyphicon glyphicon-pencil"></span></a>
+			&nbsp;
+			<a href="#"><span style="color: red;" class="glyphicon glyphicon-remove"></span></a>
+			{% endif %}
+			</td>
+	</tr>
 {% endfor %}
 </table>
-<!--     <div class="row">
-        <div class="col-md-12">
-        <style type="text/css">@import url(http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css);</style>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default" data-toggle="tooltip" title="New file">
-                            <i class="fa fa-file-o"></i>
-                        </button>
-                        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Save">
-                            <i class="fa fa-save"></i>
-                        </button>
-                        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Print">
-                            <i class="fa fa-print"></i>
-                        </button>
-                        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Source code">
-                            <i class="fa fa-code"></i> Source
-                        </button>
-                    </div>
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Bold">
-                            <i class="fa fa-bold"></i>
-                        </button>
-                        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Italic">
-                            <i class="fa fa-italic"></i>
-                        </button>
-                        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Underline">
-                            <i class="fa fa-underline"></i>
-                        </button>
-                        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Strikethrough">
-                            <i class="fa fa-strikethrough"></i>
-                        </button>
-                    </div>
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Cut">
-                            <i class="fa fa-scissors"></i>
-                        </button>
-                        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Copy">
-                            <i class="fa fa-copy"></i>
-                        </button>
-                        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Past">
-                            <i class="fa fa-paste"></i>
-                        </button>
-                    </div>
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Undo">
-                            <i class="fa fa-reply"></i>
-                        </button>
-                        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Redo">
-                            <i class="fa fa-share"></i>
-                        </button>
-                    </div>
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Align left">
-                            <i class="fa fa-align-left"></i>
-                        </button>
-                        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Align center">
-                            <i class="fa fa-align-center"></i>
-                        </button>
-                        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Align right">
-                            <i class="fa fa-align-right"></i>
-                        </button>
-                        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Align justify">
-                            <i class="fa fa-align-justify"></i>
-                        </button>
-                    </div>
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Numbered list">
-                            <i class="fa fa-list-ol"></i>
-                        </button>
-                        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Bulleted list">
-                            <i class="fa fa-list-ul"></i>
-                        </button>
-                    </div>
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Link">
-                            <i class="fa fa-link"></i>
-                        </button>
-                        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Unlink">
-                            <i class="fa fa-unlink"></i>
-                        </button>
-                    </div>
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default"  data-toggle="tooltip" title="Picture">
-                            <i class="fa fa-picture-o"></i>
-                        </button>
-                        <button type="button" class="btn btn-default" data-toggle="tooltip" title="HTML table">
-                            <i class="fa fa-table"></i>
-                        </button>
-                        <button type="button" class="btn btn-default" data-toggle="tooltip" title="Font">
-                            <i class="fa fa-font"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="panel-body">
-                    <h2>
-                        Hello and welcome</h2>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                        exercitation ullamco laboris nisi ut <a href="http://www.jquery2dotnet.com/2013/12/brand-icons-design-using-css.html">Brand Icons Design Using Css</a> aliquip ex ea commodo consequat. Duis aute
-                        irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                        deserunt mollit anim id est laborum.</p>
-                </div>
-                <div class="panel-footer">
-                    <button type="button" class="btn btn-success">
-                        Publish</button>
-                    <button type="button" class="btn btn-primary">
-                        Save Draft</button>
-                    <div class="pull-right">
-                        <button type="button" class="btn btn-danger">
-                            <i class="fa fa-trash-o"></i> Delete</button>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        </div>
-    </div> -->
+	<div class="row">
+		<div class="col-md-8">
+		{% if header.complete == "N" %}
+			<button type="button" class="btn btn-primary onWorkAdd" data-curr-date="{{ "now"|date("Y-m-d") }}">
+			<i class="glyphicon glyphicon-plus"></i> Добавить запись</button>
+			<div class="btn-group">
+				<button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
+				<i class="glyphicon glyphicon-envelope"></i> СМС <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" role="menu">
+					<li><a href="#">Отправить</a></li>
+					<li><a href="/sms.php?search='.$this->client_tel.'" target="_blank">История</a></li>
+				</ul>
+			</div>
+			<div class="btn-group">
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+				<i class="glyphicon glyphicon-print"></i> Печать <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" role="menu">
+					<li><a href="act_priema_html.php?id_r='.$this->id_r.'" target="_blank">Печать бланка</a></li>
+					<li><a href="check_xls.php?id_r='.$this->id_r.'" target="_blank">Печать чека</a></li>
+				</ul>
+			</div>
+			<div class="btn-group">
+				<a class="btn btn-success"  href="request.php?action=complete&id_r='.$_REQUEST['id_r'].'&refer=2">
+				<i class="glyphicon glyphicon-ok"></i> Завершить работу</a>
+				<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+					<span class="caret"></span>&nbsp;
+					<span class="sr-only">Меню с переключением</span>
+				</button>
+				<ul class="dropdown-menu" role="menu">
+					<li><a href="request.php?action=complete&id_r='.$_REQUEST['id_r'].'&refer=2">Завершить без чека</a></li>
+				</ul>
+			</div>
+		{% else %}
+			<a class="btn btn-default btn-danger" href="request.php?action=complete&id_r='.$_REQUEST['id_r'].'&refer=3"><i class="glyphicon glyphicon-ok"></i> Вернуть в работу</a>
+		{% endif %}
+		</div>
+		<div class="col-md-4">
+			<h3 class="pull-right">Итого: ({{ header.total_price }} + {{ header.total_hard_price }}) = {{header.total_price + header.total_hard_price }} руб.</h3>
+		</div>
+	</div>
 
-    <div class="row">
-        <div class="col-md-8">
-            <button type="button" class="btn btn-default btn-info"><i class="glyphicon glyphicon-plus"></i> Добавить запись</button>
-            <div class="btn-group">
-                <button type="button" class="btn btn-default btn-warning dropdown-toggle" data-toggle="dropdown">
-                <i class="glyphicon glyphicon-envelope"></i> СМС
-                <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Отправить</a></li>
-                    <li><a href="/sms.php?search={{ header.client_tel }}" target="_blank">История</a></li>
-                </ul>
-            </div>
-            <div class="btn-group">
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                <i class="glyphicon glyphicon-print"></i> Печать
-                <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" role="menu">
-                    <li><a href="/act_priema_html.php?id_r={{ header.id_r }}" target="_blank">Печать бланка</a></li>
-                    <li><a href="/check_xls.php?id_r={{ header.id_r }}" target="_blank">Печать чека</a></li>
-                </ul>
-            </div>
-            <button type="button" class="btn btn-default btn-danger"><i class="glyphicon glyphicon-ok"></i> Завершить работу</button>
-        </div>
-        <div class="col-md-4">
-            <h3 class="pull-right">Итого: ({{ header.total_price }} + {{ header.total_hard_price }}) = {{header.total_price + header.total_hard_price }} руб.</h3>
-        </div>
-    </div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="btn-group btn-group-sm statusbar" data-toggle="buttons" id="status-icon">
+			{% for icon in header.string %}
+				<label class="btn btn-default{% if icon == 'Y' %} active{% endif %}" data-id="{{ header.id_r }}" data-value="{{ loop.index0 }}">
+					<input type="checkbox">
+					<img src='Images/Icon/s_{{ loop.index0 }}_Y.png' data-toggle="tooltip" data-placement="top" data-original-title='{{ header.string_text[loop.index0]|default('Нет описания') }}' />
+				</label>
+			{% endfor %}
+			</div>
+		</div>
+	</div>
 
-    <style type="text/css">
-        #status-icon .btn img {               
-            filter: grayscale(100%);
-            -webkit-filter: grayscale(100%);
-            -moz-filter: grayscale(100%); 
-            -ms-filter: grayscale(100%); 
-            -o-filter: grayscale(100%);          
-        }
-        #status-icon .btn.active img {                
-            filter: grayscale(0%);
-            -webkit-filter: grayscale(0%);
-            -moz-filter: grayscale(0%); 
-            -ms-filter: grayscale(0%); 
-            -o-filter: grayscale(0%);          
-        }
-    </style>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="btn-group btn-group-sm" data-toggle="buttons" id="status-icon">
-            {% for icon in header.znaki %}
-                <label class="btn btn-default{% if icon == 'Y' %} active{% endif %}">
-                    <input type="checkbox" autocomplete="off" data-toggle="tooltip" data-placement="top" data-original-title='Проблема'>
-                    <img src='Images/Icon/s_{{ loop.index0 }}_Y.png' name='s_{{ loop.index0 }}' id='s_{{ loop.index0 }}' />
-                </label>
-            {% endfor %}
-            </div>
-        </div>
-    </div>
+	<hr />
+
+	<div class="row">
+		<div class="col-md-12" id="editFrame">
+			<form role="form" id="editForm" action="" method="post">
+				<div class="container">
+					<input type="hidden" id="edit_id" name="edit_id" value="{{ header.id_r }}"></input>
+					<input type="hidden" id="edit_id_work" name="edit_id_work" value=""></input>
+					<input type="hidden" id="edit_parts" name="edit_parts" value=""></input>
+					<input type="hidden" id="edit_parts_price" name="edit_parts_price" value=""></input>
+					<div class="form-group">
+						<div class="row">
+							<div class="col-md-2 col-md-offset-2">
+								<input type="date" id="edit_date" name="edit_date" value="{{ "now"|date("Y-m-d") }}" placeholder="Дата" class="form-control"></input>
+							</div>  
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="row">
+							<div class="col-md-8 col-md-offset-2">
+								<textarea id="edit_text" name="edit_text" class="form-control" rows="3"></textarea>
+							</div>  
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="row">
+							<div class="col-md-2 col-md-offset-2">
+								<input type="number" id="edit_price" name="edit_price" value="" placeholder="Цена" class="form-control"></input>
+							</div>
+							<div class="col-md-2 col-md-offset-4">
+								<button type="button" class="btn btn-info btn-block onPartsAdd"><i class="glyphicon glyphicon-th-list"></i> Комплектующие</button>
+							</div>
+						</div>
+					</div>
+					<div id="parts_row" style="display: none;">
+					<div class="form-group">
+						<div class="row">
+							<div class="col-md-5 col-md-offset-2">
+								<input type="text" value="" name="hard" placeholder="Наименование" class="form-control"></input>
+							</div>
+							<div class="col-md-2">
+								<input type="number" value="" name="hard_price" placeholder="Цена" class="form-control"></input>
+							</div>
+							<div class="col-md-1">
+								<button type="button" class="btn btn-link btn-block" onclick="$(this).parent().parent().parent().remove();">Удалить</button>
+							</div>
+						</div>
+					</div>
+					</div>
+
+					<div class="form-group" id="parts">
+					</div>
+
+					<div class="form-group">
+						<div class="row">       
+							<div class="col-md-2 col-md-offset-6">
+								<select class="form-control" id="edit_worker" name="edit_worker">
+								{% for id_worker, worker in header.workers %}
+									<option value="{{ id_worker }}">{{ worker.worker }}</option>
+								{% endfor %}
+								</select>
+							</div>
+							<div class="col-md-2">
+								<button type="submit" class="btn btn-primary btn-block"><i class="glyphicon glyphicon-plus"></i> Сохранить запись</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>            
+		</div>
+	</div>
 {% endblock %}

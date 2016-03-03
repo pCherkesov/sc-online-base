@@ -32,7 +32,7 @@
         <th>Заказчик</th>
         <th>Серийный номер</th>
         <th>Статус</th>
-        <th>Управл.</th>
+        <!-- <th>Управл.</th> -->
     </tr>
 </thead>
 <tbody>
@@ -42,19 +42,22 @@
     {% else %}
     <tr>
     {% endif %}
-            <td bgcolor="{{ work.worker_colors[work.id_worker] }}" width="1%"></td>
+            <td width="2%">
+                <span style="color: #{{ work.worker_colors[work.id_worker] }}" class="glyphicon glyphicon glyphicon-user"></span>
+            </td>
             <td align="center">{{ work.date }}</td>
             <td align="left">
-                <a href="?id_r={{ work.id_r }}">{{ work.type }} {{ work.brand }} {{ work.model }}</a>
+                <a href="?r=single/view&id={{ work.id_r }}">{{ work.type }} {{ work.brand }} {{ work.model }}</a>
             </td>
             <td align="center">{{ work.client_fio }}</td>
             <td align="center">{{ work.serial }}</td>
             <td align="center">{{ work.znaki|raw }}</td>
-            <td  align="center">
+<!--             <td  align="center">
             <img src="Images/Icon/b_edit.png" border="0" alt="Edit">
             &nbsp;
             <a href='request.php?action=delete_work&id=4715'>	<img src='Images/Icon/b_drop.png' border='0' alt='Delete' target='_self'/></a>
             </td>
+ -->
     </tr>
 {% endfor %}
 </tbody>
