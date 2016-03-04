@@ -50,15 +50,16 @@
 								<dt>Работает:</dt>
 								<dd>
 								<div class="form-inline">
-									{% if header.id_worker == 1 %}
-									<select class="form-control input-sm" id="work-worker-select" name="work-worker-select">
-									{% for id_worker, worker in header.workers %}
-										<option value="{{ id_worker }}">{{ worker.worker }}</option>
-									{% endfor %}
-									</select> <span class="glyphicon glyphicon-ok"></span>
-									{% else %}
-									<span id="work-worker" data-worker-id="{{ header.id_worker }}">{{ header.workers[header.id_worker].worker }}</span>  <span class="glyphicon glyphicon-remove"></span>
-									{% endif %}
+									<div id="worker-select">
+										<select class="form-control input-sm" id="work-worker-select" name="work-worker-select">
+										{% for id_worker, worker in header.workers %}
+											<option value="{{ id_worker }}">{{ worker.worker }}</option>
+										{% endfor %}
+										</select> <span class="glyphicon glyphicon-ok onWorkerSave"></span>
+									</div>
+									<div id="worker-name">
+										<span id="work-worker" data-worker-id="{{ header.id_worker }}">{{ header.workers[header.id_worker].worker }}</span>  <span class="glyphicon glyphicon-remove onWorkerRemove"></span>
+									</div>
 								</div>
 								</dd>
 							</dl>

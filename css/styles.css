@@ -16,3 +16,7 @@
 #editFrame {
     display: none;
 }
+
+.onWorkerSave, .onWorkerRemove {
+    cursor: pointer;
+}

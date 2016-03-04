@@ -42,6 +42,10 @@ $(document).ready(function(){
 		});
 	});
 
+	if($("#work-worker").attr('data-worker-id') == 1)
+	$("#worker-name").hide();
+	else $("#worker-select").hide();
+
 	$(".onPartsAdd").on('click', function () {
 		$("#parts").append($("#parts_row").html());
 	});
