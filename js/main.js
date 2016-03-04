@@ -46,6 +46,43 @@ $(document).ready(function(){
 	$("#worker-name").hide();
 	else $("#worker-select").hide();
 
+	$(".onWorkerSave").on('click', function(event) {
+		var id = $("#work-id").html();
+		var id_worker = $("#work-worker-select").val();
+		var name = $("#work-worker-select option:selected").text();
+		$.ajax({
+			type: "GET",
+			url: 'ajax/edit_worker.php',
+			data: "id="+id+"&id_worker="+id_worker,
+			success: function(data, textStatus){
+				$("#work-worker").html(name);
+				$("#worker-name").show();
+				$("#worker-select").hide();
+				notify('success', "Работа закреплена");
+			},
+			error: function(jqXHR, textStatus, errorThrown){
+				notify('danger', textStatus);
+			}
+		});
+	});
+
+$(".onWorkerRemove").on('click', function(event) {
+		var id = $("#work-id").html();
+		$.ajax({
+			type: "GET",
+			url: 'ajax/edit_worker.php',
+			data: "id="+id,
+			success: function(data, textStatus){
+				$("#worker-select").show();
+				$("#worker-name").hide();
+				notify('success', "Работа освобождена");
+			},
+			error: function(jqXHR, textStatus, errorThrown){
+				notify('danger', textStatus);
+			}
+		});
+	});
+
 	$(".onPartsAdd").on('click', function () {
 		$("#parts").append($("#parts_row").html());
 	});
