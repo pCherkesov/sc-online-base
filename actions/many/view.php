@@ -36,18 +36,18 @@ private $urls = array('lefturl' => "", 'month' => "", 'righturl' => "");
 				$word_month = array ("НУЛЯБРЬ", "ЯНВАРЬ", "ФЕВРАЛЬ", "МАРТ", "АПРЕЛЬ", "МАЙ", "ИЮНЬ", "ИЮЛЬ", "АВГУСТ", "СЕНТЯБРЬ", "ОКТЯБРЬ", "НОЯБРЬ", "ДЕКАБРЬ");
 				
 				$date = explode("/", $_GET['date']);
-				$mon = $date[0];
-				$year = $date[1];
+				$mon = (int)$date[0];
+				$year = (int)$date[1];
 				if ($mon == '13') {$mon = '1'; $year++;}
 				if ($mon == '0') {$mon = '12'; $year--;}
 				//$month = "r.date BETWEEN '".$year."-".$mon."-01' and '".$year."-".$mon."-31'"; 
-				$month = "r.date BETWEEN '".$date[1]."-".$date[0]."-01' and '".$date[1]."-".$date[0]."-31'"; 
+				$month = "r.date_complete BETWEEN '".$date[1]."-".$date[0]."-01' and '".$date[1]."-".$date[0]."-31'"; 
 				
 				if (isset($_GET['id_worker'])) $povtor_work = "&id_worker=".$_GET['id_worker']; else $povtor_work = "";
 
-				$this->urls['lefturl'] = $_SERVER['PHP_SELF']."?r=many/".$_REQUEST['act']."&date=".($mon-1).$povtor_work."/".$year;
+				$this->urls['lefturl'] = $_SERVER['PHP_SELF']."?r=many/".$route[1]."&date=".($mon-1).$povtor_work."/".$year;
 				$this->urls['month'] = $word_month[$mon]. " " . $year;
-				$this->urls['righturl'] = $_SERVER['PHP_SELF']."?r=many/".$_REQUEST['act']."&date=".($mon+1).$povtor_work."/".$year;
+				$this->urls['righturl'] = $_SERVER['PHP_SELF']."?r=many/".$route[1]."&date=".($mon+1).$povtor_work."/".$year;
 
             break;
 			default: 
@@ -90,7 +90,7 @@ private $urls = array('lefturl' => "", 'month' => "", 'righturl' => "");
 		$serial.
 		$add_query." 
 		GROUP BY  r.date, r.id_r ASC";
-//		echo "<br />".$query."<br />";
+		// echo "<br />".$query."<br />";
 	    $result = mysqli_query($S_CONFIG['link'], $query) or exit(mysql_error());
 		
             // Подключение
@@ -113,7 +113,7 @@ private $urls = array('lefturl' => "", 'month' => "", 'righturl' => "");
 				$option_query['id_worker']
 			);
 
-			array_push($this->data, $this->works[$option_query['id_r']]->view($_REQUEST['act']));
+			array_push($this->data, $this->works[$option_query['id_r']]->view($route[1]));
 			$this->works[$option_query['id_r']] = NULL;
 		}
 	    //echo "</table><br />";

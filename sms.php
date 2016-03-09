@@ -35,7 +35,7 @@ while ($line = mysqli_fetch_array($result, MYSQL_ASSOC)) {
 }
 
 
-$template = $twig->loadTemplate('sms.html');
+$template = $S_CONFIG['twig']->loadTemplate('sms.html');
 echo $template->render(array('data' => $data, 'search' => $search));
 // print_r($search);
 ?>

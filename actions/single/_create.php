@@ -34,8 +34,8 @@ $args = array(
 $inputs = filter_input_array(INPUT_POST, $args);
 // var_dump($inputs);
 
-if($inputs['edit_id_work'] != '0') {
-	$f_error = "Неправильный ID";
+if($inputs['edit_id_work'] != 0) {
+	$redirect['error_text'] = "Неправильный ID";
 }
 else {
 // `id`, `id_r`, `date`, `text`, `price`, `hard`, `hard_price`, `id_worker`, `hidden`
@@ -46,27 +46,11 @@ else {
 	'".$inputs['edit_parts']."', '".$inputs['edit_parts_price']."',
 	'".$inputs['edit_worker']."', 'N')";
 
-	$result = mysqli_query($S_CONFIG['link'], $query) or $f_error = mysqli_error($S_CONFIG['link']);
+	$result = mysqli_query($S_CONFIG['link'], $query) or $redirect['error_text'] = mysqli_error($S_CONFIG['link']);
 }
 
-if(isset($f_error)) die($f_error);
-$redirect = $_SERVER['HTTP_REFERER'];
+$redirect['timer'] = 0;
+$redirect['url'] = $_SERVER['HTTP_REFERER'];
 
-echo <<<HTML
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-HTML;
-
-echo "	<meta http-equiv='refresh' content='0; URL=".$redirect."' />";
-
-echo <<<HTML
-</head>
-<body>
-</body>
-</html>
-HTML;
-
-exit();
+render(array('redirect' => $redirect), "redirect");
 ?>

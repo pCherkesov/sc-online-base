@@ -26,6 +26,19 @@ $(document).ready(function(){
 		searchType: 'fuzzy'
 	});
 
+	$('body').append('<div id="backToTop" class="btn"><span class="glyphicon glyphicon-chevron-up"></span></div>');
+		$(window).scroll(function () {
+			if ($(this).scrollTop() <= 400) {
+				$('#backToTop').fadeOut();
+			} else {
+				$('#backToTop').fadeIn();
+			}
+		}); 
+	$('#backToTop').click(function(){
+		$("html, body").animate({ scrollTop: 0 }, 600);
+		return false;
+	});
+
 	$(".statusbar label").on('click', function () {
 			var id = $(this).attr('data-id');
 			var value = $(this).attr('data-value');
@@ -66,7 +79,7 @@ $(document).ready(function(){
 		});
 	});
 
-$(".onWorkerRemove").on('click', function(event) {
+	$(".onWorkerRemove").on('click', function(event) {
 		var id = $("#work-id").html();
 		$.ajax({
 			type: "GET",
@@ -87,10 +100,36 @@ $(".onWorkerRemove").on('click', function(event) {
 		$("#parts").append($("#parts_row").html());
 	});
 
+	$(".onWorkComplete").on('click', function (event) {
+		$("#editForm").attr("action", "index.php?r=single/_complete");
+		$("#editForm").submit();
+		event.preventDefault();
+	});
+
+	$(".onWorkUncomplete").on('click', function (event) {
+		$("#editForm").attr("action", "index.php?r=single/_uncomplete");
+		$("#editForm").submit();
+		event.preventDefault();
+	});
+
+	$(".onWorkUncompleteWOCheck").on('click', function (event) {
+		$("#editForm").attr("action", "index.php?r=single/_uncomplete&print_check=0");
+		$("#editForm").submit();
+		event.preventDefault();
+	});
+
+	$(".onWorkDel").on('click', function (event) {
+		var id = $(this).attr('data-work-id');
+		$("#editForm").attr("action", "index.php?r=single/_delete");
+		$("#edit_id_work").val(id);
+		$("#editForm").submit();
+		event.preventDefault();
+	});
+
 	$(".onWorkEdit").on('click', function (event) {
 		var id = $(this).attr('data-work-id');
 		$("#editFrame").show();
-		$("#editForm").attr("action", "index.php?r=single/_edit");		
+		$("#editForm").attr("action", "index.php?r=single/_edit");
 		$("#edit_id_work").val(id);
 		$.ajax({
 			type: "GET",
@@ -121,7 +160,7 @@ $(".onWorkerRemove").on('click', function(event) {
 				$("#edit_text").focus();
 			},
 			error: function(jqXHR, textStatus, errorThrown){
-				alert(textStatus);
+				notify('danger', textStatus);
 			}
 		});
 		event.preventDefault();
@@ -148,9 +187,9 @@ $(".onWorkerRemove").on('click', function(event) {
 	});
 
 	$("#editForm").on('submit', function(event) {
-		var id = $("#edit_id_work").val();
-		if(id == 0) var action = "create";
-		else var action = "edit";
+		// var id = $("#edit_id_work").val();
+		// if(id == 0) var action = "create";
+		// else var action = "edit";
 
 		var parts = new Array();
 		var parts_price = 0;
@@ -163,14 +202,28 @@ $(".onWorkerRemove").on('click', function(event) {
 		});
 		$("#edit_parts").val(JSON.stringify(parts));
 		$("#edit_parts_price").val(parts_price);
-
-		// var json = JSON.stringify({
-		// 	'edit_date': $('#edit_date').val(),
-		// 	'edit_text': $('#edit_text').html(),
-		// 	'edit_price':  parseInt($('#edit_price').val()),
-		// 	'edit_parts': $('#edit_parts').val(),
-		// 	'edit_parts_price':  parseInt($("#edit_parts_price").val()),
-		// 	'edit_worker': $('#edit_worker').val(),
-		// });
 	});
+
+
+    $("#sendSMS_submit").on('click', function() {
+        var id = $("#work-id").html();
+        var tel = $("#client_tel").html();
+        var text = $("#sendSMS_text").val();
+        $(this).button('loading');
+        $.ajax({
+                type: "POST",
+                url: './ajax/send_sms.php',
+                data: "id="+id+"&tel="+tel+"&msg="+text,
+                success: function(data){
+                        notify('success', "Сообщение отправлено <br>"+data);
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                        notify('danger', textStatus + " " + errorThrown);
+                },
+                always: function() {
+                }
+        });
+        $(this).button('reset');
+        $('#sendSMS_modal').modal('hide');
+    });
 });

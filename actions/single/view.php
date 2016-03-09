@@ -40,7 +40,6 @@ $total_price = $total_hard_price = 0;
 
 $works = array();
 while ($lines = mysqli_fetch_array($results, MYSQL_ASSOC)) {
-
 	if(isJson($lines['hard'])) $lines['hard'] = json_decode($lines['hard'], true);
 	else $lines['hard'] = str_replace("\r\n", "<br />", $lines['hard']);
 
@@ -70,5 +69,7 @@ $header['string_text'] = array(
 	'Неудача',
 	'Ждём поставки',
 );
+
+render($data = array('main' => $main, 'header' => $header, 'works' => $works));
 
 ?>

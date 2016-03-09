@@ -1,9 +1,9 @@
 {% extends "main.html" %}
 {% block content %}
 				{% if header.complete == "Y" %}
-				<span class="glyphicon glyphicon-chevron-left"></span> <a href='/skeleton.php?act=complete'>Вернуться назад</a>
+				<span class="glyphicon glyphicon-chevron-left"></span> <a href='/index.php?r=many/complete'>Вернуться назад</a>
 				{% else %}
-				<span class="glyphicon glyphicon-chevron-left"></span> <a href='/skeleton.php?act=incomplete'>Вернуться назад</a>
+				<span class="glyphicon glyphicon-chevron-left"></span> <a href='/index.php?r=many/incomplete'>Вернуться назад</a>
 				{% endif %}
 
 				<h3>
@@ -93,9 +93,16 @@
 			{{ header.workers[work.id_worker].worker }}</td>
 			<td>{{ work.date }}</td>
 			<td class="work" align="left">{{ work.text|raw }}
+			{% if work.hard is iterable %}
+				<i>
 			{% for hard in work.hard %}
 				<br />{{ hard.edit_hard }} - {{ hard.edit_hardprice }}
 			{% endfor %}
+				</i>
+			{% else %}
+				<br />
+				{{ work.hard|raw }}
+			{% endif %}
 			</td>
 			<td align="center">{{ work.price }}
 			{% if work.hard_price != 0 %}<br />{{ work.hard_price }}{% endif %}
@@ -104,7 +111,7 @@
 			{% if header.complete == "N" %}
 			<a href="#" data-work-id="{{ work.id }}" class="onWorkEdit"><span class="glyphicon glyphicon-pencil"></span></a>
 			&nbsp;
-			<a href="#"><span style="color: red;" class="glyphicon glyphicon-remove"></span></a>
+			<a href="#" data-work-id="{{ work.id }}" class="onWorkDel"><span style="color: red;" class="glyphicon glyphicon-remove"></span></a>
 			{% endif %}
 			</td>
 	</tr>
@@ -121,7 +128,7 @@
 				<i class="glyphicon glyphicon-envelope"></i> СМС <span class="caret"></span>
 				</button>
 				<ul class="dropdown-menu" role="menu">
-					<li><a href="#">Отправить</a></li>
+					<li><a data-toggle="modal" data-target="#sendSMS_modal" href="#">Отправить</a></li>
 					<li><a href="/sms.php?search='.$this->client_tel.'" target="_blank">История</a></li>
 				</ul>
 			</div>
@@ -135,18 +142,18 @@
 				</ul>
 			</div>
 			<div class="btn-group">
-				<a class="btn btn-success"  href="request.php?action=complete&id_r='.$_REQUEST['id_r'].'&refer=2">
+				<a class="btn btn-success onWorkComplete"  href="">
 				<i class="glyphicon glyphicon-ok"></i> Завершить работу</a>
 				<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
 					<span class="caret"></span>&nbsp;
 					<span class="sr-only">Меню с переключением</span>
 				</button>
 				<ul class="dropdown-menu" role="menu">
-					<li><a href="request.php?action=complete&id_r='.$_REQUEST['id_r'].'&refer=2">Завершить без чека</a></li>
+					<li><a href="" class="onWorkCompleteWOCheck">Завершить без чека</a></li>
 				</ul>
 			</div>
 		{% else %}
-			<a class="btn btn-default btn-danger" href="request.php?action=complete&id_r='.$_REQUEST['id_r'].'&refer=3"><i class="glyphicon glyphicon-ok"></i> Вернуть в работу</a>
+			<a class="btn btn-default btn-danger onWorkUncomplete" href=""><i class="glyphicon glyphicon-ok"></i> Вернуть в работу</a>
 		{% endif %}
 		</div>
 		<div class="col-md-4">
@@ -199,7 +206,7 @@
 								<input type="number" id="edit_price" name="edit_price" value="" placeholder="Цена" class="form-control"></input>
 							</div>
 							<div class="col-md-2 col-md-offset-4">
-								<button type="button" class="btn btn-info btn-block onPartsAdd"><i class="glyphicon glyphicon-th-list"></i> Комплектующие</button>
+								<button type="button" class="btn btn-info btn-block onPartsAdd"><i class="glyphicon glyphicon-plus"></i> Комплектующие</button>
 							</div>
 						</div>
 					</div>
@@ -232,12 +239,28 @@
 								</select>
 							</div>
 							<div class="col-md-2">
-								<button type="submit" class="btn btn-primary btn-block"><i class="glyphicon glyphicon-plus"></i> Сохранить запись</button>
+								<button type="submit" class="btn btn-primary btn-block"><i class="glyphicon glyphicon-ok"></i> Сохранить запись</button>
 							</div>
 						</div>
 					</div>
 				</div>
 			</form>            
+		</div>
+	</div>
+	<div class="modal fade" id="sendSMS_modal" tabindex="-1" role="dialog" aria-labelledby="sendSMS_label" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="sendSMS_label">Отправить SMS клиенту</h4>
+				</div>
+				<div class="modal-body">
+					<textarea id="sendSMS_text" class="form-control" rows="4"></textarea>
+				</div>
+				<div class="modal-footer">
+					<button type="button" id="sendSMS_submit" autocomplete="off" class="btn btn-primary" data-loading-text="Отправка...">Отправить</button>
+				</div>
+			</div>
 		</div>
 	</div>
 {% endblock %}
