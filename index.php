@@ -1,5 +1,5 @@
 <?php
-require("init.php");
+require_once("init.php");
 
 if(!isset($_REQUEST['r'])) $_REQUEST['r'] = "many/incomplete";
 

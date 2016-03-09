@@ -15,7 +15,7 @@
     <div class="input-group">
             <input type="search" id="search" value="" class="form-control" placeholder="Search...">
             <div class="input-group-btn">
-             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-remove form-control-feedback"></span></button>
+             <button type="button" id="search-clear" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-remove form-control-feedback"></span></button>
                 
             </div>
     </div>
@@ -27,6 +27,7 @@
 <thead>
     <tr>
         <th>&nbsp;</th>
+        <th class="hide">##</th>
         <th>Дата</th>
         <th>Техника</th>
         <th>Заказчик</th>
@@ -45,6 +46,7 @@
             <td width="2%">
                 <span style="color: #{{ work.worker_colors[work.id_worker] }}" class="glyphicon glyphicon glyphicon-user"></span>
             </td>
+            <td class="hide">{{ work.id_r }}</td>
             <td align="center">{{ work.date }}</td>
             <td align="left">
                 <a href="index.php?r=single/view&id={{ work.id_r }}">{{ work.type }} {{ work.brand }} {{ work.model }}</a>

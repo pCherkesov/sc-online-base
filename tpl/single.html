@@ -1,7 +1,7 @@
 {% extends "main.html" %}
 {% block content %}
 				{% if header.complete == "Y" %}
-				<span class="glyphicon glyphicon-chevron-left"></span> <a href='/index.php?r=many/complete'>Вернуться назад</a>
+				<span class="glyphicon glyphicon-chevron-left"></span> <a href='/index.php?r=many/complete&date={{ "now"|date("m/Y") }}'>Вернуться назад</a>
 				{% else %}
 				<span class="glyphicon glyphicon-chevron-left"></span> <a href='/index.php?r=many/incomplete'>Вернуться назад</a>
 				{% endif %}

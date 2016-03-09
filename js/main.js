@@ -23,7 +23,8 @@ $(document).ready(function(){
 		striped: true,
 		oddRow: { 'background-color': '#f5f5f5' },
 		evenRow: { 'background-color': '#ffffff' },
-		searchType: 'fuzzy'
+		searchType: 'default'
+		//'fuzzy'
 	});
 
 	$('body').append('<div id="backToTop" class="btn"><span class="glyphicon glyphicon-chevron-up"></span></div>');
