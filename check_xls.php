@@ -96,7 +96,7 @@ $rangeValue->Value = date("d.m.Y");
 
 $sheet->PrintOut(); //$ActivePrinter='\\\\MIROTWOREZ-PC\\Zebra LP2742');
 
-$xls->Workbooks[1]->SaveAs(recursiveRename('C:\xampp\htdocs\online-service.ru\print\\'.$print_id));
+$xls->Workbooks[1]->SaveAs(recursiveRename('C:\xampp\htdocs\online-service.ru\print\\'.$inputs['edit_id']));
 
 $xls->Quit();
 
