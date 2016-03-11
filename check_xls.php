@@ -1,12 +1,19 @@
 <?php
 require_once("init.php");
-
+$_HOME = False;
 if (!isset($inputs['edit_id'])) $redirect['error_text'] = "Unknown work ID";
 
 $xls = new COM('Excel.Application');
-$xls->Application->Visible = 0;
-$xls->Workbooks->Open('C:\xampp\htdocs\online-service.ru\Forms\check.xls');
-// $xls->Workbooks->Open('c:\servers\OpenServer\domains\online-service.local\Forms\check.xls');
+
+if($_HOME == TRUE) {
+	$xls->Application->Visible = 1;
+	$xls->Workbooks->Open('c:\servers\OpenServer\domains\online-service.local\Forms\check.xls');
+}
+else {
+	$xls->Application->Visible = 0;
+	$xls->Workbooks->Open('C:\xampp\htdocs\online-service.ru\Forms\check.xls');
+}
+
 $sheet = $xls->Worksheets('check');
 $sheet->activate;
 //$xls->Workbooks->Add();
@@ -94,11 +101,14 @@ $rangeValue->Value = date("H:i");
 $rangeValue = $xls->Range("B25");
 $rangeValue->Value = date("d.m.Y");
 
-$sheet->PrintOut(); //$ActivePrinter='\\\\MIROTWOREZ-PC\\Zebra LP2742');
+if($_HOME == TRUE) {
+}
+else {
+	$sheet->PrintOut(); //$ActivePrinter='\\\\MIROTWOREZ-PC\\Zebra LP2742');
+	$xls->Workbooks[1]->SaveAs(recursiveRename('C:\xampp\htdocs\online-service.ru\print\\'.$inputs['edit_id']));
 
-$xls->Workbooks[1]->SaveAs(recursiveRename('C:\xampp\htdocs\online-service.ru\print\\'.$inputs['edit_id']));
-
-$xls->Quit();
+	$xls->Quit();
+}
 
 //$xls->Release();
 $xls = Null; 

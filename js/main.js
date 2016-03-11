@@ -70,6 +70,7 @@ $(document).ready(function(){
 			data: "id="+id+"&id_worker="+id_worker,
 			success: function(data, textStatus){
 				$("#work-worker").html(name);
+				$("#work-worker").attr("data-worker-id", id_worker);
 				$("#worker-name").show();
 				$("#worker-select").hide();
 				notify('success', "Работа закреплена");
@@ -87,6 +88,7 @@ $(document).ready(function(){
 			url: 'ajax/edit_worker.php',
 			data: "id="+id,
 			success: function(data, textStatus){
+				$("#work-worker").attr("data-worker-id", "");
 				$("#worker-select").show();
 				$("#worker-name").hide();
 				notify('success', "Работа освобождена");
@@ -102,6 +104,12 @@ $(document).ready(function(){
 	});
 
 	$(".onWorkComplete").on('click', function (event) {
+		$("#editForm").attr("action", "index.php?r=single/_complete&print_check=1");
+		$("#editForm").submit();
+		event.preventDefault();
+	});
+
+	$(".onWorkCompleteWOCheck").on('click', function (event) {
 		$("#editForm").attr("action", "index.php?r=single/_complete");
 		$("#editForm").submit();
 		event.preventDefault();
@@ -109,12 +117,6 @@ $(document).ready(function(){
 
 	$(".onWorkUncomplete").on('click', function (event) {
 		$("#editForm").attr("action", "index.php?r=single/_uncomplete");
-		$("#editForm").submit();
-		event.preventDefault();
-	});
-
-	$(".onWorkUncompleteWOCheck").on('click', function (event) {
-		$("#editForm").attr("action", "index.php?r=single/_uncomplete&print_check=0");
 		$("#editForm").submit();
 		event.preventDefault();
 	});
@@ -188,10 +190,6 @@ $(document).ready(function(){
 	});
 
 	$("#editForm").on('submit', function(event) {
-		// var id = $("#edit_id_work").val();
-		// if(id == 0) var action = "create";
-		// else var action = "edit";
-
 		var parts = new Array();
 		var parts_price = 0;
 		$("#parts .row").each(function(index) {
@@ -205,16 +203,12 @@ $(document).ready(function(){
 		$("#edit_parts_price").val(parts_price);
 	});
 
-
-    $("#sendSMS_submit").on('click', function() {
-        var id = $("#work-id").html();
-        var tel = $("#client_tel").html();
-        var text = $("#sendSMS_text").val();
-        $(this).button('loading');
+    $("#sendMail_submit").on('click', function() {
+        var text = $("#sendMail_text").val();
         $.ajax({
                 type: "POST",
-                url: './ajax/send_sms.php',
-                data: "id="+id+"&tel="+tel+"&msg="+text,
+                url: './ajax/send_mail.php',
+                data: "msg="+text,
                 success: function(data){
                         notify('success', "Сообщение отправлено <br>"+data);
                 },
@@ -224,7 +218,28 @@ $(document).ready(function(){
                 always: function() {
                 }
         });
-        $(this).button('reset');
-        $('#sendSMS_modal').modal('hide');
+        $('#sendMail_modal').modal('hide');
     });
+
+	$("#sendSMS_submit").on('click', function() {
+		var id = $("#work-id").html();
+		var tel = $("#client_tel").html();
+		var text = $("#sendSMS_text").val();
+		$(this).button('loading');
+		$.ajax({
+				type: "POST",
+				url: './ajax/send_sms.php',
+				data: "id="+id+"&tel="+tel+"&msg="+text,
+				success: function(data){
+						notify('success', "Сообщение отправлено <br>"+data);
+				},
+				error: function(jqXHR, textStatus, errorThrown){
+						notify('danger', textStatus + " " + errorThrown);
+				},
+				always: function() {
+				}
+		});
+		$(this).button('reset');
+		$('#sendSMS_modal').modal('hide');
+	});
 });

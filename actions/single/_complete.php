@@ -17,12 +17,11 @@ else {
 	$result = mysqli_query($S_CONFIG['link'], $query) or $redirect['error_text'] = mysqli_error($S_CONFIG['link']);
 }
 
-if(!isset($_GET['print_check'])) {
-	// echo "PRINT CHECK";
+if(isset($_GET['print_check'])) {
 	require_once('check_xls.php');
 }
 
-$redirect['timer'] = 10;
+$redirect['timer'] = 0;
 
 if(isset($redirect['error_text'])) $redirect['url'] = $_SERVER['HTTP_REFERER'];
 else $redirect['url'] = "/index.php?r=many/incomplete";
