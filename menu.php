@@ -5,11 +5,11 @@
 	</td>
 	
 	<td>
-	    <a href="skeleton.php?act=incomplete">Незавершённые</a>
+	    <a href="/index.php?r=many/incomplete">Незавершённые</a>
 	</td>
     
 	<td>
-	    <a href="skeleton.php?act=complete">Завершённые</a>
+	    <a href="/index.php?r=many/complete&date=<?=date("m/Y");?>">Завершённые</a>
 	</td>
     
 	<td>
@@ -17,7 +17,7 @@
 	</td>
     
 	<td>
-	    <a href="index.php">Забивная</a>
+	    <a href="/add.php">Забивная</a>
 	</td>
   </tr>
 </table>

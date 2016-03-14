@@ -58,7 +58,7 @@
 										</select> <span class="glyphicon glyphicon-ok onWorkerSave"></span>
 									</div>
 									<div id="worker-name">
-										<span id="work-worker" data-worker-id="{{ header.id_worker }}">{{ header.workers[header.id_worker].worker }}</span>  <span class="glyphicon glyphicon-remove onWorkerRemove"></span>
+										<span id="work-worker" data-worker-id="{{ header.id_worker }}">{{ header.workers[header.id_worker].worker }}</span> <span class="glyphicon glyphicon-remove onWorkerRemove"></span>
 									</div>
 								</div>
 								</dd>
@@ -129,7 +129,7 @@
 				</button>
 				<ul class="dropdown-menu" role="menu">
 					<li><a data-toggle="modal" data-target="#sendSMS_modal" href="#">Отправить</a></li>
-					<li><a href="/sms.php?search='.$this->client_tel.'" target="_blank">История</a></li>
+					<li><a href="/index.php?r=sms/view&search={{ header.client_tel }}" target="_blank">История</a></li>
 				</ul>
 			</div>
 			<div class="btn-group">
@@ -137,7 +137,7 @@
 				<i class="glyphicon glyphicon-print"></i> Печать <span class="caret"></span>
 				</button>
 				<ul class="dropdown-menu" role="menu">
-					<li><a href="act_priema_html.php?id_r='.$this->id_r.'" target="_blank">Печать бланка</a></li>
+					<li><a href="act_priema_html.php?id_r={{ header.id_r }}" target="_blank">Печать бланка</a></li>
 					<li><a href="#" id="printCheck_submit">Печать чека</a></li>
 				</ul>
 			</div>

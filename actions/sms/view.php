@@ -1,6 +1,4 @@
 <?php
-require("init.php");
-global $S_CONFIG;
 
 $sms_status = array(
 	"0" => "Отправлено", 
@@ -35,7 +33,6 @@ while ($line = mysqli_fetch_array($result, MYSQL_ASSOC)) {
 }
 
 
-$template = $S_CONFIG['twig']->loadTemplate('sms.html');
-echo $template->render(array('data' => $data, 'search' => $search));
 // print_r($search);
+render($data = array('data' => $data, 'search' => $search));
 ?>
