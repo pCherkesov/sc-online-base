@@ -6,7 +6,7 @@ define("SMSC_PASSWORD", "2d854a402bb5ea469336faab70879f7d");	// пароль и�
 define("SMSC_POST", 1);					// использовать метод POST
 define("SMSC_HTTPS", 0);				// использовать HTTPS протокол
 define("SMSC_CHARSET", "utf-8");	// кодировка сообщения: utf-8, koi8-r или windows-1251 (по умолчанию)
-define("SMSC_DEBUG", 0);				// флаг отладки
+define("SMSC_DEBUG", 1);				// флаг отладки
 define("SMTP_FROM", "api@smsc.ru");     // e-mail адрес отправителя
 
 // Функция отправки SMS
@@ -40,7 +40,6 @@ function send_sms($phones, $message, $translit = 0, $time = 0, $id = 0, $format 
 					($time ? "&time=".urlencode($time) : "").($query ? "&$query" : ""), $files);
 
 	// (id, cnt, cost, balance) или (id, -error)
-
 	if (SMSC_DEBUG) {
 		if ($m[1] > 0)
 			echo "Сообщение отправлено успешно. ID: $m[0], всего SMS: $m[1], стоимость: $m[2], баланс: $m[3].\n";

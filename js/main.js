@@ -242,4 +242,20 @@ $(document).ready(function(){
 		$(this).button('reset');
 		$('#sendSMS_modal').modal('hide');
 	});
+
+	$("#printCheck_submit").on('click', function (event) {
+		var id = $("#work-id").html();
+		$.ajax({
+				type: "POST",
+				url: './check_xls.php',
+				data: "id="+id,
+				success: function(data){
+						notify('success', "Чек отправлен на печать <br>"+data);
+				},
+				error: function(jqXHR, textStatus, errorThrown){
+						notify('danger', textStatus + " " + errorThrown);
+				},
+		});
+		event.preventDefault();
+	});
 });

@@ -1,6 +1,14 @@
 <?php
 require_once("init.php");
 $_HOME = False;
+if (!isset($inputs['edit_id'])) {
+	$args = array(
+		'edit_id'		    => FILTER_VALIDATE_INT,
+	);
+
+	$inputs = filter_input_array(INPUT_POST, $args);
+}
+
 if (!isset($inputs['edit_id'])) $redirect['error_text'] = "Unknown work ID";
 
 $xls = new COM('Excel.Application');
@@ -97,15 +105,15 @@ $rangeValue = $xls->Range("D24");
 $rangeValue->Value = iconv("UTF-8", "cp1251", $total_price." руб.");
 
 $rangeValue = $xls->Range("A25");
-$rangeValue->Value = date("H:i");
+$rangeValue->Value = iconv("UTF-8", "cp1251", date("H:i"));
 $rangeValue = $xls->Range("B25");
-$rangeValue->Value = date("d.m.Y");
+$rangeValue->Value = iconv("UTF-8", "cp1251", date("d.m.Y"));
 
 if($_HOME == TRUE) {
 }
 else {
 	$sheet->PrintOut(); //$ActivePrinter='\\\\MIROTWOREZ-PC\\Zebra LP2742');
-	$xls->Workbooks[1]->SaveAs(recursiveRename('C:\xampp\htdocs\online-service.ru\print\\'.$inputs['edit_id']));
+	$xls->Workbooks[1]->SaveAs(recursiveRename('C:\xampp\htdocs\online-service.ru\print\\'. $inputs['edit_id']));
 
 	$xls->Quit();
 }
