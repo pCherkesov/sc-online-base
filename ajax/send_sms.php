@@ -29,7 +29,7 @@ while ($line = mysqli_fetch_array($result, MYSQL_ASSOC)) {
 	$status = $line['string'];
 }
 
-$status[9] == "Y";
+$status[9] = "Y";
 
 $query1 = "UPDATE `".$S_CONFIG['prefix']."remont` SET `string` = '".$status."' WHERE `id_r` = ".$idr." LIMIT 1";
 

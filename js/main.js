@@ -240,6 +240,7 @@ $(document).ready(function(){
 				}
 		});
 		$(this).button('reset');
+		$(".statusbar label[data-value=9]").addClass('active');
 		$('#sendSMS_modal').modal('hide');
 	});
 
