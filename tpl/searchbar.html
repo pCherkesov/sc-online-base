@@ -1,0 +1,34 @@
+<div class="row">
+	<div class="col-md-3">
+	{% if searchOption == 'year' %}
+		<div class="form-group btn-group">
+			<button type="button" class="btn btn-default">
+				<a href="{{ header.urls.lefturl }}"><span class="glyphicon glyphicon-chevron-left"></span></a>
+			</button>
+			<button type="button" class="btn btn-default">{{ header.urls.month }}</button>
+			<button type="button" class="btn btn-default">
+				<a href="{{ header.urls.righturl }}"><span class="glyphicon glyphicon-chevron-right"></span></a>
+			</button>
+		</div>
+	{% endif %}
+	{% if searchOption == 'worker' %}
+		<div class="form-group">	
+			<form id="workerSort" method="post" action="">
+				<select class="form-control" id="worker-sort">
+				{% for id_worker, worker in header.workers %}
+					<option value="{{ id_worker }}"{% if header.sort == id_worker %} selected{% endif %}>{{ worker.worker }}</option>
+				{% endfor %}
+				</select>
+			</form>
+		</div>
+	{% endif %}
+	</div>
+    <div class="col-md-9">
+        <div class="input-group">
+            <input type="search" id="search" value="" class="form-control" placeholder="Search...">
+            <div class="input-group-btn">
+                <button type="button" id="search-clear" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-remove form-control-feedback"></span></button>
+            </div>
+        </div>
+    </div>
+</div>

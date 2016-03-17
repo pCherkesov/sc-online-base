@@ -35,12 +35,17 @@ $(document).ready(function(){
 				$('#backToTop').fadeIn();
 			}
 		}); 
-	$('#backToTop').click(function(){
+	$('#backToTop').on('click', function(event){
 		$("html, body").animate({ scrollTop: 0 }, 600);
 		return false;
 	});
 
-	$(".statusbar label").on('click', function () {
+	$("#workerSort select").on('change', function(event){
+		$("#workerSort").attr("action", "index.php?r=many/incomplete&sort=" + $(this).val());
+		$("#workerSort").submit();
+	});
+
+	$(".statusbar label").on('click', function (event) {
 			var id = $(this).attr('data-id');
 			var value = $(this).attr('data-value');
 		$.ajax({

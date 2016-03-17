@@ -24,6 +24,11 @@
     -o-filter: grayscale(0%);
 }
 
+.worktotal {
+    padding-top: 0px;
+    padding-bottom: 30px;
+}
+
 #editFrame {
     display: none;
 }

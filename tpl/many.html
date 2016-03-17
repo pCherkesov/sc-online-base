@@ -1,25 +1,13 @@
 {% extends "main.html" %}
 {% block content %}
-{% if data.month %}
-<div class="btn-group">
-  <button type="button" class="btn btn-default"><a href="{{ data.lefturl }}"><span class="glyphicon glyphicon-chevron-left"></span></a></button>
-  <button type="button" class="btn btn-default">{{ data.month }}</button>
-  <button type="button" class="btn btn-default"><a href="{{ data.righturl }}"><span class="glyphicon glyphicon-chevron-right"></span></a></button>
-</div>
-<br />
-<br />
+
+{% if header.urls.month %}
+    {% set searchOption = 'year' %}
+{% else %}
+    {% set searchOption = 'worker' %}
 {% endif %}
-<div class="row">
-    <div class="col-md-12">
-        <div class="input-group">
-            <input type="search" id="search" value="" class="form-control" placeholder="Search...">
-            <div class="input-group-btn">
-                <button type="button" id="search-clear" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-remove form-control-feedback"></span></button>
-            </div>
-        </div>
-    </div>
-</div>
-<br />
+{% include 'searchbar.html' with {'searchOption': searchOption, 'header': header } %}
+
 <table class="table table-bordered table-condensed table-hover" id="table-works">
 <thead>
     <tr>
@@ -34,23 +22,36 @@
     </tr>
 </thead>
 <tbody>
-{% for work in data.works %}
+{% for work in works %}
     {% if work.complete == "Y" %}
     <tr class="active">
     {% else %}
     <tr>
     {% endif %}
             <td width="2%">
-                <span style="color: #{{ work.worker_colors[work.id_worker] }}" class="glyphicon glyphicon glyphicon-user"></span>
+                <span style="color: #{{ header.workers[work.id_worker].color }}" class="glyphicon glyphicon glyphicon-user" data-toggle="tooltip" data-placement="top" data-original-title="{{ header.workers[work.id_worker].worker }}"></span>
             </td>
             <td class="hide">{{ work.id_r }}</td>
             <td align="center">{{ work.date }}</td>
             <td align="left">
                 <a href="index.php?r=single/view&id={{ work.id_r }}">{{ work.type }} {{ work.brand }} {{ work.model }}</a>
             </td>
-            <td align="center">{{ work.client_fio }}</td>
+            <td align="center">
+            {% if work.id_client == 1 %}
+                {{ work.client_fio }}
+            {% else %}
+                {{ work.client }}
+            {% endif %}
+            </td>
             <td align="center">{{ work.serial }}</td>
-            <td align="center">{{ work.znaki|raw }}</td>
+            <td align="center">
+            {% for icon in work.string %}
+                {% if icon == 'Y' %}
+                    <img src='img/icon/s_{{ loop.index0 }}_Y.png' data-toggle="tooltip" data-placement="top" data-original-title='{{ header.string_text[loop.index0]|default('Нет описания') }}' />
+                {% endif %}
+            {% endfor %}
+            <!-- {{ work.znaki|raw }} -->
+            </td>
 <!--             <td  align="center">
             <img src="Images/Icon/b_edit.png" border="0" alt="Edit">
             &nbsp;

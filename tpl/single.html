@@ -119,7 +119,23 @@
 </table>
 
 	<div class="row">
-		<div class="col-md-8">
+		<div class="col-md-6 col-md-offset-6">
+			<h4 class="pull-right worktotal">Итого: ({{ header.total_price }} + {{ header.total_hard_price }}) = {{header.total_price + header.total_hard_price }} руб.</h4>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-6">
+			<div class="btn-group statusbar" data-toggle="buttons" id="status-icon">
+			{% for icon in header.string %}
+				<label class="btn btn-default{% if icon == 'Y' %} active{% endif %}" data-id="{{ header.id_r }}" data-value="{{ loop.index0 }}">
+					<input type="checkbox">
+					<img src='Images/Icon/s_{{ loop.index0 }}_Y.png' data-toggle="tooltip" data-placement="top" data-original-title='{{ header.string_text[loop.index0]|default('Нет описания') }}' />
+				</label>
+			{% endfor %}
+			</div>
+		</div>
+		<div class="col-md-6">
 		{% if header.complete == "N" %}
 			<button type="button" class="btn btn-primary onWorkAdd" data-curr-date="{{ "now"|date("Y-m-d") }}">
 			<i class="glyphicon glyphicon-plus"></i> Добавить запись</button>
@@ -137,7 +153,7 @@
 				<i class="glyphicon glyphicon-print"></i> Печать <span class="caret"></span>
 				</button>
 				<ul class="dropdown-menu" role="menu">
-					<li><a href="act_priema_html.php?id_r={{ header.id_r }}" target="_blank">Печать бланка</a></li>
+					<li><a href="act_priema.php?id_r={{ header.id_r }}" target="_blank">Печать бланка</a></li>
 					<li><a href="#" id="printCheck_submit">Печать чека</a></li>
 				</ul>
 			</div>
@@ -155,23 +171,7 @@
 		{% else %}
 			<a class="btn btn-default btn-danger onWorkUncomplete" href=""><i class="glyphicon glyphicon-ok"></i> Вернуть в работу</a>
 		{% endif %}
-		</div>
-		<div class="col-md-4">
-			<h3 class="pull-right">Итого: ({{ header.total_price }} + {{ header.total_hard_price }}) = {{header.total_price + header.total_hard_price }} руб.</h3>
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="col-md-12">
-			<div class="btn-group btn-group-sm statusbar" data-toggle="buttons" id="status-icon">
-			{% for icon in header.string %}
-				<label class="btn btn-default{% if icon == 'Y' %} active{% endif %}" data-id="{{ header.id_r }}" data-value="{{ loop.index0 }}">
-					<input type="checkbox">
-					<img src='Images/Icon/s_{{ loop.index0 }}_Y.png' data-toggle="tooltip" data-placement="top" data-original-title='{{ header.string_text[loop.index0]|default('Нет описания') }}' />
-				</label>
-			{% endfor %}
-			</div>
-		</div>
+		</div>		
 	</div>
 
 	<hr />
@@ -234,7 +234,9 @@
 							<div class="col-md-2 col-md-offset-6">
 								<select class="form-control" id="edit_worker" name="edit_worker">
 								{% for id_worker, worker in header.workers %}
+									{% if worker.hidden == 'N' %}
 									<option value="{{ id_worker }}">{{ worker.worker }}</option>
+									{% endif %}
 								{% endfor %}
 								</select>
 							</div>

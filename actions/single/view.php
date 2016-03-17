@@ -52,7 +52,7 @@ $header['total_price'] = $total_price;
 $header['total_hard_price'] = $total_hard_price;
 // END WORK DETAILS
 
-$query = "SELECT * FROM `".$S_CONFIG['prefix']."worker` WHERE `hidden` = 'N'";
+$query = "SELECT * FROM `".$S_CONFIG['prefix']."worker`";
 $result = mysqli_query($S_CONFIG['link'], $query) or exit(mysqli_error($S_CONFIG['link']));
 
 while($option = mysqli_fetch_assoc($result)){
