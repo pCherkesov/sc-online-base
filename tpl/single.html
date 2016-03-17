@@ -53,7 +53,9 @@
 									<div id="worker-select">
 										<select class="form-control input-sm" id="work-worker-select" name="work-worker-select">
 										{% for id_worker, worker in header.workers %}
+											{% if worker.hidden == 'N' %}
 											<option value="{{ id_worker }}">{{ worker.worker }}</option>
+											{% endif %}
 										{% endfor %}
 										</select> <span class="glyphicon glyphicon-ok onWorkerSave"></span>
 									</div>
