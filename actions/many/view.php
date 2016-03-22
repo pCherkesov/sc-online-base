@@ -12,8 +12,8 @@ switch($route[1]){
 		if (!isset($_GET['year'])) $year = date("Y"); else $year = $_GET['year'];
 						$month = "r.date BETWEEN '".$year."-01-01' and '".$year."-12-31'"; 
 						$urls['month'] = $year;
-						$urls['lefturl'] = $_SERVER['PHP_SELF']."?act=".$_REQUEST['act']."&year=".($year-1);
-						$urls['righturl'] = $_SERVER['PHP_SELF']."?act=".$_REQUEST['act']."&year=".($year+1);
+						$urls['lefturl'] = $_SERVER['PHP_SELF']."?r=many/".$route[1]."&year=".($year-1);
+						$urls['righturl'] = $_SERVER['PHP_SELF']."?r=many/".$route[1]."&year=".($year+1);
 
 		break;
 
@@ -39,9 +39,9 @@ switch($route[1]){
 		
 		if (isset($_GET['id_worker'])) $povtor_work = "&id_worker=".$_GET['id_worker']; else $povtor_work = "";
 
-		$urls['lefturl'] = $_SERVER['PHP_SELF']."?r=many/".$route[1]."&date=".($mon-1).$povtor_work."/".$year;
+		$urls['lefturl'] = $_SERVER['PHP_SELF']."?r=many/".$route[1]."&date=".($mon-1)."/".$year.$povtor_work;
 		$urls['month'] = $word_month[$mon]. " " . $year;
-		$urls['righturl'] = $_SERVER['PHP_SELF']."?r=many/".$route[1]."&date=".($mon+1).$povtor_work."/".$year;
+		$urls['righturl'] = $_SERVER['PHP_SELF']."?r=many/".$route[1]."&date=".($mon+1)."/".$year.$povtor_work;
 
 	break;
 

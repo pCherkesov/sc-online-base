@@ -35,7 +35,7 @@ order by `id` ASC;
 */
 		
 	function __construct () {
-			$word_month = array ("Õ”Àﬂ¡–‹", "ﬂÕ¬¿–‹", "‘≈¬–¿À‹", "Ã¿–“", "¿œ–≈À‹", "Ã¿…", "»ﬁÕ‹", "»ﬁÀ‹", "¿¬√”—“", "—≈Õ“ﬂ¡–‹", "Œ “ﬂ¡–‹", "ÕŒﬂ¡–‹", "ƒ≈ ¿¡–‹");
+			$word_month = array ("–ù–£–õ–Ø–ë–†–¨", "–Ø–ù–í–ê–†–¨", "–§–ï–í–†–ê–õ–¨", "–ú–ê–†–¢", "–ê–ü–†–ï–õ–¨", "–ú–ê–ô", "–ò–Æ–ù–¨", "–ò–Æ–õ–¨", "–ê–í–ì–£–°–¢", "–°–ï–ù–¢–Ø–ë–†–¨", "–û–ö–¢–Ø–ë–†–¨", "–ù–û–Ø–ë–†–¨", "–î–ï–ö–ê–ë–†–¨");
 		
 		if (!isset($_GET['year'])) $year = date("Y"); else $year = $_GET['year'];
 		
@@ -84,7 +84,7 @@ order by `id` ASC;
 		}
 		$works = '';
 		if (@$work == '') {
-			echo "<br /><b>¬˚·ÓÍ‡ ÔÛÒÚ‡</b>";
+			echo "<br /><b>–í—ã–±–æ—Ä–∫–∞ –ø—É—Å—Ç–∞</b>";
 			require("footer.php");
 			exit(); 
 		}
@@ -108,7 +108,7 @@ order by `id` ASC;
 			$this->date_complete = $line['date_complete'];
 			$this->brand = $line['brand'];
 			$this->model = $line['model'];
-			if ($line['client']=="˜/Î"){
+			if ($line['client']=="—á/–ª"){
 				$this->client_fio = $line['client_fio'];
 			}
 			else {
@@ -124,7 +124,7 @@ order by `id` ASC;
 							WHERE id_r=".$this->id_r." and hidden='N'";
 							
 			$results = mysql_query($result_query) or exit(mysql_error());
-			// œÂ˜‡Ú¸ ÂÁÛÎ¸Ú‡ÚÓ‚ ‚ HTML
+			// –ü–µ—á–∞—Ç—å —Ä–µ–∑—É–ª—å—Ç–∞—Ç–æ–≤ –≤ HTML
 			self::$total_price = 0;
 			while ($lines = mysql_fetch_array($results, MYSQL_ASSOC)) {
 				$works_details = new work_detail ($lines['id'],
@@ -185,14 +185,14 @@ class work_detail {
 		}
 		
 		static function view_footer ( $znaki ) {
-		  $string  = "<img src='Images/Icon/s_0_".$znaki[0].".png' border='0' name='s_0' alt='œÓÒÓ˜ÂÌÓ' />";
-  		$string .= "<img src='Images/Icon/s_1_".$znaki[1].".png' border='0' name='s_1' alt='œÓ·ÎÂÏ‡' />";
-  		$string .= "<img src='Images/Icon/s_2_".$znaki[2].".png' border='0' name='s_2' alt=' ÎËÂÌÚ ÒÓ„Î‡ÒÂÌ' />";
-  		$string .= "<img src='Images/Icon/s_3_".$znaki[3].".png' border='0' name='s_3' alt='“Â·ÛÂÚÒˇ ÒÓ„Î‡¯ÂÌËÂ' />";
-  		$string .= "<img src='Images/Icon/s_4_".$znaki[4].".png' border='0' name='s_4' alt='!!! ¬Õ»Ã¿Õ»≈ !!!' />";
-  		$string .= "<img src='Images/Icon/s_5_".$znaki[5].".png' border='0' name='s_5' alt='–ÂÏÓÌÚ Á‡ÍÓÌ˜ÂÌ' />";
-  		$string .= "<img src='Images/Icon/s_6_".$znaki[6].".png' border='0' name='s_6' alt='ÕÂÛ‰‡˜‡' />";
-  		$string .= "<img src='Images/Icon/s_7_".$znaki[7].".png' border='0' name='s_7' alt='∆‰∏Ï ÔÓÒÚ‡‚ÍË' />";
+		  $string  = "<img src='Images/Icon/s_0_".$znaki[0].".png' border='0' name='s_0' alt='–ü—Ä–æ—Å—Ä–æ—á–µ–Ω–æ' />";
+  		$string .= "<img src='Images/Icon/s_1_".$znaki[1].".png' border='0' name='s_1' alt='–ü—Ä–æ–±–ª–µ–º–∞' />";
+  		$string .= "<img src='Images/Icon/s_2_".$znaki[2].".png' border='0' name='s_2' alt='–ö–ª–∏–µ–Ω—Ç —Å–æ–≥–ª–∞—Å–µ–Ω' />";
+  		$string .= "<img src='Images/Icon/s_3_".$znaki[3].".png' border='0' name='s_3' alt='–¢—Ä–µ–±—É–µ—Ç—Å—è —Å–æ–≥–ª–∞—à–µ–Ω–∏–µ' />";
+  		$string .= "<img src='Images/Icon/s_4_".$znaki[4].".png' border='0' name='s_4' alt='!!! –í–ù–ò–ú–ê–ù–ò–ï !!!' />";
+  		$string .= "<img src='Images/Icon/s_5_".$znaki[5].".png' border='0' name='s_5' alt='–†–µ–º–æ–Ω—Ç –∑–∞–∫–æ–Ω—á–µ–Ω' />";
+  		$string .= "<img src='Images/Icon/s_6_".$znaki[6].".png' border='0' name='s_6' alt='–ù–µ—É–¥–∞—á–∞' />";
+  		$string .= "<img src='Images/Icon/s_7_".$znaki[7].".png' border='0' name='s_7' alt='–ñ–¥—ë–º –ø–æ—Å—Ç–∞–≤–∫–∏' />";
 		
 			include ("Forms/total_month_footer.html");
 		}
