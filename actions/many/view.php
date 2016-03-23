@@ -67,12 +67,9 @@ $query = "SELECT r.complete, r.id_r, DATE_FORMAT(r.date, '%d.%m.%Y') as date, r.
 		WHERE 
 		".$month." 
 		 and m.id_brand=b.id_brand
-		 ".$model." 
 		 and r.id_model=m.id_model
-		 ".$client." 
 		and r.id_client=c.id_client
 		".$worker.
-		$serial.
 		$add_query." 
 		GROUP BY  r.date, r.id_r ASC";
 
