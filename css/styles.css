@@ -33,6 +33,6 @@
     display: none;
 }
 
-.onWorkerSave, .onWorkerRemove {
-    cursor: pointer;
+.onLink {
+    cursor:pointer;
 }

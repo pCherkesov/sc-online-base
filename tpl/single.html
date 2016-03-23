@@ -57,10 +57,10 @@
 											<option value="{{ id_worker }}">{{ worker.worker }}</option>
 											{% endif %}
 										{% endfor %}
-										</select> <span class="glyphicon glyphicon-ok onWorkerSave"></span>
+										</select> <span class="glyphicon glyphicon-ok onLink onWorkerSave"></span>
 									</div>
 									<div id="worker-name">
-										<span id="work-worker" data-worker-id="{{ header.id_worker }}">{{ header.workers[header.id_worker].worker }}</span> <span class="glyphicon glyphicon-remove onWorkerRemove"></span>
+										<span id="work-worker" data-worker-id="{{ header.id_worker }}">{{ header.workers[header.id_worker].worker }}</span> <span class="glyphicon glyphicon-remove onLink onWorkerRemove"></span>
 									</div>
 								</div>
 								</dd>
@@ -259,7 +259,8 @@
 					<h4 class="modal-title" id="sendSMS_label">Отправить SMS клиенту</h4>
 				</div>
 				<div class="modal-body">
-					<textarea id="sendSMS_text" class="form-control" rows="4"></textarea>
+					<textarea id="sendSMS_text" class="form-control" rows="4">Ваш {{ header.type }} готов.
+Подробности на сайте: сц-онлайн.рф</textarea>
 				</div>
 				<div class="modal-footer">
 					<button type="button" id="sendSMS_submit" autocomplete="off" class="btn btn-primary" data-loading-text="Отправка...">Отправить</button>

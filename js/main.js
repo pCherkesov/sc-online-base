@@ -264,4 +264,20 @@ $(document).ready(function(){
 		});
 		event.preventDefault();
 	});
+
+	$(".onSmsStatus").on('click', function() {
+		var id = $(this).attr("data-smsc-id");
+		var tel = $(".statusTel").html();
+		$.ajax({
+				type: "POST",
+				url: './ajax/status_sms.php',
+				data: "id="+id+"&tel="+tel,
+				success: function(data){
+						notify('success', "Статус обновлён на "+data);
+				},
+				error: function(jqXHR, textStatus, errorThrown){
+						notify('danger', textStatus + " " + errorThrown);
+				},
+		});
+	});	
 });
