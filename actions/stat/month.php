@@ -37,19 +37,41 @@ $result = mysqli_query($S_CONFIG['link'], $query) or exit(mysql_error($S_CONFIG[
 $total_price = 0;
 while ($line = mysqli_fetch_array($result, MYSQL_ASSOC)) {
 //=======================================================================
-	$result_query="SELECT id, date, text, price, id_worker 
+	$result_query="SELECT id, DATE_FORMAT(date, '%d.%m.%Y') AS date, text, price, id_worker 
 					FROM `".$S_CONFIG['prefix']."work`
 					WHERE id_r=".$line['id_r']." and hidden='N'";
 					
 	$results = mysqli_query($S_CONFIG['link'], $result_query) or exit(mysql_error($S_CONFIG['link']));
 	// Печать результатов в HTML
+	$details = array();
 	while ($lines = mysqli_fetch_array($results, MYSQL_ASSOC)) {
-		$line['details'] = $lines; 
+		$details[] = $lines;
 		$total_price = $total_price + $lines['price'];
 	}
+	$line['details'] = $details; 
 	$data[] = $line;
 }
 
-var_dump($data);
-var_dump($total_price);
+// var_dump($data);
+// var_dump($total_price);
+$query = "SELECT * FROM `".$S_CONFIG['prefix']."worker`";
+$result = mysqli_query($S_CONFIG['link'], $query) or exit(mysqli_error($S_CONFIG['link']));
+
+while($option = mysqli_fetch_assoc($result)){
+	$header['workers'][$option['id_worker']] = $option;
+}
+
+$header['string_text'] = array(
+	'Просрочено',
+	'Проблема',
+	'Клиент согласен',
+	'Требуется соглашение',
+	'!!! ВНИМАНИЕ !!!',
+	'Ремонт закончен',
+	'Неудача',
+	'Ждём поставки',
+);
+
+$header['urls'] = $urls;
+render($data = array('main' => $main, 'header' => $header, 'works' => $data));
 ?>

@@ -1,0 +1,41 @@
+{% extends "main.html" %}
+{% block content %}
+
+{% if header.urls.month %}
+	{% set searchOption = 'year' %}
+{% else %}
+	{% set searchOption = 'worker' %}
+{% endif %}
+{% include 'searchbar.html' with {'searchOption': searchOption, 'header': header } %}
+
+	<table class="table table-condensed">
+	{% for work in works %}
+		{% for detail in work.details if detail.price > 0 %}
+		<tr>
+			<td>
+				<span style="color: #{{ header.workers[detail.id_worker].color }}" class="glyphicon glyphicon glyphicon-user"></span>
+			{{ header.workers[detail.id_worker].worker }}</td>
+			<td>{{ detail.date }}</td>
+			<td class="work" align="left">{{ detail.text|raw }}
+			{% if detail.hard is iterable %}
+				<i>
+			{% for hard in detail.hard %}
+				<br />{{ hard.edit_hard }} - {{ hard.edit_hardprice }}
+			{% endfor %}
+				</i>
+			{% else %}
+				<br />
+				{{ detail.hard|raw }}
+			{% endif %}
+			</td>
+			<td align="center">{{ detail.price }}
+			{% if detail.hard_price != 0 %}<br />{{ detail.hard_price }}{% endif %}
+			</td>
+			<td  class="work" align="center">
+			{{ detail.string }}
+			</td>
+		</tr>
+		{% endfor %}
+	{% endfor %}
+	</table>
+{% endblock %}
