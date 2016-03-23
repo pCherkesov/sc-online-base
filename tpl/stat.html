@@ -10,12 +10,28 @@
 
 	<table class="table table-condensed">
 	{% for work in works %}
+		<tr>
+			<td colspan="2">
+				<span style="color: #{{ header.workers[work.id_worker].color }}" class="glyphicon glyphicon glyphicon-user" data-toggle="tooltip" data-placement="top" data-original-title="{{ header.workers[work.id_worker].worker }}"></span> 
+				<strong><a href="index.php?r=single/view&id={{ work.id_r }}">#{{ work.id_r }}</a> от {{ work.date }} - {{ work.date_complete }}</strong>
+			</td>
+			<td>
+				<strong>{{ work.type }} {{ work.brand }} {{ work.model }} s/n: {{ work.serial }}</strong>
+			</td>
+			<td align="center">
+            {% for icon in work.string %}
+                {% if icon == 'Y' %}
+                    <img src='img/icon/s_{{ loop.index0 }}_Y.png' data-toggle="tooltip" data-placement="top" data-original-title='{{ header.string_text[loop.index0]|default('Нет описания') }}' />
+                {% endif %}
+            {% endfor %}				
+			</td>
+		</tr>
 		{% for detail in work.details if detail.price > 0 %}
 		<tr>
-			<td>
+			<td align="right">
 				<span style="color: #{{ header.workers[detail.id_worker].color }}" class="glyphicon glyphicon glyphicon-user"></span>
 			{{ header.workers[detail.id_worker].worker }}</td>
-			<td>{{ detail.date }}</td>
+			<td align="center">{{ detail.date }}</td>
 			<td class="work" align="left">{{ detail.text|raw }}
 			{% if detail.hard is iterable %}
 				<i>
@@ -30,9 +46,6 @@
 			</td>
 			<td align="center">{{ detail.price }}
 			{% if detail.hard_price != 0 %}<br />{{ detail.hard_price }}{% endif %}
-			</td>
-			<td  class="work" align="center">
-			{{ detail.string }}
 			</td>
 		</tr>
 		{% endfor %}
