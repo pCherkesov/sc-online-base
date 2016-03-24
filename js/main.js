@@ -24,7 +24,6 @@ $(document).ready(function(){
 		oddRow: { 'background-color': '#f5f5f5' },
 		evenRow: { 'background-color': '#ffffff' },
 		searchType: 'default'
-		//'fuzzy'
 	});
 
 	$('body').append('<div id="backToTop" class="btn"><span class="glyphicon glyphicon-chevron-up"></span></div>');

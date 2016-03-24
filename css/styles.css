@@ -36,3 +36,7 @@
 .onLink {
     cursor:pointer;
 }
+
+#clientListUl td a:hover {cursor: pointer;}
+#clientListUl td span {opacity: .5;}
+#clientListUl td:hover span {opacity: 1; cursor: pointer;}
