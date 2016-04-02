@@ -49,7 +49,7 @@ $(document).ready(function(){
 			var value = $(this).attr('data-value');
 		$.ajax({
 			type: "GET",
-			url: 'ajax/status.php',
+			url: 'ajax/edit_status.php',
 			data: "q="+value+"&idr="+id,
 			success: function(data, textStatus){
 				notify('success', "Статус изменён");
@@ -269,7 +269,7 @@ $(document).ready(function(){
 		var tel = $(".statusTel").html();
 		$.ajax({
 				type: "POST",
-				url: './ajax/status_sms.php',
+				url: './ajax/sms_status.php',
 				data: "id="+id+"&tel="+tel,
 				success: function(data){
 						notify('success', "Статус обновлён на "+data);

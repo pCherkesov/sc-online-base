@@ -342,3 +342,7 @@ table.clientinfo {
 .secondframe input {
 	margin-bottom: 5px;
 }
+
+#second select {
+	overflow-y: scroll;
+}

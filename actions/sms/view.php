@@ -20,7 +20,7 @@ $data = array();
 if(isset($_REQUEST['search'])) $search = $_REQUEST['search'];
 else $search = "";
 
-while ($line = mysqli_fetch_array($result, MYSQL_ASSOC)) {
+while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 	if ($line['id_client']=="1") {
 		$line['client'] = $line['client_fio'];
 		$line['phone'] = $line['client_tel'];

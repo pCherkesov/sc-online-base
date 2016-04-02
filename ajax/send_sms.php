@@ -36,7 +36,7 @@ mysqli_query($S_CONFIG['link'], $result_query) or exit(mysql_error($S_CONFIG['li
 $query = "SELECT `string` FROM `".$S_CONFIG['prefix']."remont` WHERE `id_r` = ".$idr;
 
 $result = mysqli_query($S_CONFIG['link'], $query) or exit(mysqli_error($S_CONFIG['link']));
-while ($line = mysqli_fetch_array($result, MYSQL_ASSOC)) {
+while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 	$status = $line['string'];
 }
 

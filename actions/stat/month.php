@@ -21,9 +21,12 @@ if(isset($_REQUEST['id_worker'])&&$_REQUEST['id_worker']!='*'){
 } else $worker='';
 
 //======================================================
-$query = "SELECT w.id_r FROM work AS w, remont AS r WHERE ".$month.$worker." and w.hidden='N' GROUP BY w.id_r ASC ;";
-$result = mysqli_query($S_CONFIG['link'], $query) or exit(mysql_error($S_CONFIG['link']));
-while ($line = mysqli_fetch_array($result, MYSQL_ASSOC)) {
+//$query = "SELECT w.id_r FROM work AS w, remont AS r WHERE ".$month.$worker." and w.hidden='N' GROUP BY w.id_r ASC ;";
+$query = "SELECT w.id_r FROM work AS w WHERE ".$month." and w.hidden='N' GROUP BY w.id_r ASC ;";
+
+$result = mysqli_query($S_CONFIG['link'], $query) or exit(mysqli_error($S_CONFIG['link']));
+
+while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 	$work[] = $line['id_r'];
 }
 
@@ -35,9 +38,9 @@ if(isset($work)) {
 	 `".$S_CONFIG['prefix']."client` AS c, `".$S_CONFIG['prefix']."brand` AS b
 	WHERE m.id_brand=b.id_brand and r.id_client=c.id_client and r.id_model=m.id_model and r.hidden='N' and r.id_r IN (".join(", ", $work).") ORDER BY r.date_complete ASC";
 
-	$result = mysqli_query($S_CONFIG['link'], $query) or exit(mysql_error($S_CONFIG['link']));
+	$result = mysqli_query($S_CONFIG['link'], $query) or exit(mysqli_error($S_CONFIG['link']));
 	$total_price = 0;
-	while ($line = mysqli_fetch_array($result, MYSQL_ASSOC)) {
+	while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 		$line['string'] = str_split($line['string']);
 
 		$result_query="SELECT id, DATE_FORMAT(date, '%d.%m.%Y') AS date, text, price, id_worker 
@@ -47,7 +50,7 @@ if(isset($work)) {
 		$results = mysqli_query($S_CONFIG['link'], $result_query) or exit(mysql_error($S_CONFIG['link']));
 
 		$details = array();
-		while ($lines = mysqli_fetch_array($results, MYSQL_ASSOC)) {
+		while ($lines = mysqli_fetch_array($results, MYSQLI_ASSOC)) {
 			$details[] = $lines;
 			$total_price = $total_price + $lines['price'];
 		}
@@ -60,7 +63,7 @@ if(isset($work)) {
 $query = "SELECT * FROM `".$S_CONFIG['prefix']."worker`";
 $result = mysqli_query($S_CONFIG['link'], $query) or exit(mysqli_error($S_CONFIG['link']));
 
-while($option = mysqli_fetch_assoc($result)){
+while($option = mysqli_fetch_array($result, MYSQLI_ASSOC)){
 	$header['workers'][$option['id_worker']] = $option;
 }
 

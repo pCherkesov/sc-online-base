@@ -15,6 +15,6 @@
 <div id="debug" style="border:1px dashed red; padding:2px">
     Debug info
 </div>
-
+<script src="/lib/jquery-2.1.1.min.js"></script>
 </body>
 </html>

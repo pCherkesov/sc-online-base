@@ -7,6 +7,7 @@
 				<div class="col-md-6">
 					<form>
 						<input type="hidden" id="id_client" />
+						<input type="hidden" id="id_model" />
 						<div class="row">
 							<div class="col-md-4">
 								<input type="date" class="form-control" name="date" value="2015-06-22">
@@ -25,25 +26,29 @@
 							<!-- Tab panes -->
 							<div class="tab-content">
 								<div class="tab-pane active" id="human">
-									<input type="text" class="form-control" placeholder="ФИО" id="fio_human">
+									<input type="text" class="form-control" placeholder="ФИО" id="fio_human" />
 									<br>
-									<input type="text" class="form-control" placeholder="Телефон" id="tel_human">
+									<input type="text" class="form-control" placeholder="Телефон" id="tel_human" />
 								</div>
 								<div class="tab-pane" id="org">
-									<input type="text" class="form-control" placeholder="ФИО" id="fio_org" disabled>
+									<input type="text" class="form-control" placeholder="ФИО" id="fio_org" disabled />
 									<br>
-									<input type="text" class="form-control" placeholder="Телефон" id="tel_org" disabled>
+									<input type="text" class="form-control" placeholder="Телефон" id="tel_org" disabled />
 								</div>
 							</div>
 						</fieldset>
 						<hr />
 						<fieldset>
-							<input type="text" class="form-control" placeholder="Наименование" id="deviceFields">
+							<div id="deviceFields">
+								<input type="text" class="form-control" placeholder="Наименование" id="device_name" disabled />
+							</div>
 							<br>
-							<input type="text" class="form-control" placeholder="Серийный номер" id="serialFields">
+							<div id="serialFields">
+								<input type="text" class="form-control" placeholder="Серийный номер" id="serial" />
+							</div>
 						</fieldset>
 						<hr />
-						<fieldset>
+						<fieldset id="affixFields">
 							<textarea class="input-block-level form-control textarea" placeholder="Комплектность" rows="3"></textarea><br>
 							<textarea class="input-block-level form-control textarea" placeholder="Заявленный дефект" rows="3"></textarea>
 						</fieldset>
@@ -51,11 +56,9 @@
 						<div class="row">
 							<div class="col-md-6">
 								<select class="form-control">
-									<option>Оператор 1</option>
-									<option>Оператор 2</option>
-									<option>Оператор 3</option>
-									<option>Оператор 4</option>
-									<option>Оператор 5</option>
+								{% for prin in header.prins %}
+									<option value="{{prin.id_prin}}">{{ prin.prin }}</option>
+								{% endfor %}
 								</select>
 							</div>
 							<div class="col-md-6">
@@ -68,69 +71,23 @@
 					</form>
 				</div>
 				<div class="col-md-6">
-					<div class="panel-group" id="accordion">
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h4 class="panel-title">
-									<a data-toggle="collapse" data-parent="#accordion" href="#clientListPanel">Клиенты</a> 
-									<span class="pull-right">
-									<input type="text" id="clientListSearch" style="border: 0px; border-bottom: 1px solid black; background: #F5F5F5;  outline: none;"></input> <span class="glyphicon glyphicon-search"></span>
-									</span>
-								</h4>
-
-							</div>
-							<div id="clientListPanel" class="panel-collapse collapse in">
-									<div class="panel-body" style="overflow-y: scroll; height: 500px !important; padding: 0px;">
-									<table class="table table-stripped" id="clientList">
-									{% for client in clients %}
-										<tr>
-											<td><a href="#" data-client-id="{{ client.id_client }}" data-client-tel="{{ client.client_tel }}">{{ client.client }}</a></td>
-											<td><span class="glyphicon glyphicon-pencil pull-right" data-client-id="{{ client.id_client }}"></span></td>
-										</tr>
-									{% endfor %}
-									</table>
-								</div>
-							</div>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h4 class="panel-title">
+								Клиенты
+								<span class="pull-right">
+								<input type="text" id="ListSearch" style="border: 0px; border-bottom: 1px solid black; background: #F5F5F5;  outline: none;"></input> <span class="glyphicon glyphicon-search"></span>
+								</span>
+							</h4>
 						</div>
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h4 class="panel-title">
-									<a data-toggle="collapse" data-parent="#accordion" href="#deviceList">Техника</a>
-									<span class="pull-right">
-									<input type="text" id="deviceListSearch" style="border: 0px; border-bottom: 1px solid black; background: #F5F5F5;  outline: none;"></input> <span class="glyphicon glyphicon-search"></span>
-									</span>
-
-								</h4>
-							</div>
-							<div id="deviceList" class="panel-collapse collapse in">
-								<div class="panel-body" style="overflow-y: scroll; height: 500px !important; padding: 0px;">
-									<table class="table table-stripped" id="clientList">
-									{% for model in models %}
-										<tr>
-											<td><a href="#" data-model-id="{{ model.id_model }}">{{ model.model }}</a></td>
-											<td><span class="glyphicon glyphicon-pencil pull-right" data-model-id="{{ model.id_model }}"></span></td>
-										</tr>
-									{% endfor %}
-									</table>
-								</div>
-							</div>
-						</div>
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h4 class="panel-title">
-									<a data-toggle="collapse" data-parent="#accordion" href="#serialList">Серийные номера</a>
-								</h4>
-							</div>
-							<div id="serialList" class="panel-collapse collapse in">
-								<div class="panel-body" style="overflow-y: scroll; height: 500px !important; padding: 0px;">
-									<select multiple class="form-control" style="height: auto;">
-										<option>1</option>
-										<option>2</option>
-										<option>3</option>
-										<option>4</option>
-										<option>5</option>
-									</select>
-								</div>
+						<div id="ListPanel" class="panel-collapse collapse in">
+							<div class="panel-body" style="overflow-y: scroll; height: 500px !important; padding: 0px;">
+								<table class="table table-stripped" id="List">
+									<tr>
+										<td>Нет данных</td>
+										<td></td>
+									</tr>
+								</table>
 							</div>
 						</div>
 					</div>

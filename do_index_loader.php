@@ -1,8 +1,8 @@
 <?php
 // Load JsHttpRequest backend.
-require_once "JsHttpRequest/JsHttpRequest.php";
+// require_once "JsHttpRequest/JsHttpRequest.php";
 // Create main library object. You MUST specify page encoding!
-$JsHttpRequest = new JsHttpRequest("windows-1251");
+// $JsHttpRequest = new JsHttpRequest("windows-1251");
 //
 require("init.php");
 
@@ -26,16 +26,18 @@ switch (@$_REQUEST['dir']) {
 	default: $index = ""; break;
 }
 
+echo $index;
+
 // Store resulting data in $_RESULT array (will appear in req.responseJs).
-$_RESULT = array(
-  "second"   => @$_REQUEST['dir'],
-  "index" => @$index
-);
+// $_RESULT = array(
+//   "second"   => @$_REQUEST['dir'],
+//   "index" => @$index
+// );
 // Below is unparsed stream data (will appear in req.responseText).
 
-echo "<pre>";
-echo "<b>Request method:</b> " . $_SERVER['REQUEST_METHOD'] . "\n";
-echo "<b>Loader used:</b> " . $JsHttpRequest->LOADER . "\n";
-echo "<b>_REQUEST:</b> " . print_r($_REQUEST, 1);
-echo "</pre>";
+// echo "<pre>";
+// echo "<b>Request method:</b> " . $_SERVER['REQUEST_METHOD'] . "\n";
+// echo "<b>Loader used:</b> " . $JsHttpRequest->LOADER . "\n";
+// echo "<b>_REQUEST:</b> " . print_r($_REQUEST, 1);
+// echo "</pre>";
 ?>

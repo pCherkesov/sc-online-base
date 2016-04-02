@@ -2,6 +2,7 @@
 // WORK HEADER
 $query = "SELECT 
 	r.id_r, r.complete, DATE_FORMAT(r.date, '%d.%m.%Y') as date_start, DATE_FORMAT(r.date_complete, '%d.%m.%Y') as date_complete, 
+	(r.date > '2016-03-01') as date_smsstart, 
 	r.string, t. type, b.brand, m.id_model, m.model, 
 	c.id_client, c.client, c.client_face, c.client_tel_0, r.client_fio, r.client_tel, 
 	r.counter, r.serial, r.defect, r.complect, p.prin, r.id_worker
@@ -13,7 +14,7 @@ ORDER BY r.id_r ASC";
 
 $result = mysqli_query($S_CONFIG['link'], $query) or exit(mysqli_error($S_CONFIG['link']));
 
-while ($line = mysqli_fetch_array($result, MYSQL_ASSOC)) {
+while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 	$header = $line;
 	$header['string'] = str_split($header['string']);
 	if ($line['client']=="ч/л"){
@@ -39,7 +40,7 @@ $results = mysqli_query($S_CONFIG['link'], $result_query) or exit(mysqli_error($
 $total_price = $total_hard_price = 0;
 
 $works = array();
-while ($lines = mysqli_fetch_array($results, MYSQL_ASSOC)) {
+while ($lines = mysqli_fetch_array($results, MYSQLI_ASSOC)) {
 	if(isJson($lines['hard'])) $lines['hard'] = json_decode($lines['hard'], true);
 	else $lines['hard'] = str_replace("\r\n", "<br />", $lines['hard']);
 
@@ -55,7 +56,7 @@ $header['total_hard_price'] = $total_hard_price;
 $query = "SELECT * FROM `".$S_CONFIG['prefix']."worker`";
 $result = mysqli_query($S_CONFIG['link'], $query) or exit(mysqli_error($S_CONFIG['link']));
 
-while($option = mysqli_fetch_assoc($result)){
+while($option = mysqli_fetch_array($result, MYSQLI_ASSOC)){
 	$header['workers'][$option['id_worker']] = $option;
 }
 

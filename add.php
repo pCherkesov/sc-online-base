@@ -1,4 +1,6 @@
 <?php
+error_reporting(-1);
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 $page_header = "-= New work =-";
 require("header.php");
 require("init.php");
@@ -59,7 +61,7 @@ onblur=\"if(this.value==''){this.value='Комплектация';}\">Компл
 //====== кто принял ======
     echo "<tr><td align='right' onClick=\"doSecond('void', 0, 0);\"><b>Принял:</b>
 	<select name=prin>";
-    $result_prin = mysqli_query($S_CONFIG['link'], "SELECT * FROM `".$S_CONFIG['prefix']."prin` WHERE `hidden`='N' GROUP BY `prin` ASC") or exit(mysqli_error());
+    $result_prin = mysqli_query($S_CONFIG['link'], "SELECT * FROM `".$S_CONFIG['prefix']."prin` WHERE `hidden`='N' ORDER BY `prin` ASC") or exit(mysqli_error());
     while($line_prin = mysqli_fetch_assoc($result_prin)){
         echo "<option value=".$line_prin['id_prin'].">".$line_prin['prin']."</option>";
     }
@@ -96,27 +98,20 @@ echo "</td></tr></table>";
 require("footer.php");
 ?>
 <script type="text/javascript" language="JavaScript">
-
-function doSecond(direct, sec_param, fo_param) {
-    // Create new JsHttpRequest object.
-    var req = new JsHttpRequest();
-    // Code automatically called on load finishing.
-    req.onreadystatechange = function() {
-    	if (req.readyState == 4) {
-			if(req.responseJS.index == '') {
-			document.getElementById('second').innerHTML = "<img src='Images/1174437760018.gif' border='0' alt='Прогресс-бар' />";}
-			else {document.getElementById('second').innerHTML = req.responseJS.index;}
-			// Write result to page element ($_RESULT become responseJS). 
-			document.getElementById('result').innerHTML = 'AJAX transmitted complete';
-			// Write debug information too (output become responseText).
-			document.getElementById('debug').innerHTML = req.responseText;
-        }
-    }
-    // Prepare request object (automatically choose GET or POST).
-    req.open(null, 'do_index_loader.php', true);
-    // Send data to backend.
-    req.send( { dir: direct, sec: sec_param, four: fo_param} );
-}
+	function doSecond (direct, sec_param, fo_param) {
+		$.ajax({
+			type: "GET",
+			url: 'do_index_loader.php',
+			data: 'dir='+direct+'&sec='+encodeURI(sec_param)+'&four='+fo_param,
+			success: function(data, textStatus){
+				$("#second").html(data);
+				$("#debug").html(textStatus);
+			},
+			error: function(jqXHR, textStatus, errorThrown){
+				// notify('danger', textStatus);
+			}
+		});
+	};
 
 function doEdit(direct, sec_param, fo_param, six_param, eight_param) {
     // Create new JsHttpRequest object.

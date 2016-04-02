@@ -12,7 +12,7 @@
 				{% else %}
 				<span class="glyphicon glyphicon-unchecked"></span>
 				{% endif %}
-				Работа # <span id="work-id">{{ header.id_r }}</span> от <span id="work-date">{{ header.date_start }}</span> - {{ header.date_complete }}</h3>
+				Работа # <span id="work-id">{{ header.id_r }}</span> от <span id="work-date">{{ header.date_start }}</span> - {{ header.date_complete|default('00.00.0000') }}</h3>
 
 				<!--<div class="container">-->
 					<div class="row">
@@ -146,7 +146,13 @@
 				<i class="glyphicon glyphicon-envelope"></i> СМС <span class="caret"></span>
 				</button>
 				<ul class="dropdown-menu" role="menu">
-					<li><a data-toggle="modal" data-target="#sendSMS_modal" href="#">Отправить</a></li>
+					<li>
+					{% if header.date_smsstart == 1 %}
+						<a data-toggle="modal" data-target="#sendSMS_modal" href="#">Отправить </a>
+					{% else %}
+						<a href="#" disabled="disabled"><s>Отправить </s></a>
+					{% endif %}
+					</li>
 					<li><a href="/index.php?r=sms/view&search={{ header.client_tel }}" target="_blank">История</a></li>
 				</ul>
 			</div>

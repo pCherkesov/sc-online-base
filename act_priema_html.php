@@ -8,9 +8,9 @@ FROM `".$S_CONFIG['prefix']."remont` AS r, `".$S_CONFIG['prefix']."type` AS t, `
 WHERE t.id_type=m.id_type and m.id_brand=b.id_brand and r.id_client=c.id_client and r.id_model=m.id_model and r.id_prin=p.id_prin and r.id_r=".$print_id."
 LIMIT 1";
 
-$result = mysql_query($query) or exit(mysql_error());
+$result = mysqli_query($S_CONFIG['link'], $query) or exit(mysql_error($S_CONFIG['link']));
 
-while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
+while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
     $report = file_get_contents("Forms/act_priema_new.html");
 
     $report = str_replace("{%time%}", date("H:i"), $report);

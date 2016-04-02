@@ -37,6 +37,18 @@
     cursor:pointer;
 }
 
-#clientListUl td a:hover {cursor: pointer;}
-#clientListUl td span {opacity: .5;}
-#clientListUl td:hover span {opacity: 1; cursor: pointer;}
+#List td a:hover {cursor: pointer;}
+#List td span {opacity: .5;}
+#List td:hover span {opacity: 1; cursor: pointer;}
+
+#loader {
+    margin: 250px auto;
+    height: 16px;
+    width: 16px;
+    background-image: url(/img/throbber.gif);
+}
+
+a[disabled] {
+    cursor: not-allowed;
+    pointer-events: none; // Future-proof disabling of clicks
+}

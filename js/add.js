@@ -1,60 +1,78 @@
 $(document).ready(function(){
 	$("#tel_human").mask("(999) 999-9999");
 
-	$('#clientList').searchable({
-		searchField: "#clientListSearch",
-		searchType: 'default'
-	});
-
-	$('#deviceList').searchable({
-		searchField: "#deviceListSearch",
-		searchType: 'default'
-	});
-
-	$('#clientListPanel').collapse('hide');
-	$('#deviceList').collapse('hide');
-	$('#serialList').collapse('show');
+	$('#ListPanel').collapse('hide');
 	$('#fio_human').focus();
 	$("#id_client").val("1");
 
 	$('#noFields').on('click', function() {
 		$("#id_client").val("1");
-		$('#clientListPanel').collapse('hide');
+		$('#ListPanel').collapse('hide');
 		$('#fio_human').focus();
-		$('#deviceList').collapse('hide');
-		$('#serialList').collapse('hide');
+	});
+
+	$('#human').on('click', function() {
+		$("#id_client").val("1");
+		$('#ListPanel').collapse('hide');
 	});
 
 	$('#affixFields').on('click', function() {
-		$('#clientListPanel').collapse('hide');
-		$('#deviceList').collapse('hide');
-		$('#serialList').collapse('hide');
+		$('#ListPanel').collapse('hide');
 	});
 
 	$('#clientFields, #org').on('click', function() {
-		$('#clientListPanel').collapse('show');
-		$("#clientListSearch").focus();
-		$('#deviceList').collapse('hide');
-		$('#serialList').collapse('hide');
+		loadList("client");
+		$("#tel_org").val('');
+		$("#fio_org").val('');
 	});
 
-	$('#deviceFields').on('focus', function() {
-		$('#deviceList').collapse('show');
-		$("#deviceListSearch").focus();
-		$('#clientListPanel').collapse('hide');
-		$('#serialList').collapse('hide');
+	$('#deviceFields').on('click', function() {
+		loadList("device");
 	});
 
-	$('#serialFields').on('click', function() {
-		$('#clientListPanel').collapse('hide');
-		$('#deviceList').collapse('hide');
-		$('#serialList').collapse('show');
+	$('#serialFields').on('click', function () {
+		var args = '&client='+$("#id_client").val() + '&model='+ $("#id_model").val();
+		loadList("serial", args);
 	});
 
-	$("#clientList a").on('click', function (event) {
+	function loadList (action, args = "") {
+		$('#ListPanel').collapse('show');
+		$('#List').html('<div id="loader"></div>');
+		$.ajax({
+			type: "GET",
+			url: 'ajax/add.php',
+			data: "action=" + action + args,
+			success: function(data, textStatus){
+				$('#List').html(data);
+				$('#List').searchable({
+					searchField: "#ListSearch",
+					searchType: 'default',
+					reset: 'true',
+				});
+				$("#ListSearch").val('').focus();
+			},
+			error: function(jqXHR, textStatus, errorThrown){
+				notify('danger', textStatus);
+			}
+		});
+	};
+
+
+	$("#List").delegate(".on-client", 'click', function (event) {
 		$("#id_client").val( $(this).attr('data-model-id') );
 		$("#tel_org").val( $(this).attr('data-client-tel') );
 		$("#fio_org").val( $(this).html() );
 		event.preventDefault();
 	});
+
+	$("#List").delegate(".on-model", 'click', function (event) {
+		$("#id_model").val( $(this).attr('data-model-id') );
+		$("#device_name").val( $(this).html() );
+		event.preventDefault();
+	});
+	
+	$("#List").delegate(".on-serial", 'click', function (event) {
+		$("#serial").val( $(this).html() );
+		event.preventDefault();
+	});	
 });

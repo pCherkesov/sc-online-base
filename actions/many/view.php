@@ -3,6 +3,7 @@
 
 $data = array();
 $header = array();
+$works = array();
 $urls = array('lefturl' => "", 'month' => "", 'righturl' => "");
 
 switch($route[1]){

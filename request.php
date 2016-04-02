@@ -51,16 +51,15 @@ class sqli_and_log {
         if(!isset($_POST['defect'])) self::$f_error .= "Не указан дефект<br />";
         else $defect = addslashes($_POST['defect']);
 
-        // `id_r`, `pass`, `date`, `string`, `id_client`, `client_fio`, `client_tel`, `id_model`, `complect`, `defect`,
-        // `serial`, `counter`, `id_prin`, `id_worker`, `complete`, `buh_check`, `buh_text`, `hidden`
+// `id_r``pass``date``string``id_client``client_fio``client_tel``id_model``complect``defect``serial``counter``id_prin``id_worker``complete``date_complete``buh_check``buh_text``hidden`
         if(self::$f_error == '') {
             $pass = self::pass_generator();
-            $query = "INSERT INTO `".$S_CONFIG['prefix']."remont` VALUE (0, '".md5($pass)."', '".$data."', 'NNNNNNNNNN',
+            $query = "INSERT INTO `".$S_CONFIG['prefix']."remont` VALUE (NULL, '".md5($pass)."', '".$data."', 'NNNNNNNNNN',
             '".$client."', '".$client_fio."', '".$client_tel."', '".$selected_model."', '".$complect."',
             '".$defect."', '".$serial."', 0, '".$_POST['prin']."',
-            1, 'N','0', 'N' , '', 'N')";
+            1, 'N', NULL, 'N' , '', 'N')";
             self::record ($query);
-            $insert_id = mysql_insert_id();
+            $insert_id = mysqli_insert_id($S_CONFIG['link']);
             //$query = "UPDATE `".$S_CONFIG['prefix']."remont` SET `pass`='".md5($insert_id)."' WHERE `id_r`=".$insert_id." LIMIT 1";
             //self::record ($query);
             self::$mess .= "<b>Запись добавлена</b><br />";
@@ -190,7 +189,8 @@ class sqli_and_log {
       fputs($file, $query."\n");
 		  flock($file, 3);
 		  fclose($file);
-		  $rec = mysql_query($query) or exit(mysql_error());
+		  global $S_CONFIG; 
+		  $rec = mysqli_query($S_CONFIG['link'], $query) or exit(mysqli_error($S_CONFIG['link']));
 	}
 	
 	static function view () {

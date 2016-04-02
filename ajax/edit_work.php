@@ -8,7 +8,7 @@ $result_query = "SELECT date, text, price, hard, hard_price, id_worker
 $results = mysqli_query($S_CONFIG['link'], $result_query) or exit(mysqli_error($S_CONFIG['link']));
 
 $work = array();
-while ($data = mysqli_fetch_array($results, MYSQL_ASSOC)) {
+while ($data = mysqli_fetch_array($results, MYSQLI_ASSOC)) {
 	$work = $data;
 	$work['text'] = str_replace("<br />", ", ", $data['text']);
 	// print_r($work['hard']);

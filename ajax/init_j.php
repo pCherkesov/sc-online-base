@@ -11,6 +11,21 @@ else {
 	mysqli_query($S_CONFIG['link'], "SET NAMES UTF8"); 
 }
 
+if($twig == TRUE) {
+	// Load TWIG
+	require_once '../lib/Twig/Autoloader.php';
+	Twig_Autoloader::register();
+
+	$loader = new Twig_Loader_Filesystem('../tpl');
+	$twig = new Twig_Environment($loader, array(
+		'debug' => true,
+	    'cache' => false,//'tpl/cache',
+	));
+	$twig->addExtension(new Twig_Extension_Debug());
+	$S_CONFIG['twig'] = $twig;
+	unset($twig);	
+}
+
 function isJson($string) {
 	json_decode($string);
 	return (json_last_error() == JSON_ERROR_NONE);
