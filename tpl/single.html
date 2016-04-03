@@ -1,4 +1,7 @@
 {% extends "main.html" %}
+{% block jslibs %}
+		<script type="text/javascript" src="/js/single.js"></script>
+{% endblock %}
 {% block content %}
 				{% if header.complete == "Y" %}
 				<span class="glyphicon glyphicon-chevron-left"></span> <a href='/index.php?r=many/complete&date={{ "now"|date("m/Y") }}'>Вернуться назад</a>

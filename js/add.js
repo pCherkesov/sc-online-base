@@ -1,9 +1,11 @@
 $(document).ready(function(){
 	$("#tel_human").mask("(999) 999-9999");
 
+	$('#on-addWork')[0].reset();
+	$("#id_client").val("1");
 	$('#ListPanel').collapse('hide');
 	$('#fio_human').focus();
-	$("#id_client").val("1");
+
 
 	$('#noFields').on('click', function() {
 		$("#id_client").val("1");
@@ -21,16 +23,19 @@ $(document).ready(function(){
 	});
 
 	$('#clientFields, #org').on('click', function() {
+		$("#on-ListName").html("Клиенты");
 		loadList("client");
 		$("#tel_org").val('');
 		$("#fio_org").val('');
 	});
 
 	$('#deviceFields').on('click', function() {
+		$("#on-ListName").html("Устройства");
 		loadList("device");
 	});
 
 	$('#serialFields').on('click', function () {
+		$("#on-ListName").html("Серийные номера");
 		var args = '&client='+$("#id_client").val() + '&model='+ $("#id_model").val();
 		loadList("serial", args);
 	});
@@ -74,5 +79,25 @@ $(document).ready(function(){
 	$("#List").delegate(".on-serial", 'click', function (event) {
 		$("#serial").val( $(this).html() );
 		event.preventDefault();
-	});	
+	});
+
+	$("#on-addWork").on('submit', function(event) {
+		var error = 0;
+
+		$("#on-addWork input").each(function (count) {
+			$(this).removeClass('has-error');
+			$(this).removeClass('has-success');
+		});
+
+		if($("#id_client").val() == "1" && $("#fio_human").val() == "") {
+			$("#fio_human").addClass('has-error');
+			error = 1;
+		}
+		if($("#id_model").val() == ""){
+		$("#device_name").addClass('has-error');
+			error = 1;
+		}
+		
+		if(error == 1) { event.preventDefault(); }
+	});
 });

@@ -5,7 +5,7 @@
 {% block content %}
 			<div class="row">
 				<div class="col-md-6">
-					<form>
+					<form action="index.php?r=add/_create" method="post" id="on-addWork">
 						<input type="hidden" id="id_client" />
 						<input type="hidden" id="id_model" />
 						<div class="row">
@@ -63,7 +63,7 @@
 							</div>
 							<div class="col-md-6">
 								<p class="pull-right">
-									<button type="clear" class="btn btn-default">Сбросить</button>
+									<button type="reset" value="Reset" class="btn btn-default">Сбросить</button>
 									<button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-floppy-saved"></span> Сохранить </button>
 								</p>
 							</div>
@@ -74,7 +74,7 @@
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<h4 class="panel-title">
-								Клиенты
+								<span id="on-ListName">Списки</span>
 								<span class="pull-right">
 								<input type="text" id="ListSearch" style="border: 0px; border-bottom: 1px solid black; background: #F5F5F5;  outline: none;"></input> <span class="glyphicon glyphicon-search"></span>
 								</span>
