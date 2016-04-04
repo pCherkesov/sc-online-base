@@ -11,7 +11,7 @@ else {
 	mysqli_query($S_CONFIG['link'], "SET NAMES UTF8"); 
 }
 
-if($twig == TRUE) {
+if(isset($twig)) {
 	// Load TWIG
 	require_once '../lib/Twig/Autoloader.php';
 	Twig_Autoloader::register();
