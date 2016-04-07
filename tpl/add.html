@@ -76,7 +76,7 @@
 							<h4 class="panel-title">
 								<span id="on-ListName">Списки</span>
 								<span class="pull-right">
-								<input type="text" id="ListSearch" style="border: 0px; border-bottom: 1px solid black; background: #F5F5F5;  outline: none;"></input> <span class="glyphicon glyphicon-search"></span>
+								<input type="text" id="ListSearch" style="border: 0px; border-bottom: 1px solid black; background: #F5F5F5;  outline: none;"></input> <span class="glyphicon glyphicon-search on-searchClear"></span>
 								</span>
 							</h4>
 						</div>
@@ -93,4 +93,26 @@
 					</div>
 				</div>
 			</div>
+	<div class="modal fade" id="editClient_modal" tabindex="-1" role="dialog" aria-labelledby="editClient_label" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="editClient_label">Добавить/Изменить клиента</h4>
+				</div>
+				<div class="modal-body">
+					<input type="hidden" id="editClient_id"></input>
+					<div class="form-group">
+						<input type="text" id="editClient_name" class="form-control"></input>
+					</div>
+					<div class="form-group">
+						<input type="text" id="editClient_tel" class="form-control"></input>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" id="editClient_submit" autocomplete="off" class="btn btn-primary">Отправить</button>
+				</div>
+			</div>
+		</div>
+	</div>			
 {% endblock %}

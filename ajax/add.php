@@ -8,8 +8,8 @@ $args = array(
 	'model'		=> FILTER_VALIDATE_INT,
 );
 
-// $inputs = filter_input_array(INPUT_POST, $args);
-$inputs = filter_input_array(INPUT_GET, $args);
+$inputs = filter_input_array(INPUT_POST, $args);
+// $inputs = filter_input_array(INPUT_GET, $args);
 
 switch ($inputs['action']) {
 	case 'client':

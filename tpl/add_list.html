@@ -1,13 +1,21 @@
 									<tbody>
 									{% if data.clients is iterable %}
+										<tr>
+											<td><a href="#" class="on-addClient">Добавить нового клиента...</a></td>
+											<td></td>
+										</tr>
 									{% for client in data.clients %}
 										<tr>
 											<td><a href="#" class="on-client" data-client-id="{{ client.id_client }}" data-client-tel="{{ client.client_tel }}">{{ client.client }}</a></td>
-											<td><span class="glyphicon glyphicon-pencil pull-right" data-client-id="{{ client.id_client }}"></span></td>
+											<td><span class="glyphicon glyphicon-pencil pull-right" data-client-id="{{ client.id_client }}" data-client-name="{{ client.client }}" data-client-tel="{{ client.client_tel }}"></span></td>
 										</tr>
 									{% endfor %}
 									{% endif %}
 									{% if data.models is iterable %}
+										<tr>
+											<td><a href="#" class="on-addClient">Добавить новое устройство...</a></td>
+											<td></td>
+										</tr>									
 									{% for model in data.models %}
 										<tr>
 											<td><a href="#" class="on-model" data-model-id="{{ model.id_model }}">{{ model.type }} {{ model.brand }} {{ model.model }}</a></td>
