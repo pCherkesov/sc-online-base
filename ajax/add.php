@@ -10,7 +10,6 @@ $args = array(
 
 $inputs = filter_input_array(INPUT_POST, $args);
 // $inputs = filter_input_array(INPUT_GET, $args);
-
 switch ($inputs['action']) {
 	case 'client':
 		$query = "SELECT `id_client`, `client`, `client_tel_0` as `client_tel` 

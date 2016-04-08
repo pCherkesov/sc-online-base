@@ -67,21 +67,21 @@ $(document).ready(function(){
 	};
 
 
-	$("#List").delegate(".on-client", 'click', function (event) {
+	$("#List").on('click', "a.on-client", function (event) {
 		$("#id_client").val( $(this).attr('data-model-id') );
 		$("#tel_org").val( $(this).attr('data-client-tel') );
 		$("#fio_org").val( $(this).html() );
 		event.preventDefault();
 	});
 
-	$("#List").delegate(".on-addClient", 'click', function(event) {
+	$("#List").on('click', ".on-addClient", function(event) {
 		$("#editClient_id").val('0');
 		$("#editClient_name").val('');
 		$("#editClient_tel").val('');
 		$("#editClient_modal").modal('show');
 	});
 
-	$("#List").delegate("span", 'click', function (event) {
+	$("#List").on('click', "span.on-client", function (event) {
 		$("#editClient_id").val($(this).attr('data-client-id'));
 		$("#editClient_name").val($(this).attr('data-client-name'));
 		$("#editClient_tel").val($(this).attr('data-client-tel'));
@@ -106,13 +106,50 @@ $(document).ready(function(){
 		});
 	});
 
-	$("#List").delegate(".on-model", 'click', function (event) {
-		$("#id_model").val( $(this).attr('data-model-id') );
-		$("#device_name").val( $(this).html() );
-		event.preventDefault();
+	$("#List").on('click', "span.on-model", function (event) {
+		$("#editModel_id").val($(this).attr('data-model-id'));
+		$("#editModel_type").val($(this).attr('data-model-type'));
+		$("#editModel_brand").val($(this).attr('data-model-brand'));
+		$("#editModel_name").val($(this).attr('data-model-name'));
+		$("#editModel_modal").modal('show');
 	});
 
-	$("#List").delegate(".on-serial", 'click', function (event) {
+	$('#editModel_type').typeahead({
+		source: function (query, process) {
+			return loadModel('type', query, process);
+		}
+	});
+
+	$('#editModel_brand').typeahead({
+		source: function (query, process) {
+			return loadModel('brand', query, process);
+		}
+	});
+
+	$('#editModel_name').typeahead({
+		source: function (query, process) {
+			return loadModel('model', query, process);
+		}
+	});
+
+	function loadModel(type, query, process) {
+		return $.post(
+			'ajax/add_edit_model.php', 
+			{'action': 'typeahead-'+type, 'name': query},
+			function (response) {
+				var data = new Array();
+				if(response !== null) {
+					$.each(response, function(i, name) {
+						data.push(name);
+					});
+				}
+				return process(data);
+			},
+			'json'
+		);
+	}
+
+	$("#List").on('click', ".on-serial", function (event) {
 		$("#serial").val( $(this).html() );
 		event.preventDefault();
 	});
