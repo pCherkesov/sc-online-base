@@ -12,5 +12,10 @@
 			<a href="{{ redirect.url }}">{{ redirect.error_text }}</a>
 		</p>
 	{% endif %}
+	{% if redirect.text is defined %}
+		<p>
+			{{ redirect.text|raw }}
+		</p>
+	{% endif %}
 </body>
 </html>

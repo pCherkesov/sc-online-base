@@ -27,7 +27,7 @@
 									{% for serial in data.serials %}
 										<tr>
 											<td><a href="#" class="on-serial">{{ serial.serial }}</a></td>
-											<td></td>
+											<td><span class="on-serial glyphicon glyphicon-new-window pull-right" data-serial="{{ serial.serial }}"></span></td>
 										</tr>
 									{% endfor %}
 									{% endif %}									

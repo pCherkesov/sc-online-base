@@ -7,11 +7,11 @@
 			<div class="row">
 				<div class="col-md-6">
 					<form action="index.php?r=add/_create" method="post" id="on-addWork">
-						<input type="hidden" id="id_client" />
-						<input type="hidden" id="id_model" />
+						<input type="hidden" id="id_client" name="id_client" />
+						<input type="hidden" id="id_model" name="id_model" />
 						<div class="row">
 							<div class="col-md-4">
-								<input type="date" class="form-control" name="date" value="2015-06-22">
+								<input type="date" class="form-control" id="date" name="date" value="{{ "now"|date("Y-m-d") }}">
 							</div>
 						</div>
 						<br>
@@ -27,9 +27,9 @@
 							<!-- Tab panes -->
 							<div class="tab-content">
 								<div class="tab-pane active" id="human">
-									<input type="text" class="form-control" placeholder="ФИО" id="fio_human" />
+									<input type="text" class="form-control" placeholder="ФИО" id="fio_human" name="fio_human" />
 									<br>
-									<input type="text" class="form-control" placeholder="Телефон" id="tel_human" />
+									<input type="text" class="form-control" placeholder="Телефон" id="tel_human" name="tel_human" />
 								</div>
 								<div class="tab-pane" id="org">
 									<input type="text" class="form-control" placeholder="ФИО" id="fio_org" disabled />
@@ -45,24 +45,30 @@
 							</div>
 							<br>
 							<div id="serialFields">
-								<input type="text" class="form-control" placeholder="Серийный номер" id="serial" />
+								<input type="text" class="form-control" placeholder="Серийный номер" id="serial" name="serial" />
 							</div>
 						</fieldset>
 						<hr />
 						<fieldset id="affixFields">
-							<textarea class="input-block-level form-control textarea" placeholder="Комплектность" rows="3"></textarea><br>
-							<textarea class="input-block-level form-control textarea" placeholder="Заявленный дефект" rows="3"></textarea>
+							<textarea class="input-block-level form-control textarea" placeholder="Комплектность" name="complect" rows="3"></textarea><br>
+							<textarea class="input-block-level form-control textarea" placeholder="Заявленный дефект" name="defect" rows="3"></textarea>
 						</fieldset>
 						<hr />
 						<div class="row">
-							<div class="col-md-6">
-								<select class="form-control">
+							<div class="col-md-5">
+								<select class="form-control" id="prin" name="prin">
 								{% for prin in header.prins %}
 									<option value="{{prin.id_prin}}">{{ prin.prin }}</option>
 								{% endfor %}
 								</select>
 							</div>
-							<div class="col-md-6">
+							<div class="col-md-2">
+								<div class="material-switch" data-toggle="tooltip" data-placement="top" data-original-title="Печать бланка">
+									<input id="print" name="print" type="checkbox" checked />
+									<label for="print" class="label-primary"></label>
+								</div>
+							</div>		
+							<div class="col-md-5">
 								<p class="pull-right">
 									<button type="reset" value="Reset" class="btn btn-default">Сбросить</button>
 									<button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-floppy-saved"></span> Сохранить </button>

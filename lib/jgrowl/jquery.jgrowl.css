@@ -32,7 +32,14 @@
   margin-right: auto;
 }
 .jGrowl-notification {
-  background-color: #000000;
+      padding: 15px;
+    background-color: #fafafa;
+    border-left: 6px solid #7f7f84;
+    margin-bottom: 10px;
+    -webkit-box-shadow: 0 5px 8px -6px rgba(0,0,0,.2);
+       -moz-box-shadow: 0 5px 8px -6px rgba(0,0,0,.2);
+            box-shadow: 0 5px 8px -6px rgba(0,0,0,.2);
+/*  background-color: #000000;
   opacity: 0.9;
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=(0.9*100));
   -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=(0.9*100));
@@ -44,7 +51,7 @@
   display: none;
   border-radius: 5px;
   min-height: 40px;
-}
+*/}
 .jGrowl-notification .ui-state-highlight,
 .jGrowl-notification .ui-widget-content .ui-state-highlight,
 .jGrowl-notification .ui-widget-header .ui-state-highlight {

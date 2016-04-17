@@ -38,7 +38,7 @@ switch ($inputs['action']) {
 		FROM `".$S_CONFIG['prefix']."remont`
 		WHERE `id_client` = '". $inputs['client'] ."' AND `id_model` = '". $inputs['model'] ."' 
 		AND `serial` <> ''
-		ORDER BY `serial` ASC";
+		GROUP BY `serial` ASC";
 		$result = mysqli_query($S_CONFIG['link'], $query) or exit(mysqli_error($S_CONFIG['link']));
 		while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 			$data['serials'][] = $line;
