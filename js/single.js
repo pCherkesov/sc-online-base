@@ -59,6 +59,30 @@ $(document).ready(function(){
 		});
 	});
 
+	$(".onCounterEdit").on('click', function(event) {
+		$("#counter-name").hide();
+		$("#counter-select").show();
+	});
+	$(".onCounterSave").on('click', function(event) {
+		var id = $("#work-id").html();
+		var counter = $("#work-counter").val();
+		$.ajax({
+			type: "POST",
+			url: 'ajax/edit_counter.php',
+			data: "id="+id+"&counter="+counter,
+			success: function(data, textStatus){
+				$("#work-counter-name").html(data);
+				$("#work-counter-name").attr("data-counter", data);
+				$("#counter-name").show();
+				$("#counter-select").hide();
+				notify('success', "Счётчик изменён");
+			},
+			error: function(jqXHR, textStatus, errorThrown){
+				notify('danger', textStatus);
+			}
+		});
+	});
+
 	$(".onPartsAdd").on('click', function () {
 		$("#parts").append($("#parts_row").html());
 	});
@@ -191,7 +215,7 @@ $(document).ready(function(){
 		$.ajax({
 				type: "POST",
 				url: './check_xls.php',
-				data: "id="+id,
+				data: "edit_id="+id,
 				success: function(data){
 						notify('success', "Чек отправлен на печать <br>"+data);
 				},

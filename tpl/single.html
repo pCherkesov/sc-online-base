@@ -69,7 +69,21 @@
 								</dd>
 							</dl>
 						</div>
-					</div>
+						<div class="col-md-3">
+							<dl>
+								<dt>Счётчик:</dt>
+								<dd>
+								<div class="form-inline">
+									<div id="counter-select" style="display: none;">
+										<input class="form-control input-sm" id="work-counter" name="work-counter" value="{{ header.counter }}" /> <span class="glyphicon glyphicon-ok onLink onCounterSave"></span>
+									</div>
+									<div id="counter-name">
+										<span id="work-counter-name" data-counter="{{ header.counter }}">{{ header.counter }}</span> <span class="glyphicon glyphicon-remove onLink onCounterEdit"></span>
+									</div>
+								</div>
+								</dd>
+							</dl>
+						</div>					</div>
 					<div class="row">
 						<div class="col-md-12">
 							<dl class="dl-horizontal">
