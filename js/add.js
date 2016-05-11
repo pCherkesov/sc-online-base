@@ -156,7 +156,10 @@ $(document).ready(function(){
 		var brand = $("#editModel_brand").val();
 		var model = $("#editModel_name").val();
 		$('#editModel_modal input').each(function (count) {
-			if($(this).val() == ''){ $(this).addClass("has-error"); error = 1; }
+			if($(this).val() == '' && $(this).attr("id") != "editModel_id") {
+				$(this).addClass("has-error");
+				error = 1; 
+			}
 			else { $(this).removeClass("has-error"); }
 		});
 		if(error == 1) { return; }
