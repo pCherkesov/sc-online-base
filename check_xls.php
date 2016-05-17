@@ -15,11 +15,11 @@ $xls = new COM('Excel.Application');
 
 if($_HOME == TRUE) {
 	$xls->Application->Visible = 1;
-	$xls->Workbooks->Open('c:\servers\OpenServer\domains\online-service.local\Forms\check.xls');
+	$xls->Workbooks->Open('c:\servers\OpenServer\domains\online-service.local\check_xls.xls');
 }
 else {
 	$xls->Application->Visible = 0;
-	$xls->Workbooks->Open('C:\xampp\htdocs\online-service.ru\Forms\check.xls');
+	$xls->Workbooks->Open('C:\xampp\htdocs\online-service.ru\check_xls.xls');
 }
 
 $sheet = $xls->Worksheets('check');

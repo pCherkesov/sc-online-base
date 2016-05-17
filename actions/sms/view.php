@@ -8,7 +8,7 @@ $sms_status = array(
 
 
 $query = "SELECT DATE_FORMAT(`s`.`date_s`, '%d.%m.%Y %H:%i') as `date_s`, `s`.`text_s`, `s`.`status_s`, `s`.`id_smsc`, 
-`r`.`id_r`, `r`.`id_client`, `r`.`client_fio`, `r`.`client_tel`, `c`.`client`, `c`.`client_tel_0`,`w`.`worker`
+`s`.`id_r`, `r`.`id_client`, `r`.`client_fio`, `r`.`client_tel`, `c`.`client`, `c`.`client_tel_0`,`w`.`worker`
 FROM `".$S_CONFIG['prefix']."sms` as `s`, `".$S_CONFIG['prefix']."remont` as `r`, `".$S_CONFIG['prefix']."client` as `c`, `".$S_CONFIG['prefix']."worker` AS `w`
 WHERE `r`.`id_r` = `s`.`id_r` AND `r`.`id_client` = `c`.`id_client` AND `w`.`id_worker` = `s`.`author_s`
 ORDER BY `s`.`date_s` DESC";

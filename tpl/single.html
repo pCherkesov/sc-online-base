@@ -149,7 +149,7 @@
 			{% for icon in header.string %}
 				<label class="btn btn-default{% if icon == 'Y' %} active{% endif %}" data-id="{{ header.id_r }}" data-value="{{ loop.index0 }}">
 					<input type="checkbox">
-					<img src='Images/Icon/s_{{ loop.index0 }}_Y.png' data-toggle="tooltip" data-placement="top" data-original-title='{{ header.string_text[loop.index0]|default('Нет описания') }}' />
+					<img src='img/icon/s_{{ loop.index0 }}_Y.png' data-toggle="tooltip" data-placement="top" data-original-title='{{ header.string_text[loop.index0]|default('Нет описания') }}' />
 				</label>
 			{% endfor %}
 			</div>

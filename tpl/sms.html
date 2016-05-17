@@ -38,7 +38,13 @@
 {% for sms in data %}
 	<tr>
 		<td align="center" nowrap>{{ sms.date_s }}</td>
-		<td align="center" nowrap><a href="index.php?r=single/view&id={{ sms.id_r }}">{{ sms.client }}</a></td>
+		<td align="center" nowrap>
+		{% if sms.id_r == 0 %}
+		Не задан
+		{% else %}
+		<a href="index.php?r=single/view&id={{ sms.id_r }}">{{ sms.client }}</a>
+		{% endif %}
+		</td>
 		<td align="center" nowrap><span class="statusTel">+7{{ sms.phone }}</span></td>
 		<td align="left">{{ sms.text_s|nl2br }}</td>
 		<td align="center" nowrap>{{ sms.worker }}</td>
