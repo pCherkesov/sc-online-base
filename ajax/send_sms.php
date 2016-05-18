@@ -28,21 +28,20 @@ catch (Exception $e) {
 }
 
 $result_query = "INSERT INTO `".$S_CONFIG['prefix']."sms` VALUE(0, ".$idr.", '". $sms_id ."', CURRENT_TIMESTAMP, '".$msg."', 1, 0);";
-
 mysqli_query($S_CONFIG['link'], $result_query) or exit(mysql_error($S_CONFIG['link']));
 
+// Если работа не указана, то завершаем работу
+if($idr == 0) exit();
 
 //====== Запись статуса в работу ======
 $query = "SELECT `string` FROM `".$S_CONFIG['prefix']."remont` WHERE `id_r` = ".$idr;
-
 $result = mysqli_query($S_CONFIG['link'], $query) or exit(mysqli_error($S_CONFIG['link']));
+
 while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 	$status = $line['string'];
 }
-
 $status[9] = "Y";
 
 $query = "UPDATE `".$S_CONFIG['prefix']."remont` SET `string` = '".$status."' WHERE `id_r` = ".$idr." LIMIT 1";
-
 mysqli_query($S_CONFIG['link'], $query) or exit(mysqli_error($S_CONFIG['link']));
 ?>
