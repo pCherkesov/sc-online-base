@@ -19,7 +19,7 @@ if($_HOME == TRUE) {
 }
 else {
 	$xls->Application->Visible = 0;
-	$xls->Workbooks->Open('C:\xampp\htdocs\online-service.ru\check_xls.xls');
+	$xls->Workbooks->Open('C:\xampp\htdocs\online-service.local\check_xls.xls');
 }
 
 $sheet = $xls->Worksheets('check');

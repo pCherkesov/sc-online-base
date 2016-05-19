@@ -131,10 +131,10 @@ $(document).ready(function(){
 		$('#editModel_modal input').each( function (count) {
 			$(this).removeClass("has-error");
 		});		
-		$("#editModel_id").val();
-		$("#editModel_type").val();
-		$("#editModel_brand").val();
-		$("#editModel_name").val();
+		$("#editModel_id").val('0');
+		$("#editModel_type").val('');
+		$("#editModel_brand").val('');
+		$("#editModel_name").val('');
 		$("#editModel_modal").modal('show');
 	});
 

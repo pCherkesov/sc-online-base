@@ -53,7 +53,7 @@ $(document).ready(function(){
 				always: function() {
 				}
 		});
-		$('#sendSMS_modal').modal('hide');
+		$('#globalSMS_modal').modal('hide');
 	});
 
 });
