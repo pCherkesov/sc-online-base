@@ -41,7 +41,7 @@ $(document).ready(function(){
 	$('#serialFields').on('click', function () {
 		$("#on-ListName").html("Серийные номера");
 		var args = '&client='+$("#id_client").val() + '&model='+ $("#id_model").val();
-		loadList("serial", args, false);
+		loadList("serial", args, true);
 	});
 
 	function loadList (action, args = "", focus = true) {
