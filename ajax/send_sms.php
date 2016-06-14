@@ -16,7 +16,8 @@ $idr = $inputs['id'];
 $tel = "7".str_replace(array(" ", "-", "(", ")"), "", $inputs['tel']);
 $msg = $inputs['msg'];
 
-
+// echo $idr . " - " . $tel . ": " . $msg;
+// exit();
 //====== Отправка СМС сообщения ======
 try {
     list($sms_id, $sms_cnt, $cost, $balance) = send_sms($tel, $msg, 0, 0, 0, 0, "s.cOnline");

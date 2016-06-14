@@ -164,11 +164,7 @@
 				</button>
 				<ul class="dropdown-menu" role="menu">
 					<li>
-					{% if header.date_smsstart == 1 %}
 						<a data-toggle="modal" data-target="#sendSMS_modal" href="#">Отправить </a>
-					{% else %}
-						<a href="#" disabled="disabled"><s>Отправить </s></a>
-					{% endif %}
 					</li>
 					<li><a href="/index.php?r=sms/view&search={{ header.client_tel }}" target="_blank">История</a></li>
 				</ul>
@@ -282,6 +278,9 @@
 					<h4 class="modal-title" id="sendSMS_label">Отправить SMS клиенту</h4>
 				</div>
 				<div class="modal-body">
+                    <div class="form-group">
+                        <input type="text" id="sendSMS_tel" class="form-control" placeholder="Номер телефона" value="{{ header.client_tel }}"></input>
+                    </div>				
 					<textarea id="sendSMS_text" class="form-control" rows="4">Ваш {{ header.type|lower }} готов к выдаче.
 Подробности на сайте: сц-онлайн.рф</textarea>
 				</div>

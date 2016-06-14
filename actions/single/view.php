@@ -2,7 +2,6 @@
 // WORK HEADER
 $query = "SELECT 
 	r.id_r, r.complete, DATE_FORMAT(r.date, '%d.%m.%Y') as date_start, DATE_FORMAT(r.date_complete, '%d.%m.%Y') as date_complete, 
-	(r.date > '2016-03-01') as date_smsstart, 
 	r.string, t. type, b.brand, m.id_model, m.model, 
 	c.id_client, c.client, c.client_face, c.client_tel_0, r.client_fio, r.client_tel, 
 	r.counter, r.serial, r.defect, r.complect, p.prin, r.id_worker

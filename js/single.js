@@ -187,10 +187,16 @@ $(document).ready(function(){
 		$("#edit_parts_price").val(parts_price);
 	});
 
-	$("#sendSMS_submit").on('click', function() {
+	$("#sendSMS_tel").mask("(999) 999-9999");
+	$("#sendSMS_submit").on('click', function(event) {
 		var id = $("#work-id").html();
-		var tel = $("#client_tel").html();
+		var tel = $("#sendSMS_tel").val();
 		var text = $("#sendSMS_text").val();
+		if(tel == "") {
+			notify('danger', "Не указан телефон");
+			$("#sendSMS_tel").addClass('has-error');
+			return;
+		}
 		$(this).button('loading');
 		$.ajax({
 				type: "POST",

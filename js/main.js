@@ -34,28 +34,6 @@ $(document).ready(function(){
         $('#sendMail_modal').modal('hide');
     });
 
-	$("#globalSMS_tel").mask("(999) 999-9999");
-	$("#globalSMS_submit").on('click', function() {
-		var id = 0;
-		var tel = $("#globalSMS_tel").val();
-		var text = $("#globalSMS_text").val();
-		$(this).button('loading');
-		$.ajax({
-				type: "POST",
-				url: './ajax/send_sms.php',
-				data: "id="+id+"&tel="+tel+"&msg="+text,
-				success: function(data){
-						notify('success', "Сообщение отправлено <br>"+data);
-				},
-				error: function(jqXHR, textStatus, errorThrown){
-						notify('danger', textStatus + " " + errorThrown);
-				},
-				always: function() {
-				}
-		});
-		$('#globalSMS_modal').modal('hide');
-	});
-
 });
 
 // jGrowl notify
