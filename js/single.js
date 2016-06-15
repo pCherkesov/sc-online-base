@@ -211,6 +211,7 @@ $(document).ready(function(){
 				always: function() {
 				}
 		});
+		$("#sendSMS_tel").removeClass('has-error');
 		$(this).button('reset');
 		$(".statusbar label[data-value=9]").addClass('active');
 		$('#sendSMS_modal').modal('hide');
