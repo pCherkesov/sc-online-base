@@ -41,7 +41,7 @@ $(document).ready(function(){
 	$('#serialFields').on('click', function () {
 		$("#on-ListName").html("Серийные номера");
 		var args = '&client='+$("#id_client").val() + '&model='+ $("#id_model").val();
-		loadList("serial", args, true);
+		loadList("serial", args, false);
 	});
 
 	function loadList (action, args = "", focus = true) {
@@ -58,7 +58,8 @@ $(document).ready(function(){
 					searchType: 'default',
 					reset: 'true',
 				});
-				if(focus == true) {	$("#ListSearch").val('').focus(); }
+				$("#ListSearch").val('');
+				if(focus == true) {	$("#ListSearch").focus(); }
 			},
 			error: function(jqXHR, textStatus, errorThrown){
 				notify('danger', textStatus);
