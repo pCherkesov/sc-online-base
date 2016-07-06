@@ -222,7 +222,7 @@ $(document).ready(function(){
 	});
 
 	$("#List").on('click', "span.on-serial", function (event) {
-		window.open("/index.php?r=search/view&serial="+ $(this).attr('data-serial'), '_blank');
+		window.open("/index.php?r=search/view&search="+ $(this).attr('data-serial'), '_blank');
 	});
 
 	$("#on-addWork").on('submit', function(event) {

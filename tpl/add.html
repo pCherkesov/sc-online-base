@@ -7,11 +7,11 @@
 			<div class="row">
 				<div class="col-md-6">
 					<form action="index.php?r=add/_create" method="post" id="on-addWork">
-						<input type="hidden" id="id_client" name="id_client" />
-						<input type="hidden" id="id_model" name="id_model" />
+						<input type="hidden" id="id_client" name="id_client" value="{{ data.id_client }}" />
+						<input type="hidden" id="id_model" name="id_model" value="{{ data.id_model }}" />
 						<div class="row">
 							<div class="col-md-4">
-								<input type="date" class="form-control" id="date" name="date" value="{{ "now"|date("Y-m-d") }}">
+								<input type="date" class="form-control" id="date" name="date" value="{{ data.date|default("now"|date("Y-m-d")) }}">
 							</div>
 						</div>
 						<br>
@@ -27,31 +27,31 @@
 							<!-- Tab panes -->
 							<div class="tab-content">
 								<div class="tab-pane active" id="human">
-									<input type="text" class="form-control" placeholder="ФИО" id="fio_human" name="fio_human" />
+									<input type="text" class="form-control" placeholder="ФИО" id="fio_human" name="fio_human"  value="{{ data.client_fio }}" />
 									<br>
-									<input type="text" class="form-control" placeholder="Телефон" id="tel_human" name="tel_human" />
+									<input type="text" class="form-control" placeholder="Телефон" id="tel_human" name="tel_human" value="{{ data.client_tel }}" />
 								</div>
 								<div class="tab-pane" id="org">
-									<input type="text" class="form-control" placeholder="ФИО" id="fio_org" disabled />
+									<input type="text" class="form-control" placeholder="ФИО" id="fio_org" value="{{ data.client }}" disabled />
 									<br>
-									<input type="text" class="form-control" placeholder="Телефон" id="tel_org" disabled />
+									<input type="text" class="form-control" placeholder="Телефон" id="tel_org" value="{{ data.client_tel_0 }}" disabled />
 								</div>
 							</div>
 						</fieldset>
 						<hr />
 						<fieldset>
 							<div id="deviceFields">
-								<input type="text" class="form-control" placeholder="Наименование" id="device_name" disabled />
+								<input type="text" class="form-control" placeholder="Наименование" id="device_name"  value="{{ data.device_name }}" disabled />
 							</div>
 							<br>
 							<div id="serialFields">
-								<input type="text" class="form-control" placeholder="Серийный номер" id="serial" name="serial" />
+								<input type="text" class="form-control" placeholder="Серийный номер" id="serial" name="serial" value="{{ data.serial }}" />
 							</div>
 						</fieldset>
 						<hr />
 						<fieldset id="affixFields">
-							<textarea class="input-block-level form-control textarea" placeholder="Комплектность" name="complect" rows="3"></textarea><br>
-							<textarea class="input-block-level form-control textarea" placeholder="Заявленный дефект" name="defect" rows="3"></textarea>
+							<textarea class="input-block-level form-control textarea" placeholder="Комплектность" name="complect" rows="3">{{ data.complect }}</textarea><br>
+							<textarea class="input-block-level form-control textarea" placeholder="Заявленный дефект" name="defect" rows="3">{{ data.defect }}</textarea>
 						</fieldset>
 						<hr />
 						<div class="row">

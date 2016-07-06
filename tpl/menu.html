@@ -1,5 +1,5 @@
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-9">
 				<div class="btn-group">
 					<button type="button" class="btn btn-default"><a href="/index.php?r=stat/month&date={{ "now"|date("m/Y") }}">За месяц</a></button>
 					<button type="button" class="btn btn-default"><a href="/index.php?r=many/incomplete">Незавершённые</a></button>
@@ -8,8 +8,16 @@
 					<button type="button" class="btn btn-default"><a href="/index.php?r=sms/view">СМС</a></button>
 					<button type="button" class="btn btn-default"><a href="/index.php?r=add/view">Забивная</a></button>
 				</div>
-				<div class="btn-group pull-right">
-					<button type="button" class="btn btn-link"><a data-toggle="modal" data-target="#sendMail_modal" href="#">Напишите Петьке</a></button>
-				</div>
+			</div>
+			<div class="col-md-3">
+				<form role="search" action="index.php" method="get" id="globalSearch">
+					<div class="input-group">
+						<input type="hidden" name="r" value="search/view">
+						<input type="search" class="form-control" name="search" placeholder="Глобальный поиск" value="{{ header.search|default('') }}">
+						<span class="input-group-btn">
+							<button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+						</span>
+					</div>
+				</form>
 			</div>
 		</div>

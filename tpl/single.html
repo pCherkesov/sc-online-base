@@ -32,7 +32,7 @@
 							  <dt>Техника:</dt>
 							  <dd>{{ header.type }} {{ header.brand }} {{ header.model }}
 								<a title="Поиск по модели" data-toggle="tooltip"
-								  href='/index.php?act=incomplete&search=y&model={{ header.id_model }}'>
+								  href='/index.php?r=search/view&search={{ header.brand }} {{ header.model }}'>
 									<span class="glyphicon glyphicon-search"></span>
 								</a>
 							  </dd>
@@ -40,7 +40,7 @@
 							  <dd>
 								{{ header.serial }} 
 								<a title="Поиск по серийному номеру" data-toggle="tooltip"
-								  href='/index.php?act=incomplete&search=y&serial={{ header.serial }}'>
+								  href='/index.php?r=search/view&search={{ header.serial }}'>
 								  <span class="glyphicon glyphicon-search"></span>
 								</a>
 							  </dd>

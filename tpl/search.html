@@ -3,12 +3,6 @@
         <script type="text/javascript" src="/js/many.js"></script>
 {% endblock %}
 {% block content %}
-{% if header.urls.month %}
-    {% set searchOption = 'year' %}
-{% else %}
-    {% set searchOption = 'worker' %}
-{% endif %}
-{% include 'searchbar.html' with {'searchOption': searchOption, 'header': header } %}
 
 <table class="table table-bordered table-condensed table-hover" id="table-works">
 <thead>
@@ -36,7 +30,7 @@
             <td class="hide">{{ work.id_r }}</td>
             <td align="center">{{ work.date }}</td>
             <td align="left">
-                <a href="index.php?r=single/view&id={{ work.id_r }}">{{ work.brand }} {{ work.model }}</a>
+                <a href="index.php?r=single/view&id={{ work.id_r }}">{{ work.model }}</a>
             </td>
             <td align="center">
             {% if work.id_client == 1 %}
