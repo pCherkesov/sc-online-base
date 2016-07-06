@@ -3,6 +3,12 @@
         <script type="text/javascript" src="/js/many.js"></script>
 {% endblock %}
 {% block content %}
+{% if header.urls.month %}
+    {% set searchOption = 'year' %}
+{% else %}
+    {% set searchOption = 'worker' %}
+{% endif %}
+{% include 'searchbar.html' with {'searchOption': searchOption, 'header': header } %}
 
 <table class="table table-bordered table-condensed table-hover" id="table-works">
 <thead>

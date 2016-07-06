@@ -33,6 +33,6 @@ while($option = mysqli_fetch_array($result, MYSQLI_ASSOC)){
 	$header['prins'][$option['id_prin']] = $option;
 }
 
-render($data = array('main' => $main, 'header' => $header, 'data' => $works[0]));
+@render($data = array('main' => $main, 'header' => $header, 'data' => $works[0]));
 
 ?>
