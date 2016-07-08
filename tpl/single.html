@@ -21,29 +21,38 @@
 					<div class="row">
 						<div class="col-md-3">
 							<dl>
-							  <dt>Заказчик:</dt>
-							  <dd>{{ header.client_fio }}</dd>
-							  <dt>Телефон:</dt>
-							  <dd><span id="client_tel">{{ header.client_tel }}</span></dd>
+								<dt>Заказчик:</dt>
+								<dd>{{ header.client_fio }}
+									<a title="Поиск по клиенту" data-toggle="tooltip"
+									  href='/index.php?r=search/view&search={{ header.client_fio }}'>
+									  <span class="glyphicon glyphicon-search"></span>
+									</a>							  
+								</dd>
+							<dt>Телефон:</dt>
+								<dd><span id="client_tel">{{ header.client_tel }}</span>
+									<a title="Поиск по номеру телефона" data-toggle="tooltip"
+									  href='/index.php?r=search/view&search={{ header.client_tel }}'>
+									  <span class="glyphicon glyphicon-search"></span>
+								</dd>
 							</dl>
 						</div>
 						<div class="col-md-3">
 							<dl>
-							  <dt>Техника:</dt>
-							  <dd>{{ header.type }} {{ header.brand }} {{ header.model }}
-								<a title="Поиск по модели" data-toggle="tooltip"
-								  href='/index.php?r=search/view&search={{ header.brand }} {{ header.model }}'>
-									<span class="glyphicon glyphicon-search"></span>
-								</a>
-							  </dd>
-							  <dt>Серийный номер:</dt>
-							  <dd>
-								{{ header.serial }} 
-								<a title="Поиск по серийному номеру" data-toggle="tooltip"
-								  href='/index.php?r=search/view&search={{ header.serial }}'>
-								  <span class="glyphicon glyphicon-search"></span>
-								</a>
-							  </dd>
+								<dt>Техника:</dt>
+								<dd>{{ header.type }} {{ header.brand }} {{ header.model }}
+									<a title="Поиск по модели" data-toggle="tooltip"
+									  href='/index.php?r=search/view&search={{ header.brand }} {{ header.model }}'>
+										<span class="glyphicon glyphicon-search"></span>
+									</a>
+								</dd>
+								<dt>Серийный номер:</dt>
+								<dd>
+									{{ header.serial }} 
+									<a title="Поиск по серийному номеру" data-toggle="tooltip"
+									  href='/index.php?r=search/view&search={{ header.serial }}'>
+									  <span class="glyphicon glyphicon-search"></span>
+									</a>
+								</dd>
 							</dl>
 						</div>
 						<div class="col-md-3">

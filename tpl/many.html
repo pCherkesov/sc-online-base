@@ -34,9 +34,9 @@
                 <span style="color: #{{ header.workers[work.id_worker].color }}" class="glyphicon glyphicon glyphicon-user" data-toggle="tooltip" data-placement="top" data-original-title="{{ header.workers[work.id_worker].worker }}"></span>
             </td>
             <td class="hide">{{ work.id_r }}</td>
-            <td align="center">{{ work.date }}</td>
+            <td align="center" title="id: {{ work.id_r }}">{{ work.date }}</td>
             <td align="left">
-                <a href="index.php?r=single/view&id={{ work.id_r }}">{{ work.brand }} {{ work.model }}</a>
+                <a href="index.php?r=single/view&id={{ work.id_r }}">{{ work.device_name }}</a>
             </td>
             <td align="center">
             {% if work.id_client == 1 %}

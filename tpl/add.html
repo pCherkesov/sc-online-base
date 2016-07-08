@@ -7,7 +7,7 @@
 			<div class="row">
 				<div class="col-md-6">
 					<form action="index.php?r=add/_create" method="post" id="on-addWork">
-						<input type="hidden" id="id_client" name="id_client" value="{{ data.id_client }}" />
+						<input type="hidden" id="id_client" name="id_client" value="{{ data.id_client|default(1) }}" />
 						<input type="hidden" id="id_model" name="id_model" value="{{ data.id_model }}" />
 						<div class="row">
 							<div class="col-md-4">

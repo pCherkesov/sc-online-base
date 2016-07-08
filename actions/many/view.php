@@ -59,20 +59,33 @@ if(isset($_REQUEST['sort'])){
 	$header['sort'] = $_REQUEST['sort'];
 } else $worker = '';
 
-
-$query = "SELECT r.complete, r.id_r, DATE_FORMAT(r.date, '%d.%m.%Y') as date, r.string, b.brand, m.model, 
-			r.id_client, c.client, c.client_tel_0, r.client_fio, r.client_tel, r.serial, r.id_worker
-		FROM `".$S_CONFIG['prefix']."remont` AS r, `".$S_CONFIG['prefix']."model` AS m,
-		`".$S_CONFIG['prefix']."client` AS c, `".$S_CONFIG['prefix']."brand` AS b, 
-		`".$S_CONFIG['prefix']."worker` AS w
+$query = "SELECT r.complete, r.id_r, DATE_FORMAT(r.date, '%d.%m.%Y') as date, r.string,  
+			r.id_client, c.client, c.client_tel_0, r.client_fio, r.client_tel, r.serial, r.id_worker,
+			CONCAT(b.brand, ' ', m.model) as device_name
+		FROM `remont` AS r 
+		LEFT JOIN `model` AS m ON r.id_model = m.id_model 
+		LEFT JOIN `brand` AS b ON m.id_brand = b.id_brand 
+		LEFT JOIN `client` AS c ON r.id_client = c.id_client 
+		LEFT JOIN `worker` AS w ON r.id_worker = w.id_worker
 		WHERE 
 		".$month." 
-		 and m.id_brand=b.id_brand
-		 and r.id_model=m.id_model
-		and r.id_client=c.id_client
 		".$worker.
 		$add_query." 
-		GROUP BY  r.date, r.id_r ASC";
+		GROUP BY  r.date, r.id_r ASC;";
+
+// $query = "SELECT r.complete, r.id_r, DATE_FORMAT(r.date, '%d.%m.%Y') as date, r.string, b.brand, m.model, 
+// 			r.id_client, c.client, c.client_tel_0, r.client_fio, r.client_tel, r.serial, r.id_worker
+// 		FROM `".$S_CONFIG['prefix']."remont` AS r, `".$S_CONFIG['prefix']."model` AS m,
+// 		`".$S_CONFIG['prefix']."client` AS c, `".$S_CONFIG['prefix']."brand` AS b, 
+// 		`".$S_CONFIG['prefix']."worker` AS w
+// 		WHERE 
+// 		".$month." 
+// 		 and m.id_brand=b.id_brand
+// 		 and r.id_model=m.id_model
+// 		and r.id_client=c.id_client
+// 		".$worker.
+// 		$add_query." 
+// 		GROUP BY  r.date, r.id_r ASC";
 
 $result = mysqli_query($S_CONFIG['link'], $query) or exit(mysql_error());
 

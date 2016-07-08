@@ -22,7 +22,7 @@ $query = "SELECT r.id_model, t.type, b.brand, m.model, r.id_client, c.client, c.
 $result = mysqli_query($S_CONFIG['link'], $query) or exit(mysqli_error($S_CONFIG['link']));
 
 while($option = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-	$works[] = $option;
+	$works = $option;
 }
 
 
@@ -33,6 +33,6 @@ while($option = mysqli_fetch_array($result, MYSQLI_ASSOC)){
 	$header['prins'][$option['id_prin']] = $option;
 }
 
-@render($data = array('main' => $main, 'header' => $header, 'data' => $works[0]));
+render($data = array('main' => $main, 'header' => $header, 'data' => $works));
 
 ?>

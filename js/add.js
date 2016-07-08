@@ -3,9 +3,15 @@ $(document).ready(function(){
 	$("#editClient_tel").mask("(999) 999-9999");
 
 	$('#on-addWork')[0].reset();
-	$("#id_client").val("1");
 	$('#ListPanel').collapse('hide');
 	$('#fio_human').focus();
+
+	if($("#id_client").val() > 1){
+		$(".nav-tabs li").removeClass("active");
+		$(".nav-tabs li:nth-child(2)").addClass("active");
+		$("#human").removeClass("active");
+		$("#org").addClass("active");		
+	}
 
 	$(".on-searchClear").on('click', function(event) {
 		$("#ListSearch").val('');
