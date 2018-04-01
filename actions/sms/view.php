@@ -9,9 +9,11 @@ $sms_status = array(
 
 $query = "SELECT DATE_FORMAT(`s`.`date_s`, '%d.%m.%Y %H:%i') as `date_s`, `s`.`tel_s`, `s`.`text_s`, `s`.`status_s`, `s`.`id_smsc`, 
 `s`.`id_r`, `r`.`id_client`, `r`.`client_fio`, `c`.`client`, `w`.`worker`
-FROM `".$S_CONFIG['prefix']."sms` as `s`, `".$S_CONFIG['prefix']."remont` as `r`, `".$S_CONFIG['prefix']."client` as `c`, `".$S_CONFIG['prefix']."worker` AS `w`
-WHERE `r`.`id_r` = `s`.`id_r` AND `r`.`id_client` = `c`.`id_client` AND `w`.`id_worker` = `s`.`author_s`
-ORDER BY `s`.`date_s` DESC";
+	FROM `sms` as `s` 
+		LEFT JOIN `remont` AS r ON r.id_r = s.id_r 
+		LEFT JOIN `client` AS c ON r.id_client = c.id_client 
+		LEFT JOIN `worker` AS w ON s.author_s = w.id_worker 
+	ORDER BY `s`.`date_s` DESC";
 
 $result = mysqli_query($S_CONFIG['link'], $query) or exit(mysqli_error($S_CONFIG['link']));
 
@@ -29,7 +31,5 @@ while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 	$data[] = $line;
 }
 
-
-// print_r($search);
 render($data = array('data' => $data, 'search' => $search));
 ?>

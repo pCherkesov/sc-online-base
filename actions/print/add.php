@@ -4,14 +4,19 @@ $args = array(
 );
 
 $inputs = filter_input_array(INPUT_GET, $args);
-// var_dump($inputs);
 if (!isset($inputs['id'])) die("Неверно передан id");
 
 $query = "SELECT DATE_FORMAT(r.date, '%d.%m.%Y') AS date, r.id_client, c.client, c.client_tel_0, r.client_fio, r.client_tel,
 t.type, b.brand, m.model, r.counter, r.serial, p.prin, r.defect, r.complect, r.pass as pincode 
-FROM `".$S_CONFIG['prefix']."remont` AS r, `".$S_CONFIG['prefix']."type` AS t, `".$S_CONFIG['prefix']."model` AS m, `".$S_CONFIG['prefix']."client` AS c, `".$S_CONFIG['prefix']."brand` AS b, `".$S_CONFIG['prefix']."prin` AS p
-WHERE t.id_type=m.id_type and m.id_brand=b.id_brand and r.id_client=c.id_client and r.id_model=m.id_model and r.id_prin=p.id_prin and r.id_r=".$inputs['id']."
-LIMIT 1";
+    FROM `remont` AS r 
+        LEFT JOIN `client` AS c ON r.id_client = c.id_client 
+        LEFT JOIN `model` AS m ON r.id_model = m.id_model 
+        LEFT JOIN `type` AS t ON m.id_type = t.id_type
+        LEFT JOIN `brand` AS b ON m.id_brand = b.id_brand 
+        LEFT JOIN `worker` AS w ON r.id_worker = w.id_worker    
+        LEFT JOIN `prin` AS p ON r.id_prin = p.id_prin
+    WHERE r.id_r=".$inputs['id']."
+    LIMIT 1";
 
 $result = mysqli_query($S_CONFIG['link'], $query) or exit(mysqli_error($S_CONFIG['link']));
 while ($work = mysqli_fetch_array($result, MYSQLI_ASSOC)) {

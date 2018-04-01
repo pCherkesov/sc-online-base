@@ -15,7 +15,7 @@ $query = "SELECT
 	LEFT JOIN `model` AS m ON r.id_model = m.id_model 
 	LEFT JOIN `type` AS t ON m.id_type = t.id_type
 	LEFT JOIN `brand` AS b ON m.id_brand = b.id_brand 
-	LEFT JOIN `worker` AS w ON r.id_worker = w.id_worker 	
+	LEFT JOIN `worker` AS w ON r.id_worker = w.id_worker 
   	LEFT JOIN `prin` AS p ON r.id_prin = p.id_prin
 WHERE r.id_r=". $inputs['id'] ."
 ORDER BY r.id_r ASC";

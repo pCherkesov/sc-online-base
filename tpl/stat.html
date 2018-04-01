@@ -1,32 +1,77 @@
 {% extends "main.html" %}
 {% block content %}
 
-{% if header.urls.month %}
-	{% set searchOption = 'year' %}
-{% else %}
-	{% set searchOption = 'worker' %}
-{% endif %}
-{% include 'searchbar.html' with {'searchOption': searchOption, 'header': header } %}
+<div class="row">
+	<div class="col-md-3">
+		<div class="form-group btn-group">
+			<button type="button" class="btn btn-default">
+				<a href="{{ header.urls.lefturl }}"><span class="glyphicon glyphicon-chevron-left"></span></a>
+			</button>
+			<button type="button" class="btn btn-default">{{ header.urls.month }}</button>
+			<button type="button" class="btn btn-default">
+				<a href="{{ header.urls.righturl }}"><span class="glyphicon glyphicon-chevron-right"></span></a>
+			</button>
+		</div>
+	</div>
+	<div class="col-md-3">
+		<div class="form-group">	
+			<form id="workerSort" method="post" action="">
+				<select class="form-control" id="worker-sort" onchange="if (this.value) window.location.href=this.value">
+				{% for id_worker, worker in header.workers %}
+					<option value="{{ header.urls.self }}{{ id_worker }}"{% if header.sort == id_worker %} selected{% endif %}>
+						{{ worker.worker }}</option>
+				{% endfor %}
+				</select>
+			</form>
+		</div>
+	</div>
+	<div class="col-md-6">
+		<div class="input-group">
+			<input type="search" id="search" value="" class="form-control" placeholder="Поиск...">
+			<div class="input-group-btn">
+				<button type="button" id="search-clear" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-remove form-control-feedback"></span></button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-3">
+		<div class="panel panel-default">
+		  <div class="panel-body">
+		    <span class="glyphicon glyphicon-usd"></span> Всего услуг на: <strong>{{ price.price }} руб.</strong>
+		  </div>
+		</div>
+	</div>
+	<div class="col-md-3">
+		<div class="panel panel-default">
+		  <div class="panel-body">
+		    <span class="glyphicon glyphicon-cog"></span> Всего продано на: <strong>{{ price.hard_price }} руб.</strong>
+		  </div>
+		</div>
+	</div>
+</div>
 
 	<table class="table table-condensed">
 	{% for work in works %}
-		<tr>
-			<td colspan="2">
+		<tr class="active">
+			<td colspan="2"><nobr>
 				<span style="color: #{{ header.workers[work.id_worker].color }}" class="glyphicon glyphicon glyphicon-user" data-toggle="tooltip" data-placement="top" data-original-title="{{ header.workers[work.id_worker].worker }}"></span> 
 				<strong><a href="index.php?r=single/view&id={{ work.id_r }}">#{{ work.id_r }}</a> от {{ work.date }} - {{ work.date_complete }}</strong>
-			</td>
+			</nobr></td>
 			<td>
-				<strong>{{ work.type }} {{ work.brand }} {{ work.model }} s/n: {{ work.serial }}</strong>
+				<nobr><strong>{{ work.type }} {{ work.brand }} {{ work.model }} s/n: {{ work.serial }}</strong></nobr>
 			</td>
-			<td align="center">
+			<td align="center"><nobr>
             {% for icon in work.string %}
                 {% if icon == 'Y' %}
                     <img src='img/icon/s_{{ loop.index0 }}_Y.png' data-toggle="tooltip" data-placement="top" data-original-title='{{ header.string_text[loop.index0]|default('Нет описания') }}' />
                 {% endif %}
             {% endfor %}				
-			</td>
+			</nobr></td>
 		</tr>
-		{% for detail in work.details if detail.price > 0 %}
+		{# {% for detail in work.details if detail.price > 0 %} #}
+		{% for detail in work.details %}
 		<tr>
 			<td align="right">
 				<span style="color: #{{ header.workers[detail.id_worker].color }}" class="glyphicon glyphicon glyphicon-user"></span>
@@ -36,7 +81,7 @@
 			{% if detail.hard is iterable %}
 				<i>
 			{% for hard in detail.hard %}
-				<br />{{ hard.edit_hard }} - {{ hard.edit_hardprice }}
+				<br />{{ hard.edit_hard }} - {{ hard.edit_hardprice|default("0") }} руб.
 			{% endfor %}
 				</i>
 			{% else %}
@@ -44,8 +89,9 @@
 				{{ detail.hard|raw }}
 			{% endif %}
 			</td>
-			<td align="center">{{ detail.price }}
-			{% if detail.hard_price != 0 %}<br />{{ detail.hard_price }}{% endif %}
+			<td align="center"><nobr>{{ detail.price }} руб.</nobr>
+			{% if detail.hard_price != 0 %}<br /><nobr>{{ detail.hard_price }} руб.</nobr>{% endif %}
+
 			</td>
 		</tr>
 		{% endfor %}
