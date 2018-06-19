@@ -18,8 +18,8 @@ if(isset($twig)) {
 
 	$loader = new Twig_Loader_Filesystem('../tpl');
 	$twig = new Twig_Environment($loader, array(
-		'debug' => true,
-	    'cache' => false,//'tpl/cache',
+		'debug' => false,
+	    'cache' => 'tpl/cache',
 	));
 	$twig->addExtension(new Twig_Extension_Debug());
 	$S_CONFIG['twig'] = $twig;

@@ -19,7 +19,7 @@ if($_HOME == TRUE) {
 }
 else {
 	$xls->Application->Visible = 0;
-	$xls->Workbooks->Open('C:\xampp\htdocs\online-service.local\check_xls.xls');
+	$xls->Workbooks->Open('c:\OSPanel\domains\online-service.local\check_xls.xls');
 }
 
 $sheet = $xls->Worksheets('check');
@@ -27,11 +27,16 @@ $sheet->activate;
 //$xls->Workbooks->Add();
 		
 $query = "SELECT t.type, b.brand, m.model, r.id_client, c.client, c.client_tel_0, r.client_fio, r.client_tel, r.serial 
-	FROM `".$S_CONFIG['prefix']."remont` AS r, `".$S_CONFIG['prefix']."type` AS t, `".$S_CONFIG['prefix']."model` AS m, `".$S_CONFIG['prefix']."client` AS c, `".$S_CONFIG['prefix']."brand` AS b, `".$S_CONFIG['prefix']."prin` AS p
-WHERE t.id_type=m.id_type and m.id_brand=b.id_brand and r.id_client=c.id_client and r.id_model=m.id_model and r.id_r=".$inputs['edit_id']."
-LIMIT 1";
+	FROM `remont` AS r 
+	LEFT JOIN `model` AS m ON r.id_model = m.id_model 
+	LEFT JOIN `type` AS t ON m.id_type = t.id_type 
+	LEFT JOIN `brand` AS b ON m.id_brand = b.id_brand 
+	LEFT JOIN `client` AS c ON r.id_client = c.id_client 
+	WHERE r.id_r = ".$inputs['edit_id']." 
+	LIMIT 1";
 $result = mysqli_query($S_CONFIG['link'], $query) or exit(mysqli_error($S_CONFIG['link']));
-while ($line = mysqli_fetch_array($result, MYSQL_ASSOC)) {
+
+while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 
 		$rangeValue = $xls->Range("A11");
 		$rangeValue->Value = iconv("UTF-8", "cp1251", "Товарный чек №". $inputs['edit_id']);
@@ -61,7 +66,7 @@ $results = mysqli_query($S_CONFIG['link'], $result_query) or exit(mysqli_error($
 $num = 1;
 $line = 17;
 $total_price = 0;
-while ($lines = mysqli_fetch_array($results, MYSQL_ASSOC)) {
+while ($lines = mysqli_fetch_array($results, MYSQLI_ASSOC)) {
     if($lines['price'] > 0) {
     	$rangeValue = $xls->Range("A". $line);
 		$rangeValue->Value = $num .". ". iconv("UTF-8", "cp1251", $lines['text']);
@@ -113,7 +118,7 @@ if($_HOME == TRUE) {
 }
 else {
 	$sheet->PrintOut(); //$ActivePrinter='\\\\MIROTWOREZ-PC\\Zebra LP2742');
-	$xls->Workbooks[1]->SaveAs(recursiveRename('C:\xampp\htdocs\online-service.ru\print\\'. $inputs['edit_id']));
+	$xls->Workbooks[1]->SaveAs(recursiveRename('c:\Temp\print\\'. $inputs['edit_id']));
 
 	$xls->Quit();
 }

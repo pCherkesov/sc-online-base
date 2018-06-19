@@ -12,7 +12,7 @@ if(!isset($inputs['edit_id'])) {
 else {
 // `id`, `id_r`, `date`, `text`, `price`, `hard`, `hard_price`, `id_worker`, `hidden`
 	$query = "UPDATE `".$S_CONFIG['prefix']."remont` SET 
-				`complete`='N', `date_complete`='' 
+				`complete`='N', `date_complete`= NULL 
 				WHERE `id_r`=".$inputs['edit_id']." LIMIT 1";
 
 	$result = mysqli_query($S_CONFIG['link'], $query) or $redirect['error_text'] = mysqli_error($S_CONFIG['link']);
