@@ -7,12 +7,16 @@ $args = array(
 								 'options'  => array("regexp"=>"/^\d{4}-\d{2}-\d{2}$/")
 								),
 	'edit_text'         => FILTER_SANITIZE_STRING,
-	'edit_price'        => FILTER_VALIDATE_INT,
+	'edit_price'        => array('filter'	=> FILTER_VALIDATE_INT,
+								 'options' => array('default' => 0)
+								),
 	'edit_parts'		=> array( 
 								 'filter'	=> FILTER_SANITIZE_STRING,
 								 'flags'	=> FILTER_FLAG_NO_ENCODE_QUOTES,
 								),
-	'edit_parts_price'  => FILTER_VALIDATE_INT,
+	'edit_parts_price'  => array('filter'	=> FILTER_VALIDATE_INT,
+								 'options' => array('default' => 0)
+								),
 	'edit_worker'       => FILTER_VALIDATE_INT,
 );
 

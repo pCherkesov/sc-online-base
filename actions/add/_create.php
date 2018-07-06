@@ -49,7 +49,7 @@ mysqli_stmt_bind_param($prep, 'ssississsi',
 	$inputs['prin']);
 
 
-$redirect['timer'] = 0;
+$redirect['timer'] = 3;
 
 if (!mysqli_execute($prep)) {
     $redirect['error_text'] = mysqli_error($S_CONFIG['link']);
@@ -69,11 +69,11 @@ render(array('redirect' => $redirect), "redirect");
 
 
 function pass_generator() {
-	$lowercase = "zyxwvutsrqponmlkjihgfedcba"; //символы в нижнем регистре 26
-	$uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; //символы в верхнем регистре 26
-	$speccase = "!-_+.,"; //специальные символы 6
+	// $lowercase = "zyxwvutsrqponmlkjihgfedcba"; //символы в нижнем регистре 26
+	// $uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; //символы в верхнем регистре 26
+	// $speccase = "!-_+.,"; //специальные символы 6
 	$digitcase = "0123456789"; //цифры 10
-	$PassCase = $lowercase . $uppercase . $speccase . $digitcase; //68
+	// $PassCase = $lowercase . $uppercase . $speccase . $digitcase; //68
 	$PassCase = $digitcase; //10
 	$pass = "";
 	mt_srand(time()+(double)microtime()*1000000);
