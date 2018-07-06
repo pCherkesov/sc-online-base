@@ -17,7 +17,7 @@ $mail->Password = 'kyE4OzjgM';                           // SMTP password
 $mail->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
 $mail->Port = 465;                                    // TCP port to connect to
 
-$mail->setFrom('sc-online51@yandex.ru', 'Mailer');
+$mail->setFrom('sc-online51@yandex.ru', 'Заявка Онлайн-сервис');
 $mail->addAddress('blor+wfneejxxvyjqu6opi2w7@boards.trello.com', 'Trello BlOrTeam');     // Add a recipient
 $mail->addAddress('pcherkesov@gmail.com', 'Trello BlOrTeam');     // Add a recipient
 
