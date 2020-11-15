@@ -16,6 +16,8 @@ $urls = array(
 );
 $works = array();
 
+$inputs['search'] = str2phone($inputs['search']);
+
 $query = "SELECT SQL_CALC_FOUND_ROWS r.complete, r.id_r, DATE_FORMAT(r.date, '%d.%m.%Y') as date, CONCAT(b.brand, ' ', m.model) as model, 
 			r.string, r.id_client, c.client, c.client_tel_0, r.client_fio, r.client_tel, r.serial, r.id_worker
 		FROM `remont` AS r 
@@ -71,4 +73,8 @@ $header['string_text'] = array(
 
 render($data = array('main' => $main, 'header' => $header, 'works' => $works));
 
-?>
+function str2phone ($str) {
+	$str_phone = preg_replace("/[^0-9]/", '', $str);
+	if(!preg_match('/9(\d){9}/i', $str_phone, $phone)) return $str;
+	return sprintf("(%s) %s-%s", substr($phone[0], 0, 3), substr($phone[0], 3, 3), substr($phone[0], 6, 4));
+}
