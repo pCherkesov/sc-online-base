@@ -33,7 +33,7 @@ $query = "SELECT SQL_CALC_FOUND_ROWS r.complete, r.id_r, DATE_FORMAT(r.date, '%d
 			OR c.client_tel_0 LIKE '%". $inputs['search'] ."%'
 			OR r.serial LIKE '%". $inputs['search'] ."%'
 		)
-		ORDER BY r.date DESC
+		ORDER BY r.date DESC, r.complete ASC
 		LIMIT ". (($inputs['page'] - 1) * 50) .", 50";
 
 $result = mysqli_query($S_CONFIG['link'], $query) or exit(mysql_error());

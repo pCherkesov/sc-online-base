@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once("init.php");
 $_HOME = False;
 if (!isset($inputs['edit_id'])) {
@@ -117,9 +117,9 @@ $rangeValue->Value = iconv("UTF-8", "cp1251", date("d.m.Y"));
 if($_HOME == TRUE) {
 }
 else {
+	
 	$sheet->PrintOut(); //$ActivePrinter='\\\\MIROTWOREZ-PC\\Zebra LP2742');
 	$xls->Workbooks[1]->SaveAs(recursiveRename('c:\Temp\print\\'. $inputs['edit_id']));
-
 	$xls->Quit();
 }
 

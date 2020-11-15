@@ -180,6 +180,8 @@ $(document).ready(function(){
 				});
 				$("#editModel_modal").modal('hide');
 				loadList("device");
+				$("#id_model").val(data.id_model);
+				$("#device_name").val(data.device_name);
 			},
 			error: function(jqXHR, textStatus, errorThrown){
 				notify('danger', textStatus);

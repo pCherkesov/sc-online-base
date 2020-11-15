@@ -25,16 +25,16 @@
 </thead>
 <tbody>
 {% for work in works %}
-    {% if work.complete == "Y" %}
-    <tr class="active">
-    {% else %}
     <tr>
-    {% endif %}
             <td width="2%">
                 <span style="color: #{{ header.workers[work.id_worker].color }}" class="glyphicon glyphicon glyphicon-user" data-toggle="tooltip" data-placement="top" data-original-title="{{ header.workers[work.id_worker].worker }}"></span>
             </td>
             <td class="hide">{{ work.id_r }}</td>
-            <td align="center" title="id: {{ work.id_r }}">{{ work.date }}</td>
+            <td align="center" title="id: {{ work.id_r }}" 
+                {% if work.complete == "N" %}
+                style="color: green;"
+                {% endif %}
+            >{{ work.date }}</td>
             <td align="left">
                 <a href="index.php?r=single/view&id={{ work.id_r }}">{{ work.model }}</a>
             </td>

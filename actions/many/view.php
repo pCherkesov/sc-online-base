@@ -60,7 +60,7 @@ if(isset($_REQUEST['sort'])){
 } else $worker = '';
 
 $query = "SELECT r.complete, r.id_r, DATE_FORMAT(r.date, '%d.%m.%Y') as date, r.string,  
-			r.id_client, c.client, c.client_tel_0, r.client_fio, r.client_tel, r.serial, r.id_worker,
+			r.id_client, r.defect, c.client, c.client_tel_0, r.client_fio, r.client_tel, r.serial, r.id_worker,
 			CONCAT(b.brand, ' ', m.model) as device_name
 		FROM `remont` AS r 
 		LEFT JOIN `model` AS m ON r.id_model = m.id_model 

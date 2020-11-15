@@ -36,14 +36,16 @@
             <td class="hide">{{ work.id_r }}</td>
             <td align="center" title="id: {{ work.id_r }}">{{ work.date }}</td>
             <td align="left">
-                <a href="index.php?r=single/view&id={{ work.id_r }}">{{ work.device_name }}</a>
+                <a href="index.php?r=single/view&id={{ work.id_r }}"  data-toggle="tooltip" data-placement="top" data-original-title='{{ work.defect }}'>{{ work.device_name }}</a>
             </td>
             <td align="center">
-            {% if work.id_client == 1 %}
-                {{ work.client_fio }}
-            {% else %}
-                {{ work.client }}
-            {% endif %}
+                <span>
+                {% if work.id_client == 1 %}
+                    {{ work.client_fio }}
+                {% else %}
+                    {{ work.client }}
+                {% endif %}
+                </span>
             </td>
             <td align="center">{{ work.serial }}</td>
             <td align="center">

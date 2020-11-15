@@ -59,6 +59,7 @@ switch ($inputs['action']) {
 			mysqli_query($S_CONFIG['link'], $query) or exit(mysqli_error($S_CONFIG['link']));							
 			$modelId = $inputs['id'];
 		}
+		echo json_encode(array('id_model' => $modelId, 'device_name' => $inputs['type'] . "" . $inputs['brand'] . " " . $inputs['model']));
 		exit();
 		break;
 
