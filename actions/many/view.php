@@ -21,7 +21,7 @@ switch($route[1]){
 	// Выбрать незавершённые
 	case "incomplete":
 		$add_query = " and r.complete='N' and r.hidden='N'"; 
-		$month = "r.date BETWEEN '2006-00-00' and '2020-12-31'";
+		$month = "r.date BETWEEN '2006-00-00' and '". date("Y") ."-12-31'";
 		break;
 
 	// Выбрать завешённые с разбивкой по месяцам

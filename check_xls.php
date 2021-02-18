@@ -19,7 +19,7 @@ if($_HOME == TRUE) {
 }
 else {
 	$xls->Application->Visible = 0;
-	$xls->Workbooks->Open('c:\OSPanel\domains\online-service.local\check_xls.xls');
+	$xls->Workbooks->Open('c:\OpenServer\domains\online-service.local\check_xls.xls');
 }
 
 $sheet = $xls->Worksheets('check');
@@ -119,7 +119,7 @@ if($_HOME == TRUE) {
 else {
 	
 	$sheet->PrintOut(); //$ActivePrinter='\\\\MIROTWOREZ-PC\\Zebra LP2742');
-	$xls->Workbooks[1]->SaveAs(recursiveRename('c:\Temp\print\\'. $inputs['edit_id']));
+	$xls->Workbooks[1]->SaveAs(recursiveRename('c:\temp\print\\'. $inputs['edit_id']));
 	$xls->Quit();
 }
 
