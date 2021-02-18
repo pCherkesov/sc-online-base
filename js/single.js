@@ -87,6 +87,16 @@ $(document).ready(function(){
 		$("#parts").append($("#parts_row").html());
 	});
 
+	$(".warranty-radio").on('click', 'button', function(event){
+		$("#warrantyTime").val($(this).attr("data-time"));
+		$(".warranty-radio button").each(function (index) {
+			$(this).removeClass('btn-primary');
+			$(this).addClass('btn-default');
+		});
+		$(this).removeClass('btn-default');
+		$(this).addClass('btn-primary');
+	});
+
 	$(".onWorkComplete").on('click', function (event) {
 		$("#editForm").attr("action", "index.php?r=single/_complete&print_check=1");
 		$("#editForm").submit();

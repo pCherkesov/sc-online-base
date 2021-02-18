@@ -32,7 +32,7 @@ $inputs = filter_input_array(INPUT_POST, $args);
 // var_dump($inputs);
 
 $query = "INSERT INTO `".$S_CONFIG['prefix']."remont` 
-			VALUE (NULL, ?, ?, 'NNNNNNNNNN', ?, ?, ?, ?, ?, ?, ?, 0, ?, 1, 'N', NULL, 'N', '', 'N')";
+			VALUE (NULL, ?, ?, 'NNNNNNNNNN', ?, ?, ?, ?, ?, ?, ?, 0, ?, 1, 'N', NULL, 0, '', 'N')";
 $prep = mysqli_prepare($S_CONFIG['link'], $query);
 
 $pass = pass_generator();

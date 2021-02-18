@@ -15,18 +15,18 @@ $xls = new COM('Excel.Application');
 
 if($_HOME == TRUE) {
 	$xls->Application->Visible = 1;
-	$xls->Workbooks->Open('c:\servers\OpenServer\domains\online-service.local\check_xls.xls');
+	$xls->Workbooks->Open('c:\OpenServer\domains\online-service.local\check_xls.xls');
 }
 else {
 	$xls->Application->Visible = 0;
-	$xls->Workbooks->Open('c:\OpenServer\domains\online-service.local\check_xls.xls');
+	$xls->Workbooks->Open('c:\OpenServer\online-service.local\check_xls.xls');
 }
 
 $sheet = $xls->Worksheets('check');
 $sheet->activate;
 //$xls->Workbooks->Add();
 		
-$query = "SELECT t.type, b.brand, m.model, r.id_client, c.client, c.client_tel_0, r.client_fio, r.client_tel, r.serial 
+$query = "SELECT t.type, b.brand, m.model, r.id_client, c.client, c.client_tel_0, r.client_fio, r.client_tel, r.serial, r.warranty_time
 	FROM `remont` AS r 
 	LEFT JOIN `model` AS m ON r.id_model = m.id_model 
 	LEFT JOIN `type` AS t ON m.id_type = t.id_type 
@@ -110,16 +110,17 @@ $rangeValue = $xls->Range("D24");
 $rangeValue->Value = iconv("UTF-8", "cp1251", $total_price." руб.");
 
 $rangeValue = $xls->Range("A25");
-$rangeValue->Value = iconv("UTF-8", "cp1251", date("H:i"));
-$rangeValue = $xls->Range("B25");
-$rangeValue->Value = iconv("UTF-8", "cp1251", date("d.m.Y"));
+$rangeValue->Value = iconv("UTF-8", "cp1251", "Срок гарантии: ". $line['warranty_time'] ." дней");
+
+$rangeValue = $xls->Range("A30");
+$rangeValue->Value = iconv("UTF-8", "cp1251", date("d.m.Y H:i"));
 
 if($_HOME == TRUE) {
 }
 else {
 	
 	$sheet->PrintOut(); //$ActivePrinter='\\\\MIROTWOREZ-PC\\Zebra LP2742');
-	$xls->Workbooks[1]->SaveAs(recursiveRename('c:\temp\print\\'. $inputs['edit_id']));
+	$xls->Workbooks[1]->SaveAs(recursiveRename('c:\Temp\print\\'. $inputs['edit_id']));
 	$xls->Quit();
 }
 

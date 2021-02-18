@@ -2,6 +2,7 @@
 
 $args = array(
 	'edit_id'		    => FILTER_VALIDATE_INT,
+	'warrantyTime'		=> FILTER_VALIDATE_INT
 );
 
 $inputs = filter_input_array(INPUT_POST, $args);
@@ -10,8 +11,8 @@ if(!isset($inputs['edit_id'])) {
 	$redirect['error_text'] = "Неправильный ID";
 }
 else {
-	$query = "UPDATE `".$S_CONFIG['prefix']."remont` SET 
-				`complete`='Y', `date_complete`=NOW() 
+	$query = "UPDATE `remont` SET 
+				`complete`='Y', `date_complete`=NOW(), `warranty_time`='". $inputs['warrantyTime'] ."' 
 				WHERE `id_r`=".$inputs['edit_id']." LIMIT 1";
 
 	$result = mysqli_query($S_CONFIG['link'], $query) or $redirect['error_text'] = mysqli_error($S_CONFIG['link']);

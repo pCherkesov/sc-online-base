@@ -40,7 +40,7 @@
 						<div class="col-md-3">
 							<dl>
 								<dt>Техника:</dt>
-								<dd>{{ header.type }} {{ header.brand }} {{ header.model }}
+								<dd>{{ header.type }}  {{ header.brand }}  {{ header.model }}
 									<a title="Поиск по модели" data-toggle="tooltip"
 									  href='/index.php?r=search/view&search={{ header.brand }} {{ header.model }}'>
 										<span class="glyphicon glyphicon-search"></span>
@@ -92,6 +92,8 @@
 									</div>
 								</div>
 								</dd>
+								<dt>Гарантия:</dt>
+								<dd>{{ header.warranty_time }} д.</dd>
 							</dl>
 						</div>					</div>
 					<div class="row">
@@ -109,11 +111,11 @@
 
 <table class="table table-condensed">
 	<tr>
-		<th>&nbsp;</th>
+		<th>Исполнитель</th>
 		<th>Дата</th>
 		<th>Работа</th>
 		<th>Сумма</th>
-		<th>Упр.</th>
+		<th></th>
 	</tr>
 {% for work in works %}
 	<tr>
@@ -189,7 +191,7 @@
 				</ul>
 			</div>
 			<div class="btn-group">
-				<a class="btn btn-success onWorkComplete"  href="">
+				<a data-toggle="modal" data-target="#onWorkComplete_modal" class="btn btn-success" href="#">
 				<i class="glyphicon glyphicon-ok"></i> Завершить работу</a>
 				<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
 					<span class="caret"></span>&nbsp;
@@ -213,6 +215,7 @@
 			<form role="form" id="editForm" action="" method="post">
 				<div class="container">
 					<input type="hidden" id="edit_id" name="edit_id" value="{{ header.id_r }}"></input>
+					<input type="hidden" id="warrantyTime" name="warrantyTime" value="0"></input>
 					<input type="hidden" id="edit_id_work" name="edit_id_work" value=""></input>
 					<input type="hidden" id="edit_parts" name="edit_parts" value=""></input>
 					<input type="hidden" id="edit_parts_price" name="edit_parts_price" value=""></input>
@@ -281,6 +284,33 @@
 			</form>            
 		</div>
 	</div>
+
+	<div class="modal fade" id="onWorkComplete_modal" tabindex="-1" role="dialog" aria-labelledby="onWorkComplete_label" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="onWorkComplete_label">Завершение работы</h4>
+				</div>
+				<div class="modal-body">
+					<h4>Выберите срок гарантии:</h4>				
+                    <div class="form-group warranty-radio">
+						<button type="button" class="btn btn-primary btn-block" data-time="0">Без гарантии</button>
+						<button type="button" class="btn btn-default btn-block" data-time="7">7 дней</button>
+						<button type="button" class="btn btn-default btn-block" data-time="14">14 дней</button>
+						<button type="button" class="btn btn-default btn-block" data-time="30">1 месяц</button>
+						<button type="button" class="btn btn-default btn-block" data-time="90">3 месяца</button>
+						<button type="button" class="btn btn-default btn-block" data-time="180">6 месяцев</button>
+						<button type="button" class="btn btn-default btn-block" data-time="360">12 месяцев</button>
+                    </div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" autocomplete="off" class="btn btn-primary onWorkComplete" data-loading-text="Отправка...">Отправить</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<div class="modal fade" id="sendSMS_modal" tabindex="-1" role="dialog" aria-labelledby="sendSMS_label" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
