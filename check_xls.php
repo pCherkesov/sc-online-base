@@ -19,7 +19,7 @@ if($_HOME == TRUE) {
 }
 else {
 	$xls->Application->Visible = 0;
-	$xls->Workbooks->Open('c:\OpenServer\online-service.local\check_xls.xls');
+	$xls->Workbooks->Open('C:\OpenServer\domains\online-service.local\check_xls.xls');
 }
 
 $sheet = $xls->Worksheets('check');
@@ -55,6 +55,7 @@ while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 	//-----------------------
 		$rangeValue = $xls->Range("A14");
 		$rangeValue->Value = iconv("UTF-8", "cp1251", "s/n: ".$line['serial']);
+		$warranty_time = $line['warranty_time'];
 }
 
 $result_query="SELECT text, price, hard, hard_price
@@ -110,7 +111,7 @@ $rangeValue = $xls->Range("D24");
 $rangeValue->Value = iconv("UTF-8", "cp1251", $total_price." руб.");
 
 $rangeValue = $xls->Range("A25");
-$rangeValue->Value = iconv("UTF-8", "cp1251", "Срок гарантии: ". $line['warranty_time'] ." дней");
+$rangeValue->Value = iconv("UTF-8", "cp1251", "Срок гарантии: ". $warranty_time ." дней");
 
 $rangeValue = $xls->Range("A30");
 $rangeValue->Value = iconv("UTF-8", "cp1251", date("d.m.Y H:i"));
